@@ -2,23 +2,13 @@ import React from 'react'
 
 import {View, Text, StyleSheet,Image } from 'react-native'
 
-const useStyles = ()=>{
-    return(
-        StyleSheet.create({
-            container:{
-                width : 50,
-                height : 50,
-                borderRadius: 25,
-            }
-        })
-    )
-}
+import {useStyles} from './styles'
 
-export const Avatar = ()=>{
+export const Avatar = ({imgSrc})=>{
     const styles = useStyles()
     return(
         <View style={styles.container}>
-            <Image source={require('../../assets/favicon.png')}/>
+            <Image source={imgSrc} style={styles.image}/>
         </View>
     )
 }

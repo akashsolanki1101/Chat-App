@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 
 import {Appearance,AppearanceProvider} from 'react-native-appearance'
-import {StatusBar} from 'react-native'
+import {StatusBar,Alert} from 'react-native'
 
 import {ThemeContext} from '../../hooks/themeProvider/themeProvider'
 import {dark} from '../../ui/themes/dark'
@@ -22,11 +22,11 @@ const ThemeManager1 = ({children})=>{
     useEffect(()=>{
         const subscription = Appearance.addChangeListener(({colorScheme})=>{
             setThemeMode(colorScheme)
-            console.log('Hello');
+            console.log(colorScheme);
             
-            if(colorScheme==='dark'){
+            if(colorScheme === 'dark'){
                 setTheme(dark.theme)
-            }else{
+            }else if(colorScheme === 'light'){
                 setTheme(light.theme)
             }
         })
@@ -39,15 +39,12 @@ const ThemeManager1 = ({children})=>{
             {children}
         </ThemeContext.Provider>
     )
-
 }
 
 export const ThemeManager = ({children})=>{
     return(
         <AppearanceProvider>
-            <ThemeManager1>
-                {children}
-            </ThemeManager1>
+            <ThemeManager1>{children}</ThemeManager1>
         </AppearanceProvider>
     )
 }
