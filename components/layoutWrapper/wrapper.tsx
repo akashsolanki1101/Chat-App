@@ -2,6 +2,8 @@ import React,{useEffect,useCallback} from 'react'
 
 import {View,Text,StatusBar,Button} from 'react-native'
 import changeNavigationBarColor from 'react-native-navigation-bar-color'
+import {NavigationContainer} from '@react-navigation/native'
+
 
 import {useStyles} from './styles'
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
@@ -9,6 +11,7 @@ import {dark} from '../../ui/themes/dark'
 import {light} from '../../ui/themes/light'
 import {ChatCard} from '../cards/chatCard/chatCard'
 import {HomeScreen} from '../homeScreen/homeScreen'
+import {HomeNavigator} from '../../navigation/navigation'
 
 export const Wrapper = ()=>{
     const styles = useStyles()
@@ -32,7 +35,9 @@ export const Wrapper = ()=>{
     return(
         <View style={styles.container}>
             <StatusBar barStyle={theme.mode==='dark'?'light-content':'dark-content'} backgroundColor={theme.theme.backgroundColor}/>
-            <HomeScreen/>
+            <NavigationContainer>
+                <HomeNavigator/>
+            </NavigationContainer>
         </View>
     )
 }

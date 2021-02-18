@@ -9,16 +9,22 @@ export const useStyles = ()=>{
     return(
         StyleSheet.create({
             container:{
+                borderTopLeftRadius:38,
+                borderBottomLeftRadius:38,
+                overflow:'hidden',
+                marginBottom:15,
+                elevation:4
+            },
+
+            card:{
                 display:'flex',
                 flexDirection:'row',
                 borderTopLeftRadius:38,
                 borderBottomLeftRadius:38,
                 paddingVertical:10,
                 paddingHorizontal: 14,
-                backgroundColor:theme.theme.sender,
-                marginBottom:15,
+                backgroundColor:theme.theme.receiver,
                 justifyContent:'space-between',
-                elevation:4
             },
             avatarContainer:{
             },

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {ThemeManager} from './components/themeManager/themeManager'
-import {Wrapper} from './components/wrapper/wrapper'
+import {Wrapper} from './components/layoutWrapper/wrapper'
 
 const App = ()=>{
   return (

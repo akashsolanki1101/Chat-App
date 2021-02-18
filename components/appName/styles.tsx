@@ -24,8 +24,8 @@ export const useStyles= ()=>{
                fontSize:30,
                textAlign:'center',
                color:theme.theme.activeColor,
-               textAlignVertical:'center'
-            //    fontWeight:'bold' 
+               textAlignVertical:'center',
+               fontWeight:'bold' 
             }
         })
     )

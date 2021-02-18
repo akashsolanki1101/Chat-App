@@ -2,17 +2,14 @@ import {StyleSheet} from 'react-native'
 
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
 
-import {layoutConstants} from '../../constants/layout/layout'
-
 export const useStyles= ()=>{
     const theme = useTheme()
-
-
 
     return(
         StyleSheet.create({
             container:{
-                flex:1
+                flex:1,
+                backgroundColor:theme.theme.backgroundColor,
             },
             header:{
                 display:'flex',
@@ -29,10 +26,16 @@ export const useStyles= ()=>{
             hamburger:{
                 color:theme.theme.primaryTextColor,
             },
+            menuButton:{
+                color:theme.theme.primaryTextColor,
+            },
             listContainer:{
                 flex:1,
-                backgroundColor:theme.theme.backgroundColor,
                 paddingLeft:9,
+            },
+            searchIcon:{
+                color:theme.theme.primaryTextColor,
+                marginRight:15,
             },
         })
     )
