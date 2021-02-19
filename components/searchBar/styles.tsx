@@ -21,7 +21,7 @@ export const useStyles = ()=>{
                 flexDirection:'row',
                 justifyContent:'space-between',
                 alignItems:'center',
-                paddingVertical:12,
+                paddingVertical:8,
                 paddingHorizontal:18
             },
             inputContainer:{
@@ -34,7 +34,7 @@ export const useStyles = ()=>{
                 margin:0,
                 color:theme.theme.primaryTextColor,
             },
-            searchIcon:{
+            closeButton:{
                 color:theme.theme.primaryTextColor
             },
         })

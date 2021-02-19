@@ -19,6 +19,8 @@ export  const useStyles = ()=>{
                 paddingHorizontal:14,
                 paddingVertical:14,
                 color:theme.theme.primaryTextColor,
+                // borderBottomColor:theme.theme.secondaryTextColor,
+                // borderBottomWidth:.3
             },
             leftContainer:{
                 flexDirection:'row',

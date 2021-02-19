@@ -1,7 +1,6 @@
 import {StyleSheet} from 'react-native'
 
 import {useTheme} from '../../../hooks/themeProvider/themeProvider'
-import {layoutConstants} from '../../../constants/layout/layout'
 
 export const useStyles = ()=>{
     const theme = useTheme()
@@ -15,7 +14,6 @@ export const useStyles = ()=>{
                 marginBottom:15,
                 elevation:4
             },
-
             card:{
                 display:'flex',
                 flexDirection:'row',
@@ -26,8 +24,6 @@ export const useStyles = ()=>{
                 backgroundColor:theme.theme.receiver,
                 justifyContent:'space-between',
             },
-            avatarContainer:{
-            },
             middleContainer:{
                 width:'60%',
                 overflow:'hidden',
@@ -36,20 +32,14 @@ export const useStyles = ()=>{
                 justifyContent:'space-between',
                 paddingVertical:4.5
             },
-            senderNameContainer:{
 
-            },
             senderNameText:{
                 fontWeight:'bold',
                 fontSize:17,
                 color:theme.theme.primaryTextColor
             },
-            messageContainer:{
-
-            },
             messageText:{
                 color:theme.theme.tertiaryTextColor
-
             },
             messageTimeContainer:{
                 paddingVertical:8,

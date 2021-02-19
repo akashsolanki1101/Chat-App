@@ -17,7 +17,10 @@ export const useStyles= ()=>{
                 justifyContent:'space-between',
                 alignItems:'center',
                 paddingHorizontal:18,
-                paddingTop:12
+                paddingVertical:12,
+                // elevation:1
+                // borderBottomColor:theme.theme.secondaryTextColor,
+                // borderBottomWidth:.3
             },
             avatar:{
                 width:40,
@@ -32,10 +35,13 @@ export const useStyles= ()=>{
             listContainer:{
                 flex:1,
                 paddingLeft:9,
+                paddingVertical:12
             },
             searchIcon:{
                 color:theme.theme.primaryTextColor,
-                marginRight:15,
+                // marginRight:15,
+                // borderWidth:1,
+                // alignSelf:'center'
             },
         })
     )

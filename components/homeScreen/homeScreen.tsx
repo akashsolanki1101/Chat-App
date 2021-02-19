@@ -14,9 +14,10 @@ import {Avatar} from '../avatar/avatar'
 import {AppName} from '../appName/appName'
 import {SearchBar} from '../searchBar/searchBar'
 import {ButtonWrapper} from '../buttonWrapper/buttonWrapper'
+import { StoryContainer } from '../storyContainer/storyContainer'
 
 export const HomeScreen = ({navigation})=>{
-   const styles = useStyles()
+    const styles = useStyles()
     const theme = useTheme()
 
      const lightTheme = ()=>{
@@ -32,14 +33,22 @@ export const HomeScreen = ({navigation})=>{
     const handleOnChatClick = ()=>{
         navigation.navigate('ChatPage')
     } 
+
+    const handleOnSearchButtonClick = ()=>{
+        navigation.navigate("SearchPage")
+    }
    
-   return(
+    return(
        <View style={styles.container}>
            <View style={styles.header}>
                <AppName/>
                <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                    {/* <Ionicons name="ios-menu" size={36} style={styles.hamburger}/> */}
-                    {/* <Feather name="search" size={24} style={styles.searchIcon} /> */}
+                    <ButtonWrapper
+                        onClick={handleOnSearchButtonClick}
+                        style={{}}
+                    >
+                        <Feather name="search" size={24} style={styles.searchIcon} />
+                    </ButtonWrapper>
                     <ButtonWrapper
                         onClick={handleOnChatClick}
                         style={{}}
@@ -48,7 +57,7 @@ export const HomeScreen = ({navigation})=>{
                     </ButtonWrapper>                    
                </View>
            </View>
-           <SearchBar/>
+            <StoryContainer/>
            <View style={styles.listContainer}>
                 <ChatCard
                     name={'Akash'}
@@ -72,5 +81,5 @@ export const HomeScreen = ({navigation})=>{
                 <Button title="dark" onPress={darkTheme}/>
             </View>
        </View>
-   )
+    )
 }

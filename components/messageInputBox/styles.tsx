@@ -20,12 +20,12 @@ export const useStyles = ()=>{
                 width:'100%',
                 borderWidth:2,
                 borderColor:theme.theme.primaryTextColor,
-                borderRadius:30,
+                borderRadius:32,
                 display:'flex',
                 flexDirection:'row',
                 justifyContent:'space-between',
                 alignItems:'center',
-                paddingVertical:12,
+                paddingVertical:8,
                 paddingHorizontal:18
             },
             inputContainer:{

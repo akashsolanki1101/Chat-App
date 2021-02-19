@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import {useStyles} from './styles'
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
+import {ButtonWrapper} from '../buttonWrapper/buttonWrapper'
 
 export const MessageInputBox = ()=>{
     const styles = useStyles()
@@ -20,7 +21,12 @@ export const MessageInputBox = ()=>{
                         placeholderTextColor={theme.theme.primaryTextColor}
                     />
                 </View>
-                <Ionicons name="md-send" size={24} style={styles.sendButton} />
+                <ButtonWrapper
+                    style={{}}
+                    onClick={()=>{}}
+                >
+                    <Ionicons name="md-send" size={28} style={styles.sendButton} />
+                </ButtonWrapper>
             </View>
         </View>
     )

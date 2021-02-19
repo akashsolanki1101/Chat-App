@@ -8,6 +8,8 @@ export const useStyles = ()=>{
                 height:40,
                 borderRadius:20,
                 overflow:'hidden',
+                justifyContent:'center',
+                alignItems:'center'
             },
             buttonWrapper:{
                 width:40,
