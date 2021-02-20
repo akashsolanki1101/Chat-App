@@ -49,7 +49,7 @@ export const ChatPage = ({navigation})=>{
                     message={"hello"}
                 />
                 <RecievedMessageCard
-                    message={"Hey man how are you??"}
+                    message={"Hi\nHow are you bro??"}
                 />
                 <SentMessageCard
                     message={"fine bro what about you and wife??"}
@@ -58,7 +58,7 @@ export const ChatPage = ({navigation})=>{
                     message={"Same as you man..."}
                 />
                 <SentMessageCard
-                    message={"fine bro what about you and wife??"}
+                    message={"fine bro what about you??"}
                 />
             </View>
             <MessageInputBox/>

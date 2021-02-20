@@ -12,7 +12,7 @@ export const useStyles = ()=>{
                 borderBottomLeftRadius:38,
                 overflow:'hidden',
                 marginBottom:15,
-                elevation:4
+                elevation:2,
             },
             card:{
                 display:'flex',
@@ -23,6 +23,8 @@ export const useStyles = ()=>{
                 paddingHorizontal: 14,
                 backgroundColor:theme.theme.receiver,
                 justifyContent:'space-between',
+                elevation:2,
+
             },
             middleContainer:{
                 width:'60%',
@@ -32,7 +34,10 @@ export const useStyles = ()=>{
                 justifyContent:'space-between',
                 paddingVertical:4.5
             },
-
+            avatarContainer:{
+                borderRadius: 30,
+                overflow:'hidden'
+            },
             senderNameText:{
                 fontWeight:'bold',
                 fontSize:17,

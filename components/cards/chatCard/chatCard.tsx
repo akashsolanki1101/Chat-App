@@ -1,20 +1,27 @@
 import React from 'react'
 
-import {View,Text,TouchableNativeFeedback} from 'react-native'
+import {View,Text,TouchableNativeFeedback,TouchableOpacity} from 'react-native'
 
 import {Avatar} from '../../avatar/avatar'
 import {useStyles} from './styles'
 
-export const ChatCard = ({name,message,imgSrc,time})=>{
+export const ChatCard = ({name,message,imgSrc,time,onClick,onAvatarClick})=>{
     const styles = useStyles()
 
     return(
         <View style={styles.container}>
-            <TouchableNativeFeedback>
+            <TouchableNativeFeedback
+                onPress={onClick}
+            >
                 <View style={styles.card}>
-                    <View style={styles.avatarContainer}>
-                        <Avatar imgSrc={imgSrc} style={{}}/>
-                    </View>
+                    <TouchableOpacity
+                        activeOpacity={.5}
+                        onPress={onAvatarClick}
+                    >
+                        <View style={styles.avatarContainer}>
+                            <Avatar imgSrc={imgSrc} style={{}}/>
+                        </View>
+                    </TouchableOpacity>
                     <View style={styles.middleContainer}>
                         <View style={styles.senderNameContainer}>
                             <Text style={styles.senderNameText}>{name}</Text>
