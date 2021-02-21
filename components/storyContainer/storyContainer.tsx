@@ -3,7 +3,7 @@ import React from 'react'
 import {View,Text,ScrollView} from 'react-native'
 
 import {useStyles} from './styles'
-import { Avatar } from '../avatar/avatar'
+import { Avatar } from '../uiElements/avatar/avatar'
 
 export const StoryContainer = ()=>{
     const styles = useStyles()

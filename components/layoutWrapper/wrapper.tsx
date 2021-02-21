@@ -9,8 +9,8 @@ import {useStyles} from './styles'
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
 import {dark} from '../../ui/themes/dark'
 import {light} from '../../ui/themes/light'
-import {ChatCard} from '../cards/chatCard/chatCard'
-import {HomeScreen} from '../homeScreen/homeScreen'
+import {ChatCard} from '../uiElements/cards/chatCard/chatCard'
+import {HomeScreen} from '../screens/homePage/homePage'
 import {HomeNavigator} from '../../navigation/navigation'
 
 export const Wrapper = ()=>{
