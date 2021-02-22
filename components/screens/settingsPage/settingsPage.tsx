@@ -1,15 +1,20 @@
 import React,{useState} from 'react'
 
 import {View,Text,TouchableNativeFeedback} from 'react-native'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import {useTheme} from '../../../hooks/themeProvider/themeProvider'
+import { Avatar } from '../../uiElements/avatar/avatar'
+import { BackDrop } from '../../uiElements/backdrop/backdrop'
+import { ButtonWrapper } from '../../uiElements/buttonWrapper/buttonWrapper'
 import { NameInput } from '../../uiElements/nameInputBox/nameInputBox'
 import { ThemeDropDown } from '../../uiElements/themeDropDown/themeDropDown'
 import {useStyles} from './styles'
 
-export const SettingsPage = ()=>{
+export const SettingsPage = ({navigation})=>{
     const theme = useTheme()
     const styles = useStyles()
 
@@ -35,12 +40,30 @@ export const SettingsPage = ()=>{
         setShowNameEditor(false)
     }
 
+    const handleOnBackButtonClick = ()=>{
+        navigation.pop()
+    }
+
 
     return(
         <View style={styles.container}>
+            <View style={styles.header}>
+                <View style={styles.leftContainer}>
+                    <ButtonWrapper 
+                        onClick = {handleOnBackButtonClick}
+                        style={{marginRight:10}}
+                    >
+                        <AntDesign name="left" size={24} style={styles.backButton}/>
+                    </ButtonWrapper>
+                    <View style={styles.pageNameContainer}>
+                        <Text style={styles.pageNameText}>
+                            Settings
+                        </Text>
+                    </View>
+                </View>
+            </View>
             <TouchableNativeFeedback
                 onPress={handleOpenThemeSelector}
-                background={TouchableNativeFeedback.Ripple(theme.theme.secondaryTextColor,false,0)}
             >
                 <View style={styles.themeButtonContainer}>
                     <View style={styles.themeButtonIconContainer}>
@@ -58,7 +81,6 @@ export const SettingsPage = ()=>{
             </TouchableNativeFeedback>
             <TouchableNativeFeedback
                 onPress={handleOpenNameEditor}
-                background={TouchableNativeFeedback.Ripple(theme.theme.secondaryTextColor,false,0)}
             >
                 <View style={styles.nameButtonContainer}>
                     <View style={styles.nameButtonIconContainer}>
@@ -76,15 +98,23 @@ export const SettingsPage = ()=>{
             </View>
             {
                 showThemeSelector&&
-                <ThemeDropDown
-                    closeDropDown={handleCloseThemeSelector}
-                />
+                <BackDrop
+                    close={handleCloseThemeSelector}
+                >
+                    <ThemeDropDown
+                        closeDropDown={handleCloseThemeSelector}
+                    />
+                </BackDrop>
             }
             {
                 showNameEditor&&
-                <NameInput
-                    closeEditor={handleCloseNameEditor}
-                />
+                <BackDrop
+                    close={handleCloseNameEditor}
+                >
+                    <NameInput
+                        closeEditor={handleCloseNameEditor}
+                    />
+                </BackDrop>
             }
         </View>
     )

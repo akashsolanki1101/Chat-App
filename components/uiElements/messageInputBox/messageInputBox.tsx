@@ -16,6 +16,7 @@ export const MessageInputBox = ()=>{
             <View style={styles.messageBoxContainer}>
                 <View style={styles.inputContainer}>
                     <TextInput
+                        multiline={true}
                         style={styles.textInput}
                         placeholder="Type your message..."
                         placeholderTextColor={theme.theme.primaryTextColor}

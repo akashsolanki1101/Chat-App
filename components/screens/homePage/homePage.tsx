@@ -1,18 +1,13 @@
 import React,{useState} from 'react'
 
-import {View,Text,Button,TouchableNativeFeedback,TouchableWithoutFeedback} from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import {View,TouchableWithoutFeedback} from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 
 import {useStyles} from './styles'
 import {ChatCard} from '../../uiElements/cards/chatCard/chatCard'
 import {useTheme} from '../../../hooks/themeProvider/themeProvider'
-import {dark} from '../../../ui/themes/dark'
-import {light} from '../../../ui/themes/light'
-import {Avatar} from '../../uiElements/avatar/avatar'
 import {AppName} from '../../uiElements/appName/appName'
-import {SearchBar} from '../../uiElements/searchBar/searchBar'
 import {ButtonWrapper} from '../../uiElements/buttonWrapper/buttonWrapper'
 import { StoryContainer } from '../../storyContainer/storyContainer'
 import { DropDown } from '../../uiElements/dropDown/dropDown'
@@ -29,21 +24,15 @@ export const HomePage = ({navigation})=>{
     const data = [
         {
             title : 'Settings',
-            func : ()=>{navigation.navigate('SettingsPage')}
+            func : ()=>{
+                handleCloseDropDown()
+                navigation.navigate('SettingsPage')
+            }
         },
     ]
 
-     const lightTheme = ()=>{
-        theme.setMode('light')
-        theme.setTheme(light.theme)
-    }
-
-    const darkTheme = ()=>{
-        theme.setMode('dark')
-        theme.setTheme(dark.theme)
-    }
-
     const handleOnChatCardClick = ()=>{
+        handleCloseDropDown()
         navigation.navigate('ChatPage')
     } 
 
@@ -60,6 +49,7 @@ export const HomePage = ({navigation})=>{
     }
 
     const handleOpenUserInfoPopUp = ()=>{
+        handleCloseDropDown()
         setShowUserInfoPopUp(true)
     }
 
@@ -115,8 +105,6 @@ export const HomePage = ({navigation})=>{
                             time={'yesterday'}
                             imgSrc={require('../../../assets/img/d.png')}
                         />
-                        {/* <Button title="light" onPress={lightTheme}/>
-                        <Button title="dark" onPress={darkTheme}/> */}
                     </View>
                     {
                         showDropDown&&

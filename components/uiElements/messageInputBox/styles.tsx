@@ -11,10 +11,10 @@ export const useStyles = ()=>{
                 width:'100%',
                 paddingHorizontal:18,
                 paddingBottom:15,
-                position:'absolute',
-                bottom:0,
                 zIndex:5,
-                backgroundColor:theme.theme.backgroundColor
+                backgroundColor:theme.theme.backgroundColor,
+                // borderWidth:1,
+                paddingTop:10
             },
             messageBoxContainer:{
                 width:'100%',
@@ -33,7 +33,7 @@ export const useStyles = ()=>{
             },
             textInput:{
                 width:'100%',
-                maxHeight:50,
+                maxHeight:100,
                 padding:0,
                 paddingLeft:10,
                 margin:0,

@@ -8,11 +8,18 @@ export const useStyles = ()=>{
     return(
         StyleSheet.create({
             container:{
-                // maxWidth:'80%',
                 width:'100%',
                 marginTop:20,
-                alignItems:'flex-start',
                 zIndex:1
+            },
+            swipeableContainer:{
+                width:'100%',
+                alignItems:'flex-end',
+                paddingVertical:1,
+            },
+            recievedMessageCardContainer:{
+                width:'100%',
+                alignItems:'flex-start',
             },
             recievedMessageCard:{
                 maxWidth:'80%',
@@ -36,7 +43,20 @@ export const useStyles = ()=>{
             messageTimeText:{
                 color:theme.theme.secondaryTextColor,
                 fontSize:12
-            }
+            },
+            forwardIconContainer:{
+                width:50,
+                justifyContent:'center',
+                alignItems:'center'
+            },
+            forwardIcon:{
+                color:theme.theme.activeColor,
+                transform:[
+                    {
+                        rotateY:'180deg'
+                    }
+                ]
+            },
         })
     )
 }

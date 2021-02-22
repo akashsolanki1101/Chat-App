@@ -46,6 +46,10 @@ export const useStyles = ()=>{
             messageText:{
                 color:theme.theme.tertiaryTextColor
             },
+            badgeContainer:{
+                justifyContent:'center',
+                alignItems:'center'
+            },
             messageTimeContainer:{
                 paddingVertical:8,
             },

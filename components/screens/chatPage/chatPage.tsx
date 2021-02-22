@@ -1,6 +1,6 @@
 import  React from 'react'
 
-import {View,Text} from 'react-native'
+import {View,Text,ScrollView} from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 
@@ -45,21 +45,32 @@ export const ChatPage = ({navigation})=>{
                 </ButtonWrapper>
             </View>
             <View style={styles.messageList}>
-                <SentMessageCard
-                    message={"hello"}
-                />
-                <RecievedMessageCard
-                    message={"Hi\nHow are you bro??"}
-                />
-                <SentMessageCard
-                    message={"fine bro what about you and wife??"}
-                />
-                <RecievedMessageCard
-                    message={"Same as you man..."}
-                />
-                <SentMessageCard
-                    message={"fine bro what about you??"}
-                />
+                <ScrollView
+                    
+                >
+                    <SentMessageCard
+                        message={"hello"}
+                    />
+                    <RecievedMessageCard
+                        message={"Hi\nHow are you bro??"}
+                    />
+                    <SentMessageCard
+                        message={"fine bro what about you and wife??"}
+                    />
+                    <RecievedMessageCard
+                        message={"Same as you man..."}
+                    />
+                    <SentMessageCard
+                        message={"fine bro what about you??"}
+                    />
+                    <RecievedMessageCard
+                        message={"Same as you man..."}
+                    />
+                    <SentMessageCard
+                        message={"fine bro what about you??"}
+                    />
+
+                </ScrollView>
             </View>
             <MessageInputBox/>
         </View>

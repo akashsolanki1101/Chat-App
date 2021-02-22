@@ -16,7 +16,8 @@ export const useStyles= ()=>{
                 flexDirection:'row',
                 justifyContent:'space-between',
                 alignItems:'center',
-                paddingHorizontal:18,
+                paddingRight:5,
+                paddingLeft:18,
                 paddingVertical:12,
                 // elevation:1
                 // borderBottomColor:theme.theme.secondaryTextColor,

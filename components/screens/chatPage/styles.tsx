@@ -16,7 +16,7 @@ export  const useStyles = ()=>{
                 flexDirection:'row',
                 justifyContent:'space-between',
                 alignItems:'center',
-                paddingHorizontal:14,
+                paddingHorizontal:5,
                 paddingVertical:14,
                 color:theme.theme.primaryTextColor,
                 // borderBottomColor:theme.theme.secondaryTextColor,
@@ -50,6 +50,7 @@ export  const useStyles = ()=>{
                 color:theme.theme.primaryTextColor,
             },
             messageList:{
+                flex:1,
                 // width:'100%'
             }
             

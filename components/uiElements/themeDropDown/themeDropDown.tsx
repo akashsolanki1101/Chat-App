@@ -9,25 +9,15 @@ import {light} from '../../../ui/themes/light'
 import {useStyles} from './styles'
 import {useTheme} from '../../../hooks/themeProvider/themeProvider'
 
-
 export const ThemeDropDown = ({closeDropDown})=>{
     const styles = useStyles()
     const theme = useTheme()
 
-    const [showErrBox,setShowErrBox] = useState(false)
     const [mode,setMode] = useState({
         systemDefault:false,
         dark:true,
         light:false        
     })
-
-    const handleShowErrBox = ()=>{
-        setShowErrBox(true)
-    }
-
-    const handleCloseErrBox = ()=>{
-        setShowErrBox(false)
-    }
 
     const handleOptionButtonClick = (option:any)=>{
         const newState = {
@@ -36,13 +26,7 @@ export const ThemeDropDown = ({closeDropDown})=>{
             light:false
         }
 
-        // for(let key in newState){
-        //     if(key===option){
-        //         newState[key] = true
-        //     }
-        // }
-
-        // newState[option] = true
+        newState[option] = true
 
         setMode(newState)
     }
