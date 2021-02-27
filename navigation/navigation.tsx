@@ -2,10 +2,11 @@ import React from 'react'
 
 import {createStackNavigator} from '@react-navigation/stack'
 
-import {HomePage} from '../components/screens/homePage/homePage'
-import {ChatPage} from '../components/screens/chatPage/chatPage'
-import {SearchPage} from '../components/screens/searchPage/searchPage'
-import {SettingsPage} from '../components/screens/settingsPage/settingsPage'
+import {HomePage} from '../screens/homePage/homePage'
+import {ChatPage} from '../screens/chatPage/chatPage'
+import {SearchPage} from '../screens/searchPage/searchPage'
+import {SettingsPage} from '../screens/settingsPage/settingsPage'
+import {ContactsPage} from '../screens/contactsPage/contactsPage'
 
 const Stack = createStackNavigator()
 
@@ -39,6 +40,14 @@ export const HomeNavigator = ()=>{
             <Stack.Screen
                 name="SettingsPage"
                 component={SettingsPage}
+                options={{
+                    headerShown:false,
+                }}
+            />
+
+            <Stack.Screen
+                name="ContactsPage"
+                component={ContactsPage}
                 options={{
                     headerShown:false,
                 }}

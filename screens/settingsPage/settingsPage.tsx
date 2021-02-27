@@ -6,13 +6,14 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import {useTheme} from '../../../hooks/themeProvider/themeProvider'
-import { Avatar } from '../../uiElements/avatar/avatar'
-import { BackDrop } from '../../uiElements/backdrop/backdrop'
-import { ButtonWrapper } from '../../uiElements/buttonWrapper/buttonWrapper'
-import { NameInput } from '../../uiElements/nameInputBox/nameInputBox'
-import { ThemeDropDown } from '../../uiElements/themeDropDown/themeDropDown'
+import {useTheme} from '../../hooks/themeProvider/themeProvider'
+import { Avatar } from '../../components/uiElements/avatar/avatar'
+import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
+import { ButtonWrapper } from '../../components/uiElements/buttonWrapper/buttonWrapper'
+import { NameInput } from '../../components/uiElements/nameInputBox/nameInputBox'
+import { ThemeDropDown } from '../../components/uiElements/themeDropDown/themeDropDown'
 import {useStyles} from './styles'
+import { Header } from '../../components/uiElements/header/header'
 
 export const SettingsPage = ({navigation})=>{
     const theme = useTheme()
@@ -47,21 +48,10 @@ export const SettingsPage = ({navigation})=>{
 
     return(
         <View style={styles.container}>
-            <View style={styles.header}>
-                <View style={styles.leftContainer}>
-                    <ButtonWrapper 
-                        onClick = {handleOnBackButtonClick}
-                        style={{marginRight:10}}
-                    >
-                        <AntDesign name="left" size={24} style={styles.backButton}/>
-                    </ButtonWrapper>
-                    <View style={styles.pageNameContainer}>
-                        <Text style={styles.pageNameText}>
-                            Settings
-                        </Text>
-                    </View>
-                </View>
-            </View>
+            <Header
+                navigation={navigation}
+                title={"Settings"}
+            />
             <TouchableNativeFeedback
                 onPress={handleOpenThemeSelector}
             >

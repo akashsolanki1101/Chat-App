@@ -10,7 +10,7 @@ import {useTheme} from '../../hooks/themeProvider/themeProvider'
 import {dark} from '../../ui/themes/dark'
 import {light} from '../../ui/themes/light'
 import {ChatCard} from '../uiElements/cards/chatCard/chatCard'
-import {HomeScreen} from '../screens/homePage/homePage'
+import {HomeScreen} from '../../screens/homePage/homePage'
 import {HomeNavigator} from '../../navigation/navigation'
 
 export const Wrapper = ()=>{

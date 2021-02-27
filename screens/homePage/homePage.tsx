@@ -5,14 +5,16 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 
 import {useStyles} from './styles'
-import {ChatCard} from '../../uiElements/cards/chatCard/chatCard'
-import {useTheme} from '../../../hooks/themeProvider/themeProvider'
-import {AppName} from '../../uiElements/appName/appName'
-import {ButtonWrapper} from '../../uiElements/buttonWrapper/buttonWrapper'
-import { StoryContainer } from '../../storyContainer/storyContainer'
-import { DropDown } from '../../uiElements/dropDown/dropDown'
-import { BackDrop } from '../../uiElements/backdrop/backdrop'
-import { UserInfoPopUp } from '../../uiElements/userInfoPopUp/userInfoPopUp'
+import {ChatCard} from '../../components/uiElements/cards/chatCard/chatCard'
+import {useTheme} from '../../hooks/themeProvider/themeProvider'
+import {AppName} from '../../components/uiElements/appName/appName'
+import {ButtonWrapper} from '../../components/uiElements/buttonWrapper/buttonWrapper'
+import { StoryContainer } from '../../components/storyContainer/storyContainer'
+import { DropDown } from '../../components/uiElements/dropDown/dropDown'
+import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
+import { UserInfoPopUp } from '../../components/uiElements/userInfoPopUp/userInfoPopUp'
+import {DefaultImages} from '../../constants/defaultImages/defaultImages'
+import {ContactsButton} from '../../components/uiElements/contactsButton/contactsButton'
 
 export const HomePage = ({navigation})=>{
     const [showDropDown,setShowDropDown] = useState(false) 
@@ -87,7 +89,7 @@ export const HomePage = ({navigation})=>{
                             name={'Akash'}
                             message={'Class koi??'}
                             time={'11:20 am'} 
-                            imgSrc={require('../../../assets/img/a.png')}
+                            imgSrc={require('../../assets/img/a.png')}
                         />
                         <ChatCard
                             onAvatarClick={handleOpenUserInfoPopUp}
@@ -95,7 +97,7 @@ export const HomePage = ({navigation})=>{
                             name={'Aman'}
                             message={'Hello'}
                             time={'10:20 pm'}
-                            imgSrc={require('../../../assets/img/c.png')}
+                            imgSrc={require('../../assets/img/c.png')}
                         />
                         <ChatCard
                             onAvatarClick={handleOpenUserInfoPopUp}
@@ -103,7 +105,15 @@ export const HomePage = ({navigation})=>{
                             name={'Solanki'}
                             message={'Hey man what is this, how could you do this'}
                             time={'yesterday'}
-                            imgSrc={require('../../../assets/img/d.png')}
+                            imgSrc={require('../../assets/img/d.png')}
+                        />
+                        <ChatCard
+                            onAvatarClick={handleOpenUserInfoPopUp}
+                            onClick={handleOnChatCardClick} 
+                            name={'Solankis'}
+                            message={'Hey man what is this, how could you do this'}
+                            time={'yesterday'}
+                            imgSrc={{uri:DefaultImages.group}}
                         />
                     </View>
                     {
@@ -122,6 +132,9 @@ export const HomePage = ({navigation})=>{
                             />
                         </BackDrop>
                     }
+                    <ContactsButton
+                        onClick={()=>navigation.navigate('ContactsPage')}
+                    />
             </View>
        </TouchableWithoutFeedback>
     )

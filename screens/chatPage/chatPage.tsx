@@ -5,11 +5,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 
 import {useStyles} from './styles'
-import {Avatar} from '../../uiElements/avatar/avatar'
-import {ButtonWrapper} from '../../uiElements/buttonWrapper/buttonWrapper'
-import {RecievedMessageCard} from '../../uiElements/cards/recievedMessageCard/recievedMessageCard'
-import { SentMessageCard } from '../../uiElements/cards/sentMessageCard/sentMessageCard'
-import {MessageInputBox} from '../../uiElements/messageInputBox/messageInputBox'
+import {Avatar} from '../../components/uiElements/avatar/avatar'
+import {ButtonWrapper} from '../../components/uiElements/buttonWrapper/buttonWrapper'
+import {RecievedMessageCard} from '../../components/uiElements/cards/recievedMessageCard/recievedMessageCard'
+import { SentMessageCard } from '../../components/uiElements/cards/sentMessageCard/sentMessageCard'
+import {MessageInputBox} from '../../components/uiElements/messageInputBox/messageInputBox'
 
 export const ChatPage = ({navigation})=>{
     const styles = useStyles()
@@ -29,7 +29,7 @@ export const ChatPage = ({navigation})=>{
                         <AntDesign name="left" size={24} style={styles.backButton}/>
                     </ButtonWrapper>
                     <View style={styles.userInfoContainer}>
-                        <Avatar imgSrc={require('../../../assets/img/c.png')} style={styles.avatar} />
+                        <Avatar imgSrc={require('../../assets/img/c.png')} style={styles.avatar} />
                         <View style={styles.senderNameContainer}>
                             <Text style={styles.senderNameText}>
                                 Akash
