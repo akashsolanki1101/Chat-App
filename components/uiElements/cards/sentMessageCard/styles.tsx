@@ -15,12 +15,11 @@ export const useStyles = ()=>{
                 width:'100%',
                 alignItems:'flex-end',
                 paddingVertical:1,
-
             },
             sentMessageCardContainer:{
                 width:'100%',
                 alignItems:'flex-end',
-
+                backgroundColor:theme.theme.backgroundColor,
             },
             sentMessageCard:{
                 maxWidth:'80%',
@@ -40,6 +39,9 @@ export const useStyles = ()=>{
             messageTime:{
                 paddingHorizontal:30,
                 marginTop:10,
+                // borderWidth:1,
+                flexDirection:'row',
+                justifyContent:'flex-end'
             },
             messageTimeText:{
                 color:theme.theme.secondaryTextColor,
