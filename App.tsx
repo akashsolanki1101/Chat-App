@@ -11,6 +11,7 @@ import {
 
 import {getUser} from './graphql/queries'
 import {createUser} from './graphql/mutations'
+import {DefaultImages} from './constants/defaultImages/defaultImages'
 
 import { withAuthenticator } from 'aws-amplify-react-native'
 import Amplify from 'aws-amplify'
@@ -45,12 +46,12 @@ const App = ()=>{
       try{
         const userData = await API.graphql(graphqlOperation(getUser,{id:userId}))
         if(userData.data.getUser){
-          console.log(userData);
+          return
         }else{
           const newUser = {
             id: userId,
             name:userDetails.username,
-            imageUri:'',
+            imageUri:DefaultImages.person,
             status:"Let's chAt."
           }
           await createUserInDb(newUser)

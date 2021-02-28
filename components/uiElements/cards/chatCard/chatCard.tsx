@@ -6,13 +6,20 @@ import {Avatar} from '../../avatar/avatar'
 import { Badge } from '../../badge/badge'
 import {useStyles} from './styles'
 
-export const ChatCard = ({name,message,imgSrc,time,onClick,onAvatarClick})=>{
+export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const styles = useStyles()
+
+    const handleOnClickChatCard = ()=>{
+        handleCloseDropDown()
+        navigation.navigate("ChatPage",{
+            user:data
+        })
+    }
 
     return(
         <View style={styles.container}>
             <TouchableNativeFeedback
-                onPress={onClick}
+                onPress={handleOnClickChatCard}
                 onLongPress={()=>{console.log("hello");
                 }}
             >
@@ -22,20 +29,20 @@ export const ChatCard = ({name,message,imgSrc,time,onClick,onAvatarClick})=>{
                         onPress={onAvatarClick}
                     >
                         <View style={styles.avatarContainer}>
-                            <Avatar imgSrc={imgSrc} style={{}}/>
+                            <Avatar imgSrc={data.imageUri} style={{}}/>
                         </View>
                     </TouchableOpacity>
                     <View style={styles.middleContainer}>
                         <View style={styles.senderNameContainer}>
-                            <Text style={styles.senderNameText}>{name}</Text>
+                            <Text style={styles.senderNameText}>{data.name}</Text>
                         </View>
                         <View style={styles.messageContainer}>
-                            <Text numberOfLines={1} style={styles.messageText}>{message}</Text>
+                            <Text numberOfLines={1} style={styles.messageText}>{data.message}</Text>
                         </View>
                     </View>
                     <View>
                         <View style={styles.messageTimeContainer}>
-                            <Text style={styles.messageTimeText}>{time}</Text>
+                            <Text style={styles.messageTimeText}>{data.time}</Text>
                         </View>
                         <View style={styles.badgeContainer}>
                             <Badge

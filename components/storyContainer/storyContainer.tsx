@@ -4,6 +4,7 @@ import {View,Text,ScrollView} from 'react-native'
 
 import {useStyles} from './styles'
 import { Avatar } from '../uiElements/avatar/avatar'
+import {DefaultImages} from '../../constants/defaultImages/defaultImages'
 
 export const StoryContainer = ()=>{
     const styles = useStyles()
@@ -15,22 +16,22 @@ export const StoryContainer = ()=>{
                 showsHorizontalScrollIndicator={false}
             >
                 <View style={{marginRight:10}}>
-                    <Avatar style={{}} imgSrc={require('../../assets/img/a.png')}/>
+                    <Avatar style={{}} imgSrc={DefaultImages.person}/>
                 </View>
                 <View style={{marginRight:10}}>
-                    <Avatar style={{}} imgSrc={require('../../assets/img/c.png')}/>
+                    <Avatar style={{}} imgSrc={DefaultImages.person}/>
                 </View>
                 <View style={{marginRight:10}}>
-                    <Avatar style={{}} imgSrc={require('../../assets/img/d.png')}/>
+                    <Avatar style={{}} imgSrc={DefaultImages.person}/>
                 </View>
                 <View style={{marginRight:10}}>
-                    <Avatar style={{}} imgSrc={require('../../assets/img/c.png')}/>
+                    <Avatar style={{}} imgSrc={DefaultImages.person}/>
                 </View>
                 <View style={{marginRight:10}}>
-                    <Avatar style={{}} imgSrc={require('../../assets/img/a.png')}/>
+                    <Avatar style={{}} imgSrc={DefaultImages.person}/>
                 </View>         
                 <View style={{marginRight:10}}>
-                    <Avatar style={{}} imgSrc={require('../../assets/img/d.png')}/>
+                    <Avatar style={{}} imgSrc={DefaultImages.person}/>
                 </View>
             </ScrollView>
         </View>

@@ -11,8 +11,10 @@ import {RecievedMessageCard} from '../../components/uiElements/cards/recievedMes
 import { SentMessageCard } from '../../components/uiElements/cards/sentMessageCard/sentMessageCard'
 import {MessageInputBox} from '../../components/uiElements/messageInputBox/messageInputBox'
 
-export const ChatPage = ({navigation})=>{
+export const ChatPage = ({navigation,route})=>{
     const styles = useStyles()
+
+    const user = route.params.user
 
     const handleOnBackButtonClick = ()=>{
         navigation.pop()
@@ -29,10 +31,10 @@ export const ChatPage = ({navigation})=>{
                         <AntDesign name="left" size={24} style={styles.backButton}/>
                     </ButtonWrapper>
                     <View style={styles.userInfoContainer}>
-                        <Avatar imgSrc={require('../../assets/img/c.png')} style={styles.avatar} />
+                        <Avatar imgSrc={user.imageUri} style={styles.avatar} />
                         <View style={styles.senderNameContainer}>
                             <Text style={styles.senderNameText}>
-                                Akash
+                                {user.name}
                             </Text>
                         </View>
                     </View>

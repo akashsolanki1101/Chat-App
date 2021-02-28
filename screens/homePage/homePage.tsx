@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 
-import {View,TouchableWithoutFeedback} from 'react-native'
+import {View,TouchableWithoutFeedback,FlatList} from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 
@@ -15,6 +15,7 @@ import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
 import { UserInfoPopUp } from '../../components/uiElements/userInfoPopUp/userInfoPopUp'
 import {DefaultImages} from '../../constants/defaultImages/defaultImages'
 import {ContactsButton} from '../../components/uiElements/contactsButton/contactsButton'
+import {chats} from '../../data/chats'
 
 export const HomePage = ({navigation})=>{
     const [showDropDown,setShowDropDown] = useState(false) 
@@ -81,60 +82,42 @@ export const HomePage = ({navigation})=>{
                             </ButtonWrapper>                    
                     </View>
                 </View>
-                    <StoryContainer/>
+                <StoryContainer/>
                 <View style={styles.listContainer}>
-                        <ChatCard
-                            onAvatarClick={handleOpenUserInfoPopUp}
-                            onClick={handleOnChatCardClick}
-                            name={'Akash'}
-                            message={'Class koi??'}
-                            time={'11:20 am'} 
-                            imgSrc={require('../../assets/img/a.png')}
-                        />
-                        <ChatCard
-                            onAvatarClick={handleOpenUserInfoPopUp}
-                            onClick={handleOnChatCardClick} 
-                            name={'Aman'}
-                            message={'Hello'}
-                            time={'10:20 pm'}
-                            imgSrc={require('../../assets/img/c.png')}
-                        />
-                        <ChatCard
-                            onAvatarClick={handleOpenUserInfoPopUp}
-                            onClick={handleOnChatCardClick} 
-                            name={'Solanki'}
-                            message={'Hey man what is this, how could you do this'}
-                            time={'yesterday'}
-                            imgSrc={require('../../assets/img/d.png')}
-                        />
-                        <ChatCard
-                            onAvatarClick={handleOpenUserInfoPopUp}
-                            onClick={handleOnChatCardClick} 
-                            name={'Solankis'}
-                            message={'Hey man what is this, how could you do this'}
-                            time={'yesterday'}
-                            imgSrc={{uri:DefaultImages.group}}
-                        />
-                    </View>
-                    {
-                        showDropDown&&
-                        <DropDown
-                            data={data}
-                        />
-                    }
-                    {
-                        showUserInfoPopUp&&
-                        <BackDrop
-                            close={handleCloseUserInfoPopUp}
-                        >
-                            <UserInfoPopUp
-                                closePopUp={handleCloseUserInfoPopUp}
-                            />
-                        </BackDrop>
-                    }
-                    <ContactsButton
-                        onClick={()=>navigation.navigate('ContactsPage')}
+                    <FlatList
+                        data={chats}
+                        keyExtractor={item=>item.id}
+                        renderItem={({item})=>{
+                            return(
+                                <ChatCard
+                                    data={item}
+                                    navigation={navigation}
+                                    onAvatarClick={handleOpenUserInfoPopUp}
+                                    handleCloseDropDown={handleCloseDropDown}
+                                />
+                            )
+                        }}
                     />
+                </View>
+                {
+                    showDropDown&&
+                    <DropDown
+                        data={data}
+                    />
+                }
+                {
+                    showUserInfoPopUp&&
+                    <BackDrop
+                        close={handleCloseUserInfoPopUp}
+                    >
+                        <UserInfoPopUp
+                            closePopUp={handleCloseUserInfoPopUp}
+                        />
+                    </BackDrop>
+                }
+                <ContactsButton
+                    onClick={()=>navigation.navigate('ContactsPage')}
+                />
             </View>
        </TouchableWithoutFeedback>
     )

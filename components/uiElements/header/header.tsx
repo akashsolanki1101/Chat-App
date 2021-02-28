@@ -18,7 +18,7 @@ export const Header = ({navigation,title})=>{
             <View style={styles.leftContainer}>
                 <ButtonWrapper 
                     onClick = {handleOnBackButtonClick}
-                    style={{marginRight:10}}
+                    style={{marginRight:28}}
                 >
                     <AntDesign name="left" size={24} style={styles.backButton}/>
                 </ButtonWrapper>

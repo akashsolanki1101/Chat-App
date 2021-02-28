@@ -10,6 +10,9 @@ export const useStyles = ()=>{
             container:{
                 flex:1,
                 backgroundColor:theme.theme.backgroundColor
+            },
+            contactsListContainer:{
+                flex:1
             }
         })
     )
