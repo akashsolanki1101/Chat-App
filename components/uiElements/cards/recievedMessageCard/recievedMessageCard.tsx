@@ -6,7 +6,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 
 import {useStyles} from './styles'
 
-export const RecievedMessageCard = ({message})=>{
+export const RecievedMessageCard = ({message,createdAt})=>{
     const styles = useStyles()
     let cardRef: Swipeable | null= null
 

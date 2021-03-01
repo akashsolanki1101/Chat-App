@@ -1,8 +1,12 @@
-import  React from 'react'
+import  React,{useEffect,useState} from 'react'
 
-import {View,Text,ScrollView} from 'react-native'
+import {View,Text,ScrollView,FlatList} from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
+
+import {API,graphqlOperation,Auth} from 'aws-amplify'
+
+import {messagesByChatRoom} from '../../graphql/queries'
 
 import {useStyles} from './styles'
 import {Avatar} from '../../components/uiElements/avatar/avatar'
@@ -13,12 +17,36 @@ import {MessageInputBox} from '../../components/uiElements/messageInputBox/messa
 
 export const ChatPage = ({navigation,route})=>{
     const styles = useStyles()
+    const [messages,setMessages] = useState([])
+    const [myUserID,setMyUserID] = useState("")
 
     const user = route.params.user
 
     const handleOnBackButtonClick = ()=>{
         navigation.pop()
     }
+
+    useEffect(()=>{
+        const fetchMessages = async ()=>{
+            try{
+                const userInfo = await Auth.currentAuthenticatedUser()
+                setMyUserID(userInfo.attributes.sub)
+
+                const messages = await API.graphql(graphqlOperation(messagesByChatRoom,{
+                    chatRoomID:user.chatRoomID,
+                    sortDiresction:"DESC"
+                }))
+
+                console.log(messages.data.messagesByChatRoom.items);
+                setMessages(messages.data.messagesByChatRoom.items)
+                
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        fetchMessages()
+    },[])
 
     return(
         <View style={styles.container}>
@@ -47,34 +75,31 @@ export const ChatPage = ({navigation,route})=>{
                 </ButtonWrapper>
             </View>
             <View style={styles.messageList}>
-                <ScrollView
-                    
-                >
-                    <SentMessageCard
-                        message={"hello"}
-                    />
-                    <RecievedMessageCard
-                        message={"Hi\nHow are you bro??"}
-                    />
-                    <SentMessageCard
-                        message={"fine bro what about you and wife??"}
-                    />
-                    <RecievedMessageCard
-                        message={"Same as you man..."}
-                    />
-                    <SentMessageCard
-                        message={"fine bro what about you??"}
-                    />
-                    <RecievedMessageCard
-                        message={"Same as you man..."}
-                    />
-                    <SentMessageCard
-                        message={"fine bro what about you??"}
-                    />
-
-                </ScrollView>
+                <FlatList
+                    data={messages}
+                    keyExtractor={item=>item.id}
+                    renderItem={({item})=>{
+                        if(item.userID===myUserID){
+                            return(
+                                <SentMessageCard
+                                    message={item.content}
+                                    createdAt={item.createdAt}
+                                />
+                            )
+                        }else{
+                            return(
+                                <RecievedMessageCard
+                                    message={item.content}
+                                    createdAt={item.createdAt}
+                                />   
+                            )
+                        }
+                    }}
+                />
             </View>
-            <MessageInputBox/>
+            <MessageInputBox
+                chatRoomID = {user.chatRoomID}
+            />
         </View>
     )
 }

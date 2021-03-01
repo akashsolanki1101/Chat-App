@@ -34,7 +34,7 @@ export const useStyles = ()=>{
             },
             recievedMessageText:{
                 color:theme.theme.primaryTextColor,
-                fontSize:15,
+                fontSize:17,
             },
             messageTime:{
                 paddingHorizontal:30,

@@ -7,7 +7,7 @@ import { TickMark } from '../../tickMark/tickMark'
 
 import {useStyles} from './styles'
 
-export const SentMessageCard = ({message})=>{
+export const SentMessageCard = ({message,createdAt})=>{
     const styles = useStyles()
     let cardRef: Swipeable | null= null
 

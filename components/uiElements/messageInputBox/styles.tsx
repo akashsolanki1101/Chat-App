@@ -43,6 +43,9 @@ export const useStyles = ()=>{
                 color:theme.theme.primaryTextColor
             },
             sendButton:{
+                color:theme.theme.primaryTextColor
+            },
+            activeSendButton:{
                 color:theme.theme.activeColor
             }
         })
