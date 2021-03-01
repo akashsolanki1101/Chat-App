@@ -38,10 +38,16 @@ export const useStyles = ()=>{
                 borderRadius: 30,
                 overflow:'hidden'
             },
+            senderNameContainer:{
+                overflow:'hidden'
+            },
             senderNameText:{
                 fontWeight:'bold',
                 fontSize:17,
                 color:theme.theme.primaryTextColor
+            },
+            messageContainer:{
+                overflow:'hidden'
             },
             messageText:{
                 color:theme.theme.tertiaryTextColor

@@ -8,11 +8,20 @@ import {useStyles} from './styles'
 
 export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const styles = useStyles()
+    let DATA = {}
+
+    if(data){
+        DATA = {
+            name:data.chatRoom.chatRoomUsers.items[0].user.name,
+            imageUri:data.chatRoom.chatRoomUsers.items[0].user.imageUri,
+            chatRoomID:data.chatRoomID
+        }
+    }
 
     const handleOnClickChatCard = ()=>{
         handleCloseDropDown()
         navigation.navigate("ChatPage",{
-            user:data
+            user:DATA
         })
     }
 
@@ -29,20 +38,20 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                         onPress={onAvatarClick}
                     >
                         <View style={styles.avatarContainer}>
-                            <Avatar imgSrc={data.imageUri} style={{}}/>
+                            <Avatar imgSrc={DATA.imageUri} style={{}}/>
                         </View>
                     </TouchableOpacity>
                     <View style={styles.middleContainer}>
                         <View style={styles.senderNameContainer}>
-                            <Text style={styles.senderNameText}>{data.name}</Text>
+                            <Text numberOfLines={1}style={styles.senderNameText}>{DATA.name}</Text>
                         </View>
                         <View style={styles.messageContainer}>
-                            <Text numberOfLines={1} style={styles.messageText}>{data.message}</Text>
+                            <Text numberOfLines={1} style={styles.messageText}>Hello</Text>
                         </View>
                     </View>
                     <View>
                         <View style={styles.messageTimeContainer}>
-                            <Text style={styles.messageTimeText}>{data.time}</Text>
+                            <Text style={styles.messageTimeText}>11:10 am</Text>
                         </View>
                         <View style={styles.badgeContainer}>
                             <Badge

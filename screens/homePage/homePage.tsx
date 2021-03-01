@@ -1,8 +1,12 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 import {View,TouchableWithoutFeedback,FlatList} from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
+
+import {API,graphqlOperation,Auth} from 'aws-amplify'
+import {getUser} from '../../modifiedQueries/modifiedQueries'
+
 
 import {useStyles} from './styles'
 import {ChatCard} from '../../components/uiElements/cards/chatCard/chatCard'
@@ -15,11 +19,11 @@ import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
 import { UserInfoPopUp } from '../../components/uiElements/userInfoPopUp/userInfoPopUp'
 import {DefaultImages} from '../../constants/defaultImages/defaultImages'
 import {ContactsButton} from '../../components/uiElements/contactsButton/contactsButton'
-import {chats} from '../../data/chats'
 
 export const HomePage = ({navigation})=>{
     const [showDropDown,setShowDropDown] = useState(false) 
     const [showUserInfoPopUp,setShowUserInfoPopUp] = useState(false) 
+    const [chats,setChats] = useState([])
 
     const styles = useStyles()
     const theme = useTheme()
@@ -33,11 +37,6 @@ export const HomePage = ({navigation})=>{
             }
         },
     ]
-
-    const handleOnChatCardClick = ()=>{
-        handleCloseDropDown()
-        navigation.navigate('ChatPage')
-    } 
 
     const handleOnSearchButtonClick = ()=>{
         navigation.navigate("SearchPage")
@@ -59,6 +58,29 @@ export const HomePage = ({navigation})=>{
     const handleCloseUserInfoPopUp = ()=>{
         setShowUserInfoPopUp(false)
     }
+
+    useEffect(()=>{
+        const fetchUserDetails = async ()=>{
+            try{
+                const userInfo = await Auth.currentAuthenticatedUser()
+                const userID = userInfo.attributes.sub
+
+                const userData = await API.graphql(graphqlOperation(
+                    getUser,{
+                            id : userID
+                    }
+
+                ))
+                
+                setChats(userData.data.getUser.chatRoomUser.items)
+
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        fetchUserDetails()
+    },[])
    
     return(
         <TouchableWithoutFeedback

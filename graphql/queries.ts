@@ -24,6 +24,7 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
+
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput
@@ -46,6 +47,7 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+
 export const getChatRoomUser = /* GraphQL */ `
   query GetChatRoomUser($id: ID!) {
     getChatRoomUser(id: $id) {

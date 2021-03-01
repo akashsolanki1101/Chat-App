@@ -24,6 +24,7 @@ const App = ()=>{
   const fetchUserDetails = useCallback(async ()=>{ //for fetching currently logged in user details
     try{
       const userDetails = await Auth.currentAuthenticatedUser({bypassCache:true})
+
       return userDetails
     }catch(err){
       console.log(err);

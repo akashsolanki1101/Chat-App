@@ -2,7 +2,7 @@ import React,{useEffect,useState,useCallback} from 'react'
 
 import {View,FlatList} from 'react-native'
 
-import {API,graphqlOperation} from 'aws-amplify'
+import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {listUsers} from '../../graphql/queries'
 
 import {useStyles} from './styles'
@@ -16,7 +16,22 @@ export const ContactsPage = ({navigation})=>{
 
     const fetchContacts = useCallback(async ()=>{
         try{
-            const contacts = await API.graphql(graphqlOperation(listUsers))
+            const userInfo = await Auth.currentAuthenticatedUser()
+            const userID = userInfo.attributes.sub
+
+            const contacts = await API.graphql(graphqlOperation(
+                listUsers,
+                {
+                    filter:{
+                        not:{
+                            id:{
+                                eq:userID
+                            }
+                        }
+                    }
+                }
+            ))
+            
             setContacts(contacts.data.listUsers.items)
         }catch(err){
             console.log(err);
