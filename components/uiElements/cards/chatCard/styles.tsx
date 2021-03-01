@@ -22,9 +22,12 @@ export const useStyles = ()=>{
                 paddingVertical:10,
                 paddingHorizontal: 14,
                 backgroundColor:theme.theme.receiver,
-                justifyContent:'space-between',
                 elevation:2,
-
+            },
+            avatarContainer:{
+                borderRadius: 30,
+                overflow:'hidden',
+                marginRight:15
             },
             middleContainer:{
                 width:'60%',
@@ -32,11 +35,8 @@ export const useStyles = ()=>{
                 display:'flex',
                 flexDirection:'column',
                 justifyContent:'space-between',
-                paddingVertical:4.5
-            },
-            avatarContainer:{
-                borderRadius: 30,
-                overflow:'hidden'
+                paddingVertical:4.5,
+                marginRight:12
             },
             senderNameContainer:{
                 overflow:'hidden'
@@ -52,12 +52,17 @@ export const useStyles = ()=>{
             messageText:{
                 color:theme.theme.tertiaryTextColor
             },
+            rightContainer:{
+                flex:1,
+            },
             badgeContainer:{
                 justifyContent:'center',
-                alignItems:'center'
+                alignItems:'center',
             },
             messageTimeContainer:{
                 paddingVertical:8,
+                justifyContent:'center',
+                alignItems:'center'
             },
             messageTimeText:{
                 color : theme.theme.secondaryTextColor,

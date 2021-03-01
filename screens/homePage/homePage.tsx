@@ -73,6 +73,8 @@ export const HomePage = ({navigation})=>{
                 ))                
                 
                 setChats(userData.data.getUser.chatRoomUser.items)
+                // console.log(userData.data.getUser.chatRoomUser.items);
+                
 
             }catch(err){
                 console.log(err);

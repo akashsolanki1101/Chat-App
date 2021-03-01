@@ -34,10 +34,9 @@ export const ChatPage = ({navigation,route})=>{
 
                 const messages = await API.graphql(graphqlOperation(messagesByChatRoom,{
                     chatRoomID:user.chatRoomID,
-                    sortDiresction:"DESC"
+                    sortDirection:"DESC"
                 }))
 
-                console.log(messages.data.messagesByChatRoom.items);
                 setMessages(messages.data.messagesByChatRoom.items)
                 
             }catch(err){
@@ -95,6 +94,7 @@ export const ChatPage = ({navigation,route})=>{
                             )
                         }
                     }}
+                    inverted
                 />
             </View>
             <MessageInputBox

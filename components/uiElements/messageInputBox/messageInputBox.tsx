@@ -30,6 +30,15 @@ export const MessageInputBox = ({chatRoomID})=>{
 
     const updateChatRoomLastMessage = async (messageID:string)=>{
         try{
+            await API.graphql(graphqlOperation(
+                updateChatRoom,
+                {
+                    input:{
+                        id:chatRoomID,
+                        lastMessageID:messageID
+                    }
+                }
+            ))
             
         }catch(err){
             console.log(err);
@@ -53,8 +62,7 @@ export const MessageInputBox = ({chatRoomID})=>{
                 }
             ))
 
-            console.log(lastMessageInfo.data.createMessage.id);
-            
+            await updateChatRoomLastMessage(lastMessageInfo.data.createMessage.id)            
 
             setMessage("")
             setActiveSendButton(false)

@@ -16,7 +16,9 @@ export const ContactsListItem = ({user,navigation})=>{
         try{
         //1. create new chat room
             const newChatRoomData = await API.graphql(graphqlOperation(createChatRoom,{
-                input :{}
+                input :{
+                    lastMessageID:"2f643bc3-d83f-47fe-b1fe-395f1b5daf12"
+                }
             }))
 
             if(!newChatRoomData.data){
