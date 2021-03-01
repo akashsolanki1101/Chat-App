@@ -4,7 +4,7 @@ import {View,TextInput} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import {API,Auth,graphqlOperation} from 'aws-amplify'
-import {createMessage} from '../../../graphql/mutations'
+import {createMessage,updateChatRoom} from '../../../graphql/mutations'
 
 import {useStyles} from './styles'
 import {useTheme} from '../../../hooks/themeProvider/themeProvider'
@@ -28,6 +28,14 @@ export const MessageInputBox = ({chatRoomID})=>{
         setMessage(message)
     }
 
+    const updateChatRoomLastMessage = async (messageID:string)=>{
+        try{
+            
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     const handleOnSendButtonClick = async ()=>{
         const _message = message.trim()
         if(_message.length<=0){
@@ -35,7 +43,7 @@ export const MessageInputBox = ({chatRoomID})=>{
         }
 
         try{
-            await API.graphql(graphqlOperation(
+            const lastMessageInfo = await API.graphql(graphqlOperation(
                 createMessage,{
                     input:{
                         content:_message,
@@ -44,6 +52,9 @@ export const MessageInputBox = ({chatRoomID})=>{
                     }
                 }
             ))
+
+            console.log(lastMessageInfo.data.createMessage.id);
+            
 
             setMessage("")
             setActiveSendButton(false)

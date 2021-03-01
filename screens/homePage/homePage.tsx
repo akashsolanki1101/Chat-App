@@ -70,7 +70,7 @@ export const HomePage = ({navigation})=>{
                             id : userID
                     }
 
-                ))
+                ))                
                 
                 setChats(userData.data.getUser.chatRoomUser.items)
 
