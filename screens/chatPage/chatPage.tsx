@@ -7,6 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 
 import {messagesByChatRoom} from '../../graphql/queries'
+import {onCreateMessage} from '../../graphql/subscriptions'
 
 import {useStyles} from './styles'
 import {Avatar} from '../../components/uiElements/avatar/avatar'
@@ -45,6 +46,32 @@ export const ChatPage = ({navigation,route})=>{
         }
 
         fetchMessages()
+    },[])
+
+    useEffect(()=>{
+        const subscription  = API.graphql(
+            graphqlOperation(onCreateMessage)
+        ).subscribe({
+            next:(data)=>{
+                const newMessage = data.value.data.onCreateMessage
+
+                if(newMessage){
+                    if(newMessage.chatRoomID!==user.chatRoomID){
+                        console.log("Message in diff chat room");
+                        return
+                    }
+    
+                    setMessages(prevState=>{
+                        const oldMessages = [...prevState]
+                        const updatedMessages = [newMessage,...oldMessages]
+                        return updatedMessages
+                    })
+
+                }
+
+            }
+        })
+        return ()=>subscription.unsubscribe()
     },[])
 
     return(
