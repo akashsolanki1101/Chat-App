@@ -1,6 +1,10 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 
 import {View,Text,TouchableNativeFeedback,TouchableOpacity} from 'react-native'
+
+import {API,graphqlOperation} from 'aws-amplify'
+import {onCreateMessage} from '../../../../graphql/subscriptions'
+
 
 import {Avatar} from '../../avatar/avatar'
 import { Badge } from '../../badge/badge'
@@ -8,6 +12,7 @@ import {useStyles} from './styles'
 
 export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const styles = useStyles()
+    const [lastMessage,setLastMessage] = useState(data.chatRoom.lastMessage)
     let DATA = {}
     let lastMessageTime
 
@@ -16,11 +21,11 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
             name:data.chatRoom.chatRoomUsers.items[0].user.name,
             imageUri:data.chatRoom.chatRoomUsers.items[0].user.imageUri,
             chatRoomID:data.chatRoomID,
-            lastMessage:data.chatRoom.lastMessage.content,
-            lastMessageTime:data.chatRoom.lastMessage.createdAt
+            lastMessage:lastMessage.content,
         }
 
-        const date = new Date(DATA.lastMessageTime).toLocaleDateString()
+
+        const date = new Date(lastMessage.createdAt).toLocaleDateString()
         const todayDate = new Date().toLocaleDateString()
 
         const parts = date.split('/')
@@ -32,8 +37,6 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
         if((_todayDate - _lastMessageTime)===0)
         {
             lastMessageTime= "Today"
-        }else if((_todayDate - _lastMessageTime)===1){
-            lastMessageTime="Yesterday"
         }else{
             lastMessageTime=`${parts[1]}/${parts[0]}/${parts[2]}`
         }                
@@ -45,6 +48,27 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
             user:DATA
         })
     }
+
+    useEffect(()=>{
+        const subscription  = API.graphql(
+            graphqlOperation(onCreateMessage)
+        ).subscribe({
+            next:(data)=>{
+                const newMessage = data.value.data.onCreateMessage
+                console.log(newMessage.chatRoomID,data.chatRoomID,newMessage);
+                
+                if(newMessage){
+                    if(newMessage.chatRoomID!==data.chatRoomID){
+                        console.log("Message in diff chat room");
+                        return
+                    }
+                }
+                setLastMessage(newMessage)
+
+            }
+        })
+        return ()=>subscription.unsubscribe()
+    },[])
 
     return(
         <View style={styles.container}>
@@ -67,7 +91,7 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                             <Text numberOfLines={1}style={styles.senderNameText}>{DATA.name}</Text>
                         </View>
                         <View style={styles.messageContainer}>
-                            <Text numberOfLines={1} style={styles.messageText}>{DATA.lastMessage}</Text>
+                            <Text numberOfLines={1} style={styles.messageText}>{lastMessage.content}</Text>
                         </View>
                     </View>
                     <View style={styles.rightContainer}>

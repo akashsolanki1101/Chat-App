@@ -6,27 +6,11 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import { TickMark } from '../../tickMark/tickMark'
 
 import {useStyles} from './styles'
+import {dateFormatter} from '../../../../utils/dateFormatter'
 
 export const SentMessageCard = ({message,createdAt})=>{
     const styles = useStyles()
     let cardRef: Swipeable | null= null
-
-    const formatAMPM = (date)=>{
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        var strTime = hours + ':' + minutes + ' ' + ampm;
-        return strTime;
-    }
-
-    const time = new Date(createdAt).toLocaleTimeString()
-
-
-    console.log("Time",time,formatAMPM(new Date(createdAt)));
-
 
     const leftSwipe = ()=>{
         return(
@@ -55,7 +39,7 @@ export const SentMessageCard = ({message,createdAt})=>{
                 </View>
             </Swipeable>
             <View style={styles.messageTime}>
-                <Text style={styles.messageTimeText}>Today, 10:00 am</Text>
+                <Text style={styles.messageTimeText}>{dateFormatter(createdAt)}</Text>
                 <TickMark/>
             </View>
         </View>

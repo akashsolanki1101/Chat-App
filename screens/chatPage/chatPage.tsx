@@ -1,11 +1,10 @@
 import  React,{useEffect,useState} from 'react'
 
-import {View,Text,ScrollView,FlatList} from 'react-native'
+import {View,Text,FlatList} from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 
 import {API,graphqlOperation,Auth} from 'aws-amplify'
-
 import {messagesByChatRoom} from '../../graphql/queries'
 import {onCreateMessage} from '../../graphql/subscriptions'
 

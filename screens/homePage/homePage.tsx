@@ -6,7 +6,7 @@ import Feather from 'react-native-vector-icons/Feather'
 
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {getUser} from '../../modifiedQueries/modifiedQueries'
-
+import {onCreateMessage} from '../../graphql/subscriptions'
 
 import {useStyles} from './styles'
 import {ChatCard} from '../../components/uiElements/cards/chatCard/chatCard'
@@ -17,7 +17,6 @@ import { StoryContainer } from '../../components/storyContainer/storyContainer'
 import { DropDown } from '../../components/uiElements/dropDown/dropDown'
 import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
 import { UserInfoPopUp } from '../../components/uiElements/userInfoPopUp/userInfoPopUp'
-import {DefaultImages} from '../../constants/defaultImages/defaultImages'
 import {ContactsButton} from '../../components/uiElements/contactsButton/contactsButton'
 
 export const HomePage = ({navigation})=>{
