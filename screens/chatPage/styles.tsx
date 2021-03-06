@@ -19,8 +19,16 @@ export  const useStyles = ()=>{
                 paddingHorizontal:5,
                 paddingVertical:14,
                 color:theme.theme.primaryTextColor,
-                // borderBottomColor:theme.theme.secondaryTextColor,
-                // borderBottomWidth:.3
+            },
+            dataLoadingSpinnerContainer:{
+                flex:1,
+                display:'flex',
+                justifyContent:'flex-start',
+                alignItems:'center',
+            },
+            dataLoadingSpinner:{
+                backgroundColor:theme.theme.backgroundColor,
+                elevation:5
             },
             leftContainer:{
                 flexDirection:'row',
@@ -51,9 +59,7 @@ export  const useStyles = ()=>{
             },
             messageList:{
                 flex:1,
-                // width:'100%'
-            }
-            
+            }            
         })
     )
 }

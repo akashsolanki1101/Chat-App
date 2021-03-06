@@ -21,7 +21,6 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
             name:data.chatRoom.chatRoomUsers.items[0].user.name,
             imageUri:data.chatRoom.chatRoomUsers.items[0].user.imageUri,
             chatRoomID:data.chatRoomID,
-            lastMessage:lastMessage.content,
         }
 
 
@@ -49,17 +48,15 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
         })
     }
 
-    useEffect(()=>{
+    useEffect(()=>{        
         const subscription  = API.graphql(
             graphqlOperation(onCreateMessage)
         ).subscribe({
             next:(data)=>{
                 const newMessage = data.value.data.onCreateMessage
-                console.log(newMessage.chatRoomID,data.chatRoomID,newMessage);
                 
                 if(newMessage){
-                    if(newMessage.chatRoomID!==data.chatRoomID){
-                        console.log("Message in diff chat room");
+                    if(newMessage.chatRoomID!==DATA.chatRoomID){
                         return
                     }
                 }
@@ -98,11 +95,11 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                         <View style={styles.messageTimeContainer}>
                             <Text style={styles.messageTimeText}>{lastMessageTime}</Text>
                         </View>
-                        <View style={styles.badgeContainer}>
+                        {/* <View style={styles.badgeContainer}>
                             <Badge
                                 value={1}
                             />
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             </TouchableNativeFeedback>

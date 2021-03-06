@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 
-import {View,TextInput} from 'react-native'
+import {View,TextInput,ActivityIndicator} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import {API,Auth,graphqlOperation} from 'aws-amplify'
@@ -10,23 +10,11 @@ import {useStyles} from './styles'
 import {useTheme} from '../../../hooks/themeProvider/themeProvider'
 import {ButtonWrapper} from '../buttonWrapper/buttonWrapper'
 
-export const MessageInputBox = ({chatRoomID})=>{
+export const MessageInputBox = ({chatRoomID,message,activeSendButton,showSendButton,showSpinner,handleOnInputChange,handleActiveSendButton,handleShowSendButton,handleShowSpinner})=>{
     const styles = useStyles()
     const theme = useTheme()
 
     const [myUserID,setMyUserID] = useState("")
-    const [message,setMessage] = useState("")
-    const [activeSendButton,setActiveSendButton] = useState(false)
-
-    const handleOnInputChange = (message:string)=>{
-        const _message = message.trim()
-        if(_message.length>0){
-            setActiveSendButton(true)
-        }else{
-            setActiveSendButton(false)
-        }
-        setMessage(message)
-    }
 
     const updateChatRoomLastMessage = async (messageID:string)=>{
         try{
@@ -51,6 +39,9 @@ export const MessageInputBox = ({chatRoomID})=>{
             return
         }
 
+        handleShowSendButton(false)
+        handleShowSpinner(true)
+
         try{
             const lastMessageInfo = await API.graphql(graphqlOperation(
                 createMessage,{
@@ -61,11 +52,9 @@ export const MessageInputBox = ({chatRoomID})=>{
                     }
                 }
             ))
-
-            await updateChatRoomLastMessage(lastMessageInfo.data.createMessage.id)            
-
-            setMessage("")
-            setActiveSendButton(false)
+            
+            await updateChatRoomLastMessage(lastMessageInfo.data.createMessage.id)        
+            
         }catch(err){
             console.log(err);
         }
@@ -97,12 +86,27 @@ export const MessageInputBox = ({chatRoomID})=>{
                         placeholderTextColor={theme.theme.primaryTextColor}
                     />
                 </View>
-                <ButtonWrapper
-                    style={{}}
-                    onClick={handleOnSendButtonClick}
-                >
-                    <Ionicons name="md-send" size={25} style={{...styles.sendButton,...activeSendButton?styles.activeSendButton:{}}} />
-                </ButtonWrapper>
+                {
+                    showSendButton&&
+                    <ButtonWrapper
+                        style={{}}
+                        onClick={handleOnSendButtonClick}
+                    >
+                        <Ionicons name="md-send" size={25} style={{...styles.sendButton,...activeSendButton?styles.activeSendButton:{}}} />
+                    </ButtonWrapper>
+                }
+                {
+                    showSpinner&&
+                    <ButtonWrapper
+                        style={{}}
+                        onClick={()=>{}}
+                    >
+                        <ActivityIndicator
+                            color={theme.theme.primaryTextColor}
+                            size={25}
+                        />
+                    </ButtonWrapper>
+                }
             </View>
         </View>
     )
