@@ -77,7 +77,7 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                 <View style={styles.card}>
                     <TouchableOpacity
                         activeOpacity={.5}
-                        onPress={onAvatarClick}
+                        onPress={()=>onAvatarClick(data.chatRoom.chatRoomUsers.items[0])}
                     >
                         <View style={styles.avatarContainer}>
                             <Avatar imgSrc={DATA.imageUri} style={{}}/>

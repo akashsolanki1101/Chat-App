@@ -38,20 +38,28 @@ export const useStyles = ()=>{
             },
             userInfo:{
                 width:'100%',
-                height:200,
+                paddingVertical:15,
                 backgroundColor:theme.theme.receiver
             },
-            nameAndNumberContainer:{
+            nameContainer:{
                 justifyContent:'center',
                 alignItems:'center',
-                // borderWidth:1,
-                paddingVertical:5
             },
             nameText:{
                 color:theme.theme.primaryTextColor,
                 fontWeight:'bold',
+                fontSize:22
             },
-            numberText:{
+            aboutContainer:{
+                paddingHorizontal:18,
+                marginTop:10
+            },
+            aboutTitleText:{
+                color:theme.theme.activeColor,
+                fontSize:18,
+                fontWeight:'bold'
+            },
+            aboutText:{
                 color:theme.theme.secondaryTextColor,
             },
             closeButtonContainer:{

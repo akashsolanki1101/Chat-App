@@ -9,12 +9,11 @@ export const useStyles = ()=>{
         StyleSheet.create({
             container:{
                 width:'100%',
-                paddingHorizontal:18,
+                paddingHorizontal:10,
                 paddingBottom:15,
                 zIndex:5,
                 backgroundColor:theme.theme.backgroundColor,
-                // borderWidth:1,
-                paddingTop:10
+                paddingTop:10,
             },
             messageBoxContainer:{
                 width:'100%',
@@ -23,13 +22,13 @@ export const useStyles = ()=>{
                 borderRadius:32,
                 display:'flex',
                 flexDirection:'row',
-                justifyContent:'space-between',
+                // justifyContent:'space-between',
                 alignItems:'center',
                 paddingVertical:8,
-                paddingHorizontal:18
+                paddingHorizontal:10
             },
             inputContainer:{
-                width:'90%',
+                flex:1,
             },
             textInput:{
                 width:'100%',

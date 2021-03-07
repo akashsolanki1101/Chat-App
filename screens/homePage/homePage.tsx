@@ -6,7 +6,6 @@ import Feather from 'react-native-vector-icons/Feather'
 
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {getUser} from '../../modifiedQueries/modifiedQueries'
-import {onCreateMessage} from '../../graphql/subscriptions'
 
 import {useStyles} from './styles'
 import {ChatCard} from '../../components/uiElements/cards/chatCard/chatCard'
@@ -22,6 +21,7 @@ import {ContactsButton} from '../../components/uiElements/contactsButton/contact
 export const HomePage = ({navigation})=>{
     const [showDropDown,setShowDropDown] = useState(false) 
     const [showUserInfoPopUp,setShowUserInfoPopUp] = useState(false) 
+    const [userInfo,setUserInfo] = useState({})
     const [chats,setChats] = useState([])
 
     const styles = useStyles()
@@ -49,7 +49,8 @@ export const HomePage = ({navigation})=>{
         setShowDropDown(false)
     }
 
-    const handleOpenUserInfoPopUp = ()=>{
+    const handleOpenUserInfoPopUp = (data:object)=>{        
+        setUserInfo(data)
         handleCloseDropDown()
         setShowUserInfoPopUp(true)
     }
@@ -72,7 +73,6 @@ export const HomePage = ({navigation})=>{
                 ))                
                 
                 setChats(userData.data.getUser.chatRoomUser.items)
-                // console.log(userData.data.getUser.chatRoomUser.items);
                 
 
             }catch(err){
@@ -105,7 +105,7 @@ export const HomePage = ({navigation})=>{
                             </ButtonWrapper>                    
                     </View>
                 </View>
-                <StoryContainer/>
+                {/* <StoryContainer/> */}
                 <View style={styles.listContainer}>
                     <FlatList
                         data={chats}
@@ -122,6 +122,7 @@ export const HomePage = ({navigation})=>{
                         }}
                     />
                 </View>
+                
                 {
                     showDropDown&&
                     <DropDown
@@ -135,6 +136,7 @@ export const HomePage = ({navigation})=>{
                     >
                         <UserInfoPopUp
                             closePopUp={handleCloseUserInfoPopUp}
+                            userInfo={userInfo}
                         />
                     </BackDrop>
                 }

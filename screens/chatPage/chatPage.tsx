@@ -3,6 +3,7 @@ import  React,{useEffect,useState} from 'react'
 import {View,Text,FlatList, ActivityIndicator} from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
+import EmojiInput from 'react-native-emoji-input'
 
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {messagesByChatRoom} from '../../graphql/queries'
@@ -29,6 +30,7 @@ export const ChatPage = ({navigation,route})=>{
     const [showMessageInputSpinner,setShowMessageInputSpinner] = useState(false)
     const [showSendButton,setShowSendButton]  = useState(true)
     const [showDataLoadingSpinner,setShowDataLoadingSpinner] = useState(true)
+    const [showEmojiInput,setShowEmojiInput] = useState(false)
 
     const user = route.params.user
 
@@ -56,6 +58,15 @@ export const ChatPage = ({navigation,route})=>{
 
     const handleShowSendButton = (val:boolean)=>{
         setShowSendButton(val)
+    }
+
+    const handleEmojiInputButtonClick = (val:boolean)=>{
+        setShowEmojiInput(val)
+    }
+
+    const handleOnEmojiClick = (val:object)=>{
+        handleOnInputChange(message + val.char)
+        
     }
 
 
@@ -179,18 +190,40 @@ export const ChatPage = ({navigation,route})=>{
                     />
                 </View>
             }
-
             <MessageInputBox
                 chatRoomID = {user.chatRoomID}
                 message={message}
                 activeSendButton={activeSendButton}
                 showSendButton={showSendButton}
                 showSpinner={showMessageInputSpinner}
+                showEmojiInput={showEmojiInput}
                 handleOnInputChange={handleOnInputChange}
                 handleActiveSendButton={handleActiveSendButton}
                 handleShowSendButton={handleShowSendButton}
                 handleShowSpinner={handleShowSpinner}
+                handleEmojiInputButtonClick={handleEmojiInputButtonClick}
+
             />
+            {
+                showEmojiInput&&
+                <EmojiInput
+                    enableSearch={false}
+                    emojiFontSize={25}
+                    numColumns={7}
+                    categoryLabelHeight={40}
+                    categoryHighlightColor={theme.theme.activeColor}
+                    categoryLabelTextStyle={{
+                        fontSize:16,
+                        color:theme.theme.primaryTextColor
+                    }}
+                    keyboardBackgroundColor={theme.theme.backgroundColor}
+                    categoryTabStyle={{
+                        backgroundColor:theme.theme.backgroundColor,
+                        elevation:5,
+                    }}
+                    onEmojiSelected={handleOnEmojiClick}
+                />
+            }
         </View>
     )
 }

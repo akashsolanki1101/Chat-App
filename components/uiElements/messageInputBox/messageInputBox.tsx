@@ -1,7 +1,10 @@
 import React,{useEffect,useState} from 'react'
 
-import {View,TextInput,ActivityIndicator} from 'react-native'
+import {View,TextInput,ActivityIndicator,Keyboard} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+
 
 import {API,Auth,graphqlOperation} from 'aws-amplify'
 import {createMessage,updateChatRoom} from '../../../graphql/mutations'
@@ -9,8 +12,9 @@ import {createMessage,updateChatRoom} from '../../../graphql/mutations'
 import {useStyles} from './styles'
 import {useTheme} from '../../../hooks/themeProvider/themeProvider'
 import {ButtonWrapper} from '../buttonWrapper/buttonWrapper'
+import { TouchableNativeFeedback } from 'react-native-gesture-handler'
 
-export const MessageInputBox = ({chatRoomID,message,activeSendButton,showSendButton,showSpinner,handleOnInputChange,handleActiveSendButton,handleShowSendButton,handleShowSpinner})=>{
+export const MessageInputBox = ({chatRoomID,message,activeSendButton,showEmojiInput,showSendButton,showSpinner,handleOnInputChange,handleActiveSendButton,handleShowSendButton,handleShowSpinner,handleEmojiInputButtonClick})=>{
     const styles = useStyles()
     const theme = useTheme()
 
@@ -76,8 +80,33 @@ export const MessageInputBox = ({chatRoomID,message,activeSendButton,showSendBut
     return(
         <View style={styles.container}>
             <View style={styles.messageBoxContainer}>
+                {
+                    !showEmojiInput&&
+                    <ButtonWrapper
+                        onClick={()=>{
+                            Keyboard.dismiss()
+                            handleEmojiInputButtonClick(true)
+                        }}
+                        style={{}}
+                    >
+                        <FontAwesome5 name="smile" size={24} color={theme.theme.primaryTextColor} />
+                    </ButtonWrapper>
+                }
+                {
+                    showEmojiInput&&
+                    <ButtonWrapper
+                        onClick={()=>{
+                            handleEmojiInputButtonClick(false)
+                        }}
+                        style={{}}
+                    >
+                        <MaterialIcons name="keyboard-arrow-down" size={30} color={theme.theme.primaryTextColor} />
+                    </ButtonWrapper>
+                    
+                }
                 <View style={styles.inputContainer}>
                     <TextInput
+                        onTouchStart={()=>handleEmojiInputButtonClick(false)}
                         value={message}
                         multiline={true}
                         onChangeText={handleOnInputChange}

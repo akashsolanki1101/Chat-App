@@ -20,6 +20,7 @@ export const getUser = /* GraphQL */ `
                   name
                   id
                   imageUri
+                  status
                 }
               }
             }
