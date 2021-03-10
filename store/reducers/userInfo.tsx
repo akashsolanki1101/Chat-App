@@ -1,5 +1,6 @@
 const initialState = {
-    userInfo : {}
+    userInfo : {},
+    themeFormat: "Dark"
 }
 
 const reducer = (state=initialState,action:object)=>{
@@ -8,6 +9,12 @@ const reducer = (state=initialState,action:object)=>{
             return{
                 ...state,
                 userInfo:action.userInfo
+            }
+
+        case "SET_THEME_FORMAT":
+            return{
+                ...state,
+                themeFormat:action.themeFormat
             }
 
         default:

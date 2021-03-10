@@ -62,7 +62,13 @@ export const Wrapper = ()=>{
           try{
             const userData = await API.graphql(graphqlOperation(getUser,{id:userId}))
             if(userData.data.getUser){
-              dispatch(setUserInfo(userData.data.getUser))
+              const userInfo = {
+                id:userData.data.getUser.id,
+                name:userData.data.getUser.name,
+                imageUri:userData.data.getUser.imageUri,
+                status:userData.data.getUser.status
+              }
+              dispatch(setUserInfo(userInfo))
               return
             }else{
               const newUser = {
@@ -82,6 +88,7 @@ export const Wrapper = ()=>{
       },[])
     
       useEffect(()=>{
+        
         getUserData()
       },[getUserData])
 

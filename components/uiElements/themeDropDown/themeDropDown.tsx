@@ -3,20 +3,25 @@ import React,{useState} from 'react'
 import {View,Text,StyleSheet,TouchableWithoutFeedback,TouchableNativeFeedback} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {Appearance} from 'react-native-appearance'
+import {useSelector,useDispatch} from 'react-redux'
 
 import {dark} from '../../../ui/themes/dark'
 import {light} from '../../../ui/themes/light'
 import {useStyles} from './styles'
 import {useTheme} from '../../../hooks/themeProvider/themeProvider'
+import {setThemeFormat} from '../../../store/actions/userInfo'
 
 export const ThemeDropDown = ({closeDropDown})=>{
     const styles = useStyles()
     const theme = useTheme()
+    const themeFormat = useSelector(store=>store.themeFormat)
+
+    const dispatch = useDispatch()
 
     const [mode,setMode] = useState({
-        systemDefault:false,
-        dark:true,
-        light:false        
+        systemDefault:themeFormat==='System default'?true:false,
+        dark:themeFormat==='Dark'?true:false,
+        light:themeFormat==='Light'?true:false         
     })
 
     const handleOptionButtonClick = (option:any)=>{
@@ -41,12 +46,15 @@ export const ThemeDropDown = ({closeDropDown})=>{
                 theme.setMode('light')
                 theme.setTheme(light.theme)
             }
+            dispatch(setThemeFormat("System default"))
         }else if(mode.light){
             theme.setMode('light')
             theme.setTheme(light.theme)
+            dispatch(setThemeFormat("Light"))
         }else if(mode.dark){
             theme.setMode('dark')
             theme.setTheme(dark.theme)
+            dispatch(setThemeFormat("Dark"))
         }
         closeDropDown()
     }

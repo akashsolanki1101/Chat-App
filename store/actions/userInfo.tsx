@@ -4,3 +4,10 @@ export const setUserInfo = (data:object)=>{
         userInfo:data
     }
 }
+
+export const setThemeFormat = (data:string)=>{
+    return{
+        type:"SET_THEME_FORMAT",
+        themeFormat:data
+    }
+}

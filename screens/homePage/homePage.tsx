@@ -27,6 +27,7 @@ export const HomePage = ({navigation})=>{
     const styles = useStyles()
     const theme = useTheme()
 
+
     const data = [
         {
             title : 'Settings',
@@ -60,6 +61,7 @@ export const HomePage = ({navigation})=>{
     }
 
     useEffect(()=>{
+
         const fetchUserDetails = async ()=>{
             try{
                 const userInfo = await Auth.currentAuthenticatedUser()

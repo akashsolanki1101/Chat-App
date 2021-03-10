@@ -3,6 +3,7 @@ import React,{useState} from 'react'
 import {View,Text,TouchableNativeFeedback} from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import {useSelector} from "react-redux"
 
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
 import { Avatar } from '../../components/uiElements/avatar/avatar'
@@ -16,9 +17,8 @@ import { Header } from '../../components/uiElements/header/header'
 export const SettingsPage = ({navigation})=>{
     const theme = useTheme()
     const styles = useStyles()
-
-    const themeFormat = 'Dark'
-    const userName = 'Akash'
+    const userInfo = useSelector(store=>store.userInfo)
+    const themeFormat = useSelector(store=>store.themeFormat)
 
     const [showThemeSelector,setShowThemeSelector] = useState(false)
     const [showNameEditor,setShowNameEditor] = useState(false)
@@ -39,8 +39,8 @@ export const SettingsPage = ({navigation})=>{
         setShowNameEditor(false)
     }
 
-    const handleOnBackButtonClick = ()=>{
-        navigation.pop()
+    const handleOnProfileSetionClick = ()=>{
+        navigation.navigate("ProfilePage")
     }
 
 
@@ -51,17 +51,17 @@ export const SettingsPage = ({navigation})=>{
                 title={"Settings"}
             />
             <TouchableNativeFeedback
-                
+                onPress={handleOnProfileSetionClick}
             >
                 <View style={styles.myInfoContainer}>
                     <View style={styles.myImageContainer}>
                         <Avatar
-                            imgSrc={"https://amplify-chatapp-dev-00944-deployment.s3.amazonaws.com/images/default/person.png"}
+                            imgSrc={userInfo.imageUri}
                             style={styles.myImage}
                             />
                     </View>
                     <View style={styles.myNameContainer}>
-                        <Text style={styles.myNameText}>Akash</Text>
+                        <Text style={styles.myNameText}>{userInfo.name}</Text>
                     </View>
                 </View>
             </TouchableNativeFeedback>
@@ -91,7 +91,7 @@ export const SettingsPage = ({navigation})=>{
                     </View>
                     <View style={styles.nameButtonTextContainer}>
                         <Text style={styles.nameButtonText}>Name</Text>
-                        <Text style={styles.nameText}>{userName}</Text>
+                        <Text style={styles.nameText}>{userInfo.name}</Text>
                     </View>
                 </View>
             </TouchableNativeFeedback>
