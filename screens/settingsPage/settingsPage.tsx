@@ -1,8 +1,6 @@
 import React,{useState} from 'react'
 
 import {View,Text,TouchableNativeFeedback} from 'react-native'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -52,6 +50,21 @@ export const SettingsPage = ({navigation})=>{
                 navigation={navigation}
                 title={"Settings"}
             />
+            <TouchableNativeFeedback
+                
+            >
+                <View style={styles.myInfoContainer}>
+                    <View style={styles.myImageContainer}>
+                        <Avatar
+                            imgSrc={"https://amplify-chatapp-dev-00944-deployment.s3.amazonaws.com/images/default/person.png"}
+                            style={styles.myImage}
+                            />
+                    </View>
+                    <View style={styles.myNameContainer}>
+                        <Text style={styles.myNameText}>Akash</Text>
+                    </View>
+                </View>
+            </TouchableNativeFeedback>
             <TouchableNativeFeedback
                 onPress={handleOpenThemeSelector}
             >

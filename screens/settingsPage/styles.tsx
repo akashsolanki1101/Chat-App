@@ -12,12 +12,29 @@ export const useStyles = ()=>{
                 backgroundColor:theme.theme.backgroundColor,
                 position:'relative'
             },
+            myInfoContainer:{
+                width:'100%',
+                justifyContent:'center',
+                alignItems:'center',
+                paddingVertical:10,
+                marginBottom:15,
+            },
+            myImage:{
+                width:150,
+                height:150
+            },
+            myNameContainer:{
+                marginTop:15
+            },
+            myNameText:{
+                color:theme.theme.primaryTextColor,
+                fontSize:20,
+                fontWeight:'bold'
+            },
             themeButtonContainer:{
                 flexDirection:'row',
                 paddingHorizontal:15,
                 paddingVertical:12,
-                borderBottomColor:theme.theme.secondaryTextColor,
-                borderBottomWidth:.5
             },
             themeButtonIconContainer:{
                 justifyContent:'center',
@@ -35,8 +52,6 @@ export const useStyles = ()=>{
                 flexDirection:'row',
                 paddingHorizontal:15,
                 paddingVertical:12,
-                borderBottomColor:theme.theme.secondaryTextColor,
-                borderBottomWidth:.5
             },
             nameButtonIconContainer:{
                 justifyContent:'center',

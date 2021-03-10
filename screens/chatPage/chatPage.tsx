@@ -1,9 +1,10 @@
 import  React,{useEffect,useState} from 'react'
 
-import {View,Text,FlatList, ActivityIndicator} from 'react-native'
+import {View,Text,FlatList, ActivityIndicator,TouchableOpacity} from 'react-native'
+import EmojiInput from 'react-native-emoji-input'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
-import EmojiInput from 'react-native-emoji-input'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {messagesByChatRoom} from '../../graphql/queries'
@@ -64,10 +65,26 @@ export const ChatPage = ({navigation,route})=>{
         setShowEmojiInput(val)
     }
 
-    const handleOnEmojiClick = (val:object)=>{
-        handleOnInputChange(message + val.char)
-        
+    const handleOnEmojiClick = (val:object)=>{        
+        handleOnInputChange(message + val.char)   
     }
+
+    const handleBackSpaceButtonClick = ()=>{
+        // if(message.length>0){
+            handleOnInputChange(message.slice(0,-1))
+        // }
+    }
+
+    console.log(message);
+    
+
+    const backSpaceButton = (
+        <TouchableOpacity
+            onPress={handleBackSpaceButtonClick}
+        >
+            <MaterialCommunityIcons name="backspace-outline" size={22} color={theme.theme.primaryTextColor} />
+        </TouchableOpacity>
+    )
 
 
     useEffect(()=>{
@@ -211,6 +228,7 @@ export const ChatPage = ({navigation,route})=>{
                     emojiFontSize={25}
                     numColumns={7}
                     categoryLabelHeight={40}
+                    backSpaceButton={backSpaceButton}
                     categoryHighlightColor={theme.theme.activeColor}
                     categoryLabelTextStyle={{
                         fontSize:16,
@@ -220,6 +238,9 @@ export const ChatPage = ({navigation,route})=>{
                     categoryTabStyle={{
                         backgroundColor:theme.theme.backgroundColor,
                         elevation:5,
+                    }}
+                    bottomControlTabStyle={{
+                        backgroundColor:theme.theme.backgroundColor,
                     }}
                     onEmojiSelected={handleOnEmojiClick}
                 />
