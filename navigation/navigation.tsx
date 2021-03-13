@@ -7,7 +7,6 @@ import {ChatPage} from '../screens/chatPage/chatPage'
 import {SearchPage} from '../screens/searchPage/searchPage'
 import {SettingsPage} from '../screens/settingsPage/settingsPage'
 import {ContactsPage} from '../screens/contactsPage/contactsPage'
-import {ProfilePage} from '../screens/profilePage/profilePage'
 
 const Stack = createStackNavigator()
 
@@ -42,7 +41,7 @@ export const HomeNavigator = ()=>{
                 name="SettingsPage"
                 component={SettingsPage}
                 options={{
-                    headerShown:false,
+                    headerShown:false,                
                 }}
             />
 
@@ -54,13 +53,6 @@ export const HomeNavigator = ()=>{
                 }}
             />
 
-            <Stack.Screen
-                name="ProfilePage"
-                component={ProfilePage}
-                options={{
-                    headerShown:false,
-                }}
-            />
         </Stack.Navigator>
     )
 }

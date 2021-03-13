@@ -19,17 +19,24 @@ export const useStyles = ()=>{
                 paddingVertical:10,
                 marginBottom:15,
             },
+            myImageContainer:{
+            },
             myImage:{
                 width:150,
-                height:150
+                height:150,
+                borderRadius:75
             },
-            myNameContainer:{
-                marginTop:15
+            cameraIconWrapper:{
+                width:45,
+                height:45,
+                borderRadius:25,
+                backgroundColor:theme.theme.activeColor,
+                position:'absolute', 
+                right:0,
+                bottom:0
             },
-            myNameText:{
-                color:theme.theme.primaryTextColor,
-                fontSize:20,
-                fontWeight:'bold'
+            cameraIcon:{
+                color:theme.theme.messageTextColor,
             },
             themeButtonContainer:{
                 flexDirection:'row',
@@ -42,7 +49,7 @@ export const useStyles = ()=>{
             },
             themeButtonText:{
                 color:theme.theme.primaryTextColor,
-                fontSize:20,
+                fontSize:18,
             },
             themeModeText:{
                 color:theme.theme.secondaryTextColor,
@@ -59,7 +66,7 @@ export const useStyles = ()=>{
             },
             nameButtonText:{
                 color:theme.theme.primaryTextColor,
-                fontSize:20,   
+                fontSize:18,   
             },
             nameText:{
                 color:theme.theme.secondaryTextColor,

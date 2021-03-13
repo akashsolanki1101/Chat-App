@@ -2,17 +2,18 @@ import React,{useState} from 'react'
 
 import {View,Text,TouchableNativeFeedback} from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
+import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {useSelector} from "react-redux"
 
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
 import { Avatar } from '../../components/uiElements/avatar/avatar'
 import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
-import { ButtonWrapper } from '../../components/uiElements/buttonWrapper/buttonWrapper'
 import { NameInput } from '../../components/uiElements/nameInputBox/nameInputBox'
 import { ThemeDropDown } from '../../components/uiElements/themeDropDown/themeDropDown'
 import {useStyles} from './styles'
 import { Header } from '../../components/uiElements/header/header'
+import { ButtonWrapper } from '../../components/uiElements/buttonWrapper/buttonWrapper'
 
 export const SettingsPage = ({navigation})=>{
     const theme = useTheme()
@@ -22,6 +23,7 @@ export const SettingsPage = ({navigation})=>{
 
     const [showThemeSelector,setShowThemeSelector] = useState(false)
     const [showNameEditor,setShowNameEditor] = useState(false)
+    const [showAboutEditor,setShowAboutEditor] = useState(false)
 
     const handleOpenThemeSelector =()=>{
         setShowThemeSelector(true)
@@ -39,8 +41,17 @@ export const SettingsPage = ({navigation})=>{
         setShowNameEditor(false)
     }
 
+    const handleOpenAboutEditor = () => {
+
+    }
+
+    const handleCloseAboutEditor = () => {
+
+    }
+   
     const handleOnProfileSetionClick = ()=>{
-        navigation.navigate("ProfilePage")
+        console.log("hello");
+        
     }
 
 
@@ -50,18 +61,47 @@ export const SettingsPage = ({navigation})=>{
                 navigation={navigation}
                 title={"Settings"}
             />
-            <TouchableNativeFeedback
-                onPress={handleOnProfileSetionClick}
-            >
-                <View style={styles.myInfoContainer}>
+            <View style={styles.myInfoContainer}>
+                <TouchableNativeFeedback
+                    onPress={handleOnProfileSetionClick}
+                >
                     <View style={styles.myImageContainer}>
                         <Avatar
                             imgSrc={userInfo.imageUri}
                             style={styles.myImage}
-                            />
+                        />
+                        <ButtonWrapper
+                            onClick={()=>{navigation.navigate("SelectImage")}}
+                            style={styles.cameraIconWrapper}
+                        >
+                            <Entypo name="camera" size={20} style={styles.cameraIcon} />
+                        </ButtonWrapper>
                     </View>
-                    <View style={styles.myNameContainer}>
-                        <Text style={styles.myNameText}>{userInfo.name}</Text>
+                </TouchableNativeFeedback>
+            </View>
+            <TouchableNativeFeedback
+                onPress={handleOpenNameEditor}
+            >
+                <View style={styles.nameButtonContainer}>
+                    <View style={styles.nameButtonIconContainer}>
+                        <Ionicons name="person" size={22} color={theme.theme.primaryTextColor}/>
+                    </View>
+                    <View style={styles.nameButtonTextContainer}>
+                        <Text style={styles.nameButtonText}>Name</Text>
+                        <Text style={styles.nameText}>{userInfo.name}</Text>
+                    </View>
+                </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback
+                onPress={handleOpenAboutEditor}
+            >
+                <View style={styles.nameButtonContainer}>
+                    <View style={styles.nameButtonIconContainer}>
+                        <Ionicons name="md-information-circle-outline" size={22} color={theme.theme.primaryTextColor} />
+                    </View>
+                    <View style={styles.nameButtonTextContainer}>
+                        <Text style={styles.nameButtonText}>About</Text>
+                        <Text style={styles.nameText}>{userInfo.status}</Text>
                     </View>
                 </View>
             </TouchableNativeFeedback>
@@ -82,19 +122,7 @@ export const SettingsPage = ({navigation})=>{
                     </View>
                 </View>
             </TouchableNativeFeedback>
-            <TouchableNativeFeedback
-                onPress={handleOpenNameEditor}
-            >
-                <View style={styles.nameButtonContainer}>
-                    <View style={styles.nameButtonIconContainer}>
-                        <Ionicons name="person" size={22} color={theme.theme.primaryTextColor}/>
-                    </View>
-                    <View style={styles.nameButtonTextContainer}>
-                        <Text style={styles.nameButtonText}>Name</Text>
-                        <Text style={styles.nameText}>{userInfo.name}</Text>
-                    </View>
-                </View>
-            </TouchableNativeFeedback>
+            
             <View style={styles.developerNameContainer}>
                 <Text style={styles.fromText}>from</Text>
                 <Text style={styles.developerName}>AKASH</Text>
