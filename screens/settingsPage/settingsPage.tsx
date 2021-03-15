@@ -14,6 +14,8 @@ import { ThemeDropDown } from '../../components/uiElements/themeDropDown/themeDr
 import {useStyles} from './styles'
 import { Header } from '../../components/uiElements/header/header'
 import { ButtonWrapper } from '../../components/uiElements/buttonWrapper/buttonWrapper'
+import { SelectImage } from '../../components/uiElements/selectImage/selectImage'
+
 
 export const SettingsPage = ({navigation})=>{
     const theme = useTheme()
@@ -24,6 +26,7 @@ export const SettingsPage = ({navigation})=>{
     const [showThemeSelector,setShowThemeSelector] = useState(false)
     const [showNameEditor,setShowNameEditor] = useState(false)
     const [showAboutEditor,setShowAboutEditor] = useState(false)
+    const [showImageSelector,setShowImageSelector] = useState(false)
 
     const handleOpenThemeSelector =()=>{
         setShowThemeSelector(true)
@@ -48,6 +51,14 @@ export const SettingsPage = ({navigation})=>{
     const handleCloseAboutEditor = () => {
 
     }
+
+    const handleOpenImageSelector = ()=>{
+        setShowImageSelector(true)
+    }
+
+    const handleCloseImageSelector = ()=>{
+        setShowImageSelector(false)
+    }
    
     const handleOnProfileSetionClick = ()=>{
         console.log("hello");
@@ -71,7 +82,7 @@ export const SettingsPage = ({navigation})=>{
                             style={styles.myImage}
                         />
                         <ButtonWrapper
-                            onClick={()=>{navigation.navigate("SelectImage")}}
+                            onClick={handleOpenImageSelector}
                             style={styles.cameraIconWrapper}
                         >
                             <Entypo name="camera" size={20} style={styles.cameraIcon} />
@@ -144,6 +155,16 @@ export const SettingsPage = ({navigation})=>{
                 >
                     <NameInput
                         closeEditor={handleCloseNameEditor}
+                    />
+                </BackDrop>
+            }
+            {
+                showImageSelector&&
+                <BackDrop
+                    close={handleCloseImageSelector}
+                >
+                    <SelectImage
+                        closePopUp={handleCloseImageSelector}
                     />
                 </BackDrop>
             }

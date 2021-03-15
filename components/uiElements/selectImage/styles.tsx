@@ -7,17 +7,51 @@ export const useStyles = ()=>{
     return(
         StyleSheet.create({
             container:{
-                // justifyContent:'flex-end',
-                // alignItems:'center',
-                position:'relative'
+                flex:1,
+                justifyContent:'flex-end',
+                alignItems:'center',
+                
             },
             optionsPopUp:{
-                position:'absolute',
-                // bottom:0,
                 width:'100%',
-                height:200,
-                backgroundColor:theme.theme.backgroundColor
-            }
+                height:160,
+                backgroundColor:theme.theme.backgroundColor,
+                borderTopLeftRadius:10,
+                borderTopRightRadius:10,
+                paddingHorizontal:15,
+            },
+            header:{
+                flexDirection:'row',
+                justifyContent:'space-between',
+                alignItems:'center',
+                paddingVertical:8,
+            },
+            titleText:{
+                color:theme.theme.primaryTextColor,
+                fontSize:18,
+                fontWeight:'bold',
+            },
+            closeIcon:{
+                color:theme.theme.primaryTextColor
+            },
+            optionsContainer:{
+                flex:1,
+                flexDirection:'row',
+                justifyContent:'space-between',
+                alignItems:'center',
+                paddingHorizontal:10,
+            },
+            option:{
+                justifyContent:'center',
+                alignItems:'center'
+            },
+            optionsImage:{
+                width:50,
+                height:50,
+            },
+            optionText:{
+                color:theme.theme.primaryTextColor,
+            },
         })
     )
 }
