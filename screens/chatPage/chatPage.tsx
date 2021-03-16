@@ -5,6 +5,7 @@ import EmojiInput from 'react-native-emoji-input'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import {useSelector} from 'react-redux'
 
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {messagesByChatRoom} from '../../graphql/queries'
@@ -25,7 +26,8 @@ export const ChatPage = ({navigation,route})=>{
 
     const [messages,setMessages] = useState([])
 
-    const [myUserID,setMyUserID] = useState("")
+    const myUserID = useSelector(store=>store.userInfo.id)
+    const [nextToken,setNextToken] = useState("")
     const [message,setMessage] = useState("")
     const [activeSendButton,setActiveSendButton] = useState(false)
     const [showMessageInputSpinner,setShowMessageInputSpinner] = useState(false)
@@ -83,21 +85,43 @@ export const ChatPage = ({navigation,route})=>{
         </TouchableOpacity>
     )
 
+    const fetchMoreMessages = async()=>{
+        if(!nextToken){
+            return
+        }
+
+        try{
+            const messages = await API.graphql(graphqlOperation(messagesByChatRoom,{
+                chatRoomID:user.chatRoomID,
+                sortDirection:"DESC",
+                limit:20,
+                nextToken:nextToken
+            }))
+
+            setNextToken(messages.data.messagesByChatRoom.nextToken)
+            setMessages(prevState=>{
+                const oldMessages = [...prevState]
+                const updatedMessages = [...oldMessages,...messages.data.messagesByChatRoom.items]
+                return updatedMessages
+            })
+
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     useEffect(()=>{
         const fetchMessages = async ()=>{
             try{
-                const userInfo = await Auth.currentAuthenticatedUser()
-                setMyUserID(userInfo.attributes.sub)
-
                 const messages = await API.graphql(graphqlOperation(messagesByChatRoom,{
                     chatRoomID:user.chatRoomID,
-                    sortDirection:"DESC"
+                    sortDirection:"DESC",
+                    limit:50,
                 }))
-
+                
+                setNextToken(messages.data.messagesByChatRoom.nextToken)
                 setShowDataLoadingSpinner(false)
                 setMessages(messages.data.messagesByChatRoom.items)
-                
 
             }catch(err){
                 console.log(err);
@@ -183,9 +207,7 @@ export const ChatPage = ({navigation,route})=>{
                     <FlatList
                         data={messages}
                         keyExtractor={item=>item.id}
-                        renderItem={({item})=>{
-                            console.log(item);
-                            
+                        renderItem={({item})=>{                            
                             if(item.userID===myUserID){
                                 return(
                                     <SentMessageCard
@@ -202,6 +224,8 @@ export const ChatPage = ({navigation,route})=>{
                                 )
                             }
                         }}
+                        onEndReachedThreshold={0.1}
+                        onEndReached={fetchMoreMessages}
                         inverted
                     />
                 </View>

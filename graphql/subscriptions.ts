@@ -98,6 +98,7 @@ export const onCreateChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt
@@ -140,6 +141,7 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt
@@ -182,6 +184,7 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt
@@ -213,6 +216,7 @@ export const onCreateChatRoom = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt
@@ -224,6 +228,7 @@ export const onCreateChatRoom = /* GraphQL */ `
         id
         createdAt
         content
+        uploaded
         userID
         chatRoomID
         user {
@@ -266,6 +271,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt
@@ -277,6 +283,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
         id
         createdAt
         content
+        uploaded
         userID
         chatRoomID
         user {
@@ -319,6 +326,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt
@@ -330,6 +338,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
         id
         createdAt
         content
+        uploaded
         userID
         chatRoomID
         user {
@@ -359,6 +368,7 @@ export const onCreateMessage = /* GraphQL */ `
       id
       createdAt
       content
+      uploaded
       userID
       chatRoomID
       user {
@@ -385,6 +395,7 @@ export const onCreateMessage = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt
@@ -402,6 +413,7 @@ export const onUpdateMessage = /* GraphQL */ `
       id
       createdAt
       content
+      uploaded
       userID
       chatRoomID
       user {
@@ -428,6 +440,7 @@ export const onUpdateMessage = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt
@@ -445,6 +458,7 @@ export const onDeleteMessage = /* GraphQL */ `
       id
       createdAt
       content
+      uploaded
       userID
       chatRoomID
       user {
@@ -471,6 +485,7 @@ export const onDeleteMessage = /* GraphQL */ `
           id
           createdAt
           content
+          uploaded
           userID
           chatRoomID
           updatedAt

@@ -42,7 +42,7 @@ export const SentMessageCard = ({message,createdAt})=>{
             </Swipeable>
             <View style={styles.messageTime}>
                 <Text style={styles.messageTimeText}>{_messageTime}</Text>
-                <TickMark/>
+                {/* <TickMark/> */}
             </View>
         </View>
     )

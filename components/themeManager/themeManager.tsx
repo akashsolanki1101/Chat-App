@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 
+import {StatusBar} from 'react-native'
 import {Appearance,AppearanceProvider} from 'react-native-appearance'
-import {StatusBar,Alert} from 'react-native'
+import {useSelector} from 'react-redux'
 
 import {ThemeContext} from '../../hooks/themeProvider/themeProvider'
 import {dark} from '../../ui/themes/dark'
@@ -10,6 +11,9 @@ import {light} from '../../ui/themes/light'
 const ThemeManager1 = ({children})=>{
     const [theme,setTheme] = useState(dark.theme)
     const [themeMode,setThemeMode] = useState('dark')
+
+    const themeFormat = useSelector(store=>store.themeFormat)
+    console.log(themeFormat);
 
     const handleThemeModeChange = (mode:string)=>{
         setThemeMode(mode)
@@ -20,18 +24,20 @@ const ThemeManager1 = ({children})=>{
     }
 
     useEffect(()=>{
-        const subscription = Appearance.addChangeListener(({colorScheme})=>{
-            setThemeMode(colorScheme)
-            console.log(colorScheme);
-            
-            if(colorScheme === 'dark'){
-                setTheme(dark.theme)
-            }else if(colorScheme === 'light'){
-                setTheme(light.theme)
-            }
-        })
-        return ()=> subscription.remove()
-    },[])
+        if(themeFormat==="System default"){
+            const subscription = Appearance.addChangeListener(({colorScheme})=>{
+                setThemeMode(colorScheme)
+                console.log(colorScheme);
+                
+                if(colorScheme === 'dark'){
+                    setTheme(dark.theme)
+                }else if(colorScheme === 'light'){
+                    setTheme(light.theme)
+                }
+            })
+            return ()=> subscription.remove()
+        }
+    },[themeFormat])
 
     return(
         <ThemeContext.Provider value={{theme:theme,setTheme:handleThemeChange,mode:themeMode,setMode:handleThemeModeChange}}>
