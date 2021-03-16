@@ -70,12 +70,9 @@ export const ChatPage = ({navigation,route})=>{
     }
 
     const handleBackSpaceButtonClick = ()=>{
-        // if(message.length>0){
-            handleOnInputChange(message.slice(0,-1))
-        // }
+        handleOnInputChange(message.slice(0,-1))
     }
 
-    console.log(message);
     
 
     const backSpaceButton = (
@@ -187,6 +184,8 @@ export const ChatPage = ({navigation,route})=>{
                         data={messages}
                         keyExtractor={item=>item.id}
                         renderItem={({item})=>{
+                            console.log(item);
+                            
                             if(item.userID===myUserID){
                                 return(
                                     <SentMessageCard

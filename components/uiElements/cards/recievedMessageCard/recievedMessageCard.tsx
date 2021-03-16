@@ -10,6 +10,8 @@ import {dateFormatter} from '../../../../utils/dateFormatter'
 export const RecievedMessageCard = ({message,createdAt})=>{
     const styles = useStyles()
     let cardRef: Swipeable | null= null
+    const messageTime = dateFormatter(createdAt)
+    const _messageTime = messageTime[0]===''?`${messageTime[1]}`:`${messageTime[0]}, ${messageTime[1]}`
 
     const leftSwipe = ()=>{
         return(
@@ -38,7 +40,7 @@ export const RecievedMessageCard = ({message,createdAt})=>{
                 </View>
             </Swipeable>
             <View style={styles.messageTime}>
-                <Text style={styles.messageTimeText}>{dateFormatter(createdAt)}</Text>
+                <Text style={styles.messageTimeText}>{_messageTime}</Text>
             </View>
         </View>
     )

@@ -15,7 +15,8 @@ Amplify.configure({
   ...config,
   Analytics:{
     disabled:true
-  }
+  },
+
 })
 
 const App = ()=>{

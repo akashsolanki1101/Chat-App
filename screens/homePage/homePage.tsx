@@ -27,7 +27,6 @@ export const HomePage = ({navigation})=>{
     const styles = useStyles()
     const theme = useTheme()
 
-
     const data = [
         {
             title : 'Settings',
@@ -124,24 +123,21 @@ export const HomePage = ({navigation})=>{
                         }}
                     />
                 </View>
-                
                 {
                     showDropDown&&
                     <DropDown
                         data={data}
                     />
                 }
-                {
-                    showUserInfoPopUp&&
-                    <BackDrop
-                        close={handleCloseUserInfoPopUp}
-                    >
-                        <UserInfoPopUp
-                            closePopUp={handleCloseUserInfoPopUp}
-                            userInfo={userInfo}
-                        />
-                    </BackDrop>
-                }
+                <BackDrop
+                    show={showUserInfoPopUp}
+                    close={handleCloseUserInfoPopUp}
+                >
+                    <UserInfoPopUp
+                        closePopUp={handleCloseUserInfoPopUp}
+                        userInfo={userInfo}
+                    />
+                </BackDrop>
                 <ContactsButton
                     onClick={()=>navigation.navigate('ContactsPage')}
                 />

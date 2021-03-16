@@ -4,18 +4,21 @@ import {View,StatusBar} from 'react-native'
 // import changeNavigationBarColor from 'react-native-navigation-bar-color'
 import {NavigationContainer} from '@react-navigation/native'
 import {useDispatch} from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Appearance} from 'react-native-appearance'
 
 import {Auth,API,graphqlOperation} from 'aws-amplify'
 import {getUser} from '../../graphql/queries'
 import {createUser} from '../../graphql/mutations'
 
-// import {dark} from '../../ui/themes/dark'
-// import {light} from '../../ui/themes/light'
+import {dark} from '../../ui/themes/dark'
+import {light} from '../../ui/themes/light'
 import {useStyles} from './styles'
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
 import {HomeNavigator} from '../../navigation/navigation'
 import {DefaultImages} from '../../constants/defaultImages/defaultImages'
 import {setUserInfo} from '../../store/actions/userInfo'
+import {setThemeFormat} from '../../store/actions/userInfo'
 
 export const Wrapper = ()=>{
     const styles = useStyles()
@@ -35,6 +38,34 @@ export const Wrapper = ()=>{
     // useEffect(()=>{
     //     changeNavColor()
     // },[changeNavColor])
+
+    const fetchThemeFormat = useCallback(async()=>{
+      try{
+        const themeFormat = await AsyncStorage.getItem('@themeFormat')
+        if(themeFormat!=null){
+          if(themeFormat==="System default"){
+            const colorScheme = Appearance.getColorScheme()
+            if(colorScheme==='dark'){
+              theme.setMode('dark')
+              theme.setTheme(dark.theme)
+            }else{
+              theme.setMode('light')
+              theme.setTheme(light.theme)
+            }
+          }else if(themeFormat==="Light"){
+            theme.setMode('light')
+            theme.setTheme(light.theme)
+          }else if(themeFormat==="Dark"){
+            theme.setMode('dark')
+            theme.setTheme(dark.theme)
+          }
+        
+          dispatch(setThemeFormat(themeFormat))
+        }
+      }catch(err){
+        console.log(err);
+      }
+    },[])
 
     const fetchUserDetails = useCallback(async ()=>{ //for fetching currently logged in user details
         try{
@@ -88,9 +119,9 @@ export const Wrapper = ()=>{
       },[])
     
       useEffect(()=>{
-        
+        fetchThemeFormat()
         getUserData()
-      },[getUserData])
+      },[getUserData,fetchThemeFormat])
 
     
 

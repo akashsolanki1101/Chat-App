@@ -9,36 +9,22 @@ import {onCreateMessage} from '../../../../graphql/subscriptions'
 import {Avatar} from '../../avatar/avatar'
 import { Badge } from '../../badge/badge'
 import {useStyles} from './styles'
+import {dateFormatter} from '../../../../utils/dateFormatter'
 
 export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const styles = useStyles()
     const [lastMessage,setLastMessage] = useState(data.chatRoom.lastMessage)
     let DATA = {}
-    let lastMessageTime
+    const lastMessageTime = dateFormatter(lastMessage.createdAt)
+    const _lastMessageTime = lastMessageTime[0]===''?lastMessageTime[1]:lastMessageTime[0];
+    
 
     if(data){
         DATA = {
             name:data.chatRoom.chatRoomUsers.items[0].user.name,
             imageUri:data.chatRoom.chatRoomUsers.items[0].user.imageUri,
             chatRoomID:data.chatRoomID,
-        }
-
-
-        const date = new Date(lastMessage.createdAt).toLocaleDateString()
-        const todayDate = new Date().toLocaleDateString()
-
-        const parts = date.split('/')
-        const _lastMessageTime = parseInt(`${parts[2]}${parts[0]}${parts[1]}`)
-
-        const parts1 = todayDate.split('/')
-        const _todayDate = parseInt(`${parts1[2]}${parts1[0]}${parts1[1]}`)
-
-        if((_todayDate - _lastMessageTime)===0)
-        {
-            lastMessageTime= "Today"
-        }else{
-            lastMessageTime=`${parts[1]}/${parts[0]}/${parts[2]}`
-        }                
+        }          
     }
 
     const handleOnClickChatCard = ()=>{
@@ -93,7 +79,7 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                     </View>
                     <View style={styles.rightContainer}>
                         <View style={styles.messageTimeContainer}>
-                            <Text style={styles.messageTimeText}>{lastMessageTime}</Text>
+                            <Text style={styles.messageTimeText}>{_lastMessageTime}</Text>
                         </View>
                         {/* <View style={styles.badgeContainer}>
                             <Badge

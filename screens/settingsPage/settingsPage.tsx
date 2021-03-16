@@ -4,7 +4,10 @@ import {View,Text,TouchableNativeFeedback} from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import {useSelector} from "react-redux"
+import {useSelector,useDispatch} from "react-redux"
+
+import {API,graphqlOperation} from 'aws-amplify'
+import {updateUser} from '../../graphql/mutations'
 
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
 import { Avatar } from '../../components/uiElements/avatar/avatar'
@@ -15,56 +18,91 @@ import {useStyles} from './styles'
 import { Header } from '../../components/uiElements/header/header'
 import { ButtonWrapper } from '../../components/uiElements/buttonWrapper/buttonWrapper'
 import { SelectImage } from '../../components/uiElements/selectImage/selectImage'
-
+import { Loader } from '../../components/uiElements/loader/loader'
+import {setUserInfo} from '../../store/actions/userInfo'
 
 export const SettingsPage = ({navigation})=>{
     const theme = useTheme()
     const styles = useStyles()
+    const dispatch = useDispatch()
     const userInfo = useSelector(store=>store.userInfo)
-    const themeFormat = useSelector(store=>store.themeFormat)
+    const themeFormat = useSelector(store=>store.themeFormat)    
 
     const [showThemeSelector,setShowThemeSelector] = useState(false)
     const [showNameEditor,setShowNameEditor] = useState(false)
     const [showAboutEditor,setShowAboutEditor] = useState(false)
     const [showImageSelector,setShowImageSelector] = useState(false)
+    const [showLoader,setShowLoader] = useState(false)
 
-    const handleOpenThemeSelector =()=>{
-        setShowThemeSelector(true)
+    const toggleThemeSelector =(val:boolean)=>{
+        setShowThemeSelector(val)
     } 
 
-    const handleCloseThemeSelector = ()=>{
-        setShowThemeSelector(false)
+    const toggleNameEditor=(val:boolean)=>{
+        setShowNameEditor(val)
     }
 
-    const handleOpenNameEditor=()=>{
-        setShowNameEditor(true)
+    const toggleAboutEditor = (val:boolean) => {
+        setShowAboutEditor(val)
     }
 
-    const handleCloseNameEditor=()=>{
-        setShowNameEditor(false)
+    const toggleImageSelector = (val:boolean)=>{
+        setShowImageSelector(val)
     }
 
-    const handleOpenAboutEditor = () => {
-
-    }
-
-    const handleCloseAboutEditor = () => {
-
-    }
-
-    const handleOpenImageSelector = ()=>{
-        setShowImageSelector(true)
-    }
-
-    const handleCloseImageSelector = ()=>{
-        setShowImageSelector(false)
+    const toggleLoader = (val:boolean)=>{
+        setShowLoader(val)
     }
    
-    const handleOnProfileSetionClick = ()=>{
+    const handleProfileSetionClick = ()=>{
         console.log("hello");
-        
     }
 
+    const onSavingName = async (val:string)=>{
+        toggleNameEditor(false)
+        toggleLoader(true)
+        try{
+            await API.graphql(graphqlOperation(updateUser,{
+                input:{
+                    id:userInfo.id,
+                    name:val
+                }
+            }))
+            const _userInfo = {
+                id:userInfo.id,
+                name:val,
+                status:userInfo.status,
+                imageUri:userInfo.imageUri                
+            }
+            dispatch(setUserInfo(_userInfo))
+            toggleLoader(false)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const onSavingAbout = async (val:string)=>{
+        toggleAboutEditor(false)
+        toggleLoader(true)
+        try{
+            await API.graphql(graphqlOperation(updateUser,{
+                input:{
+                    id:userInfo.id,
+                    status:val
+                }
+            }))
+            const _userInfo = {
+                id:userInfo.id,
+                name:userInfo.name,
+                status:val,
+                imageUri:userInfo.imageUri                
+            }
+            dispatch(setUserInfo(_userInfo))
+            toggleLoader(false)
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     return(
         <View style={styles.container}>
@@ -74,7 +112,7 @@ export const SettingsPage = ({navigation})=>{
             />
             <View style={styles.myInfoContainer}>
                 <TouchableNativeFeedback
-                    onPress={handleOnProfileSetionClick}
+                    onPress={handleProfileSetionClick}
                 >
                     <View style={styles.myImageContainer}>
                         <Avatar
@@ -82,7 +120,7 @@ export const SettingsPage = ({navigation})=>{
                             style={styles.myImage}
                         />
                         <ButtonWrapper
-                            onClick={handleOpenImageSelector}
+                            onClick={()=>{toggleImageSelector(true)}}
                             style={styles.cameraIconWrapper}
                         >
                             <Entypo name="camera" size={20} style={styles.cameraIcon} />
@@ -91,7 +129,7 @@ export const SettingsPage = ({navigation})=>{
                 </TouchableNativeFeedback>
             </View>
             <TouchableNativeFeedback
-                onPress={handleOpenNameEditor}
+                onPress={()=>{toggleNameEditor(true)}}
             >
                 <View style={styles.nameButtonContainer}>
                     <View style={styles.nameButtonIconContainer}>
@@ -104,7 +142,7 @@ export const SettingsPage = ({navigation})=>{
                 </View>
             </TouchableNativeFeedback>
             <TouchableNativeFeedback
-                onPress={handleOpenAboutEditor}
+                onPress={()=>{toggleAboutEditor(true)}}
             >
                 <View style={styles.nameButtonContainer}>
                     <View style={styles.nameButtonIconContainer}>
@@ -117,7 +155,7 @@ export const SettingsPage = ({navigation})=>{
                 </View>
             </TouchableNativeFeedback>
             <TouchableNativeFeedback
-                onPress={handleOpenThemeSelector}
+                onPress={()=>{toggleThemeSelector(true)}}
             >
                 <View style={styles.themeButtonContainer}>
                     <View style={styles.themeButtonIconContainer}>
@@ -138,36 +176,61 @@ export const SettingsPage = ({navigation})=>{
                 <Text style={styles.fromText}>from</Text>
                 <Text style={styles.developerName}>AKASH</Text>
             </View>
-            {
-                showThemeSelector&&
-                <BackDrop
-                    close={handleCloseThemeSelector}
-                >
-                    <ThemeDropDown
-                        closeDropDown={handleCloseThemeSelector}
-                    />
-                </BackDrop>
-            }
-            {
-                showNameEditor&&
-                <BackDrop
-                    close={handleCloseNameEditor}
-                >
-                    <NameInput
-                        closeEditor={handleCloseNameEditor}
-                    />
-                </BackDrop>
-            }
-            {
-                showImageSelector&&
-                <BackDrop
-                    close={handleCloseImageSelector}
-                >
-                    <SelectImage
-                        closePopUp={handleCloseImageSelector}
-                    />
-                </BackDrop>
-            }
+
+            <BackDrop
+                close={()=>{toggleThemeSelector(false)}}
+                show={showThemeSelector}
+            >
+                <ThemeDropDown
+                    closeDropDown={()=>{toggleThemeSelector(false)}}
+                />
+            </BackDrop>
+
+            <BackDrop
+                close={()=>{toggleNameEditor(false)}}
+                show={showNameEditor}
+            >
+                <NameInput
+                    value={userInfo.name}
+                    closeEditor={()=>{toggleNameEditor(false)}}
+                    title={"Enter your name"}
+                    errMessage={"Name can't be empty."}
+                    length={15}
+                    onSaveClick={onSavingName}
+                />
+            </BackDrop>
+
+            <BackDrop
+                close={()=>{toggleAboutEditor(false)}}
+                show={showAboutEditor}
+            >
+                <NameInput
+                    value={userInfo.status}
+                    closeEditor={()=>{toggleAboutEditor(false)}}
+                    title={"Add about"}
+                    errMessage={"About can't be empty."}
+                    length={50}
+                    onSaveClick={onSavingAbout}
+                />
+            </BackDrop>
+
+            <BackDrop
+                close={()=>{toggleImageSelector(false)}}
+                show={showImageSelector}
+            >
+                <SelectImage
+                    closePopUp={()=>{toggleImageSelector(false)}}
+                />
+            </BackDrop>
+
+            <BackDrop
+                close={{}}
+                show={showLoader}
+            >
+                <Loader
+                    message={"Updating..."}
+                />
+            </BackDrop>
         </View>
     )
 }

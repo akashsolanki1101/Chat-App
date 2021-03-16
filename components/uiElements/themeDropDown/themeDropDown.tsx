@@ -4,6 +4,7 @@ import {View,Text,StyleSheet,TouchableWithoutFeedback,TouchableNativeFeedback} f
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {Appearance} from 'react-native-appearance'
 import {useSelector,useDispatch} from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {dark} from '../../../ui/themes/dark'
 import {light} from '../../../ui/themes/light'
@@ -36,26 +37,33 @@ export const ThemeDropDown = ({closeDropDown})=>{
         setMode(newState)
     }
 
-    const handleOkButtonClick = ()=>{      
-        if(mode.systemDefault){
-            const colorScheme = Appearance.getColorScheme()
-            if(colorScheme==='dark'){
-                theme.setMode('dark')
-                theme.setTheme(dark.theme)
-            }else{
+    const handleOkButtonClick = async()=>{     
+        try{
+            if(mode.systemDefault){
+                await AsyncStorage.setItem('@themeFormat', 'System default')
+                const colorScheme = Appearance.getColorScheme()
+                if(colorScheme==='dark'){
+                    theme.setMode('dark')
+                    theme.setTheme(dark.theme)
+                }else{
+                    theme.setMode('light')
+                    theme.setTheme(light.theme)
+                }
+                dispatch(setThemeFormat("System default"))
+            }else if(mode.light){
+                await AsyncStorage.setItem('@themeFormat', 'Light')
                 theme.setMode('light')
                 theme.setTheme(light.theme)
+                dispatch(setThemeFormat("Light"))
+            }else if(mode.dark){
+                await AsyncStorage.setItem('@themeFormat', 'Dark')
+                theme.setMode('dark')
+                theme.setTheme(dark.theme)
+                dispatch(setThemeFormat("Dark"))
             }
-            dispatch(setThemeFormat("System default"))
-        }else if(mode.light){
-            theme.setMode('light')
-            theme.setTheme(light.theme)
-            dispatch(setThemeFormat("Light"))
-        }else if(mode.dark){
-            theme.setMode('dark')
-            theme.setTheme(dark.theme)
-            dispatch(setThemeFormat("Dark"))
-        }
+        }catch(err){
+            console.log(err);
+        } 
         closeDropDown()
     }
 

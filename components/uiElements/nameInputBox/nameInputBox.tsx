@@ -4,26 +4,28 @@ import {View,Text,TextInput,TouchableWithoutFeedback,TouchableNativeFeedback,Toa
 
 import {useStyles} from './styles'
 
-export const NameInput = ({closeEditor})=>{
+export const NameInput = ({closeEditor,title,errMessage,length,value,onSaveClick})=>{
     const styles = useStyles()
-    const [userName,setUserName] = useState('')
+    const [userName,setUserName] = useState(value)
     const [showErrBox,setShowErrBox] = useState(false)
-    const [lengthLimit,setLengthLimit] = useState(10-userName.length)
-
+    const [lengthLimit,setLengthLimit] = useState(length-userName.length)
 
     const onInputChangeHandler = (value:string)=>{
-            setUserName(value)
-            setLengthLimit(10-value.length)
+        setUserName(value)
+        setLengthLimit(length-value.length)
     }
     
     const showToastWithGravity=()=>{
-        ToastAndroid.showWithGravity("Name can't be empty.",ToastAndroid.SHORT,ToastAndroid.CENTER)
+        ToastAndroid.showWithGravity(errMessage,ToastAndroid.SHORT,ToastAndroid.CENTER)
     }
 
     const handleOnSave = ()=>{
-        if(userName.length===0){
+        const val = userName.trim()
+        if(val.length === 0){
             showToastWithGravity()
+            return
         }
+        onSaveClick(val)
     }
     
     return(
@@ -34,14 +36,14 @@ export const NameInput = ({closeEditor})=>{
                 <TouchableWithoutFeedback>
                     <View style={styles.popUpContainer}>
                         <View style={styles.titleContainer}>
-                            <Text style={styles.titleText}>Enter your name</Text>
+                            <Text style={styles.titleText}>{title}</Text>
                         </View>
                         <View style={styles.textInputContainer}>
                             <TextInput 
                                 style={styles.textInput}
                                 value={userName}
                                 onChangeText={onInputChangeHandler}
-                                maxLength={10}
+                                maxLength={length}
                             />
                             <Text style={styles.lengthLimitText}>{lengthLimit}</Text>
                         </View>
