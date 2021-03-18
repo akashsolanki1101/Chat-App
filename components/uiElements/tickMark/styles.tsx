@@ -9,7 +9,7 @@ export const useStyles = ()=>{
         StyleSheet.create({
             container:{
                 flexDirection:'row',
-                marginLeft:10
+                // marginLeft:10
             },
             tickMarkIcon:{
                 color:theme.theme.activeColor,
@@ -20,11 +20,14 @@ export const useStyles = ()=>{
                 alignItems:'center',
             },
             tickMarkIcon1:{
+                color:theme.theme.secondaryTextColor,
+            },
+            tickMarkIcon2:{
                 position:'absolute',
                 right:4,
-                color:theme.theme.secondaryTextColor,
                 elevation:1
             }
+            
         })
     )
 }

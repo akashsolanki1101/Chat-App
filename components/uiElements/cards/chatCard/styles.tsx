@@ -47,9 +47,11 @@ export const useStyles = ()=>{
                 color:theme.theme.primaryTextColor
             },
             messageContainer:{
-                overflow:'hidden'
+                overflow:'hidden',
+                flexDirection:'row'
             },
             messageText:{
+                marginLeft:2,
                 color:theme.theme.tertiaryTextColor
             },
             rightContainer:{

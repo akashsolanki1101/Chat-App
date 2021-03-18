@@ -19,6 +19,7 @@ type ChatRoomUser @model
 
 type ChatRoom @model{
   id:ID!
+  updatedAt:String!
   chatRoomUsers : [ChatRoomUser] @connection(keyName:"byChatRoom", fields:["id"])
   messages : [Message] @connection(keyName:"byChatRoom",fields:["id"])
   lastMessageID : ID!
@@ -31,7 +32,7 @@ type Message @model
   id:ID!
   createdAt:String!
   content:String!
-  uploaded:Boolean
+  read:Boolean
   userID:ID!
   chatRoomID:ID!
   user : User @connection(fields:["userID"])

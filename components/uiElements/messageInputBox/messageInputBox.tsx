@@ -53,6 +53,7 @@ export const MessageInputBox = ({chatRoomID,message,activeSendButton,showEmojiIn
                         content:_message,
                         userID:myUserID,
                         chatRoomID:chatRoomID,
+                        read:false
                     }
                 }
             ))

@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 
 import {View,Text,TouchableNativeFeedback,TouchableOpacity} from 'react-native'
+import {useSelector} from 'react-redux'
 
 import {API,graphqlOperation} from 'aws-amplify'
 import {onCreateMessage} from '../../../../graphql/subscriptions'
@@ -10,10 +11,15 @@ import {Avatar} from '../../avatar/avatar'
 import { Badge } from '../../badge/badge'
 import {useStyles} from './styles'
 import {dateFormatter} from '../../../../utils/dateFormatter'
+import { TickMark } from '../../tickMark/tickMark'
 
 export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const styles = useStyles()
+    const myInfo = useSelector(store=>store.userInfo)
+    const myUserID = myInfo.id
     const [lastMessage,setLastMessage] = useState(data.chatRoom.lastMessage)
+    console.log(lastMessage);
+    
     let DATA = {}
     const lastMessageTime = dateFormatter(lastMessage.createdAt)
     const _lastMessageTime = lastMessageTime[0]===''?lastMessageTime[1]:lastMessageTime[0];
@@ -39,6 +45,8 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
             graphqlOperation(onCreateMessage)
         ).subscribe({
             next:(data)=>{
+                // console.log(data);
+                
                 const newMessage = data.value.data.onCreateMessage
                 
                 if(newMessage){
@@ -74,6 +82,12 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                             <Text numberOfLines={1}style={styles.senderNameText}>{DATA.name}</Text>
                         </View>
                         <View style={styles.messageContainer}>
+                            {
+                                (myUserID===lastMessage.userID)&&
+                                <TickMark
+                                    read={lastMessage.read}
+                                />
+                            }
                             <Text numberOfLines={1} style={styles.messageText}>{lastMessage.content}</Text>
                         </View>
                     </View>

@@ -658,6 +658,21 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "updatedAt",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "chatRoomUsers",
           "description" : null,
           "args" : [ {
@@ -797,21 +812,6 @@
           "deprecationReason" : null
         }, {
           "name" : "createdAt",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "AWSDateTime",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "updatedAt",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1364,7 +1364,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "uploaded",
+          "name" : "read",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1564,7 +1564,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "uploaded",
+          "name" : "read",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -1965,6 +1965,15 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "updatedAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -2787,6 +2796,15 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "updatedAt",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "lastMessageID",
           "description" : null,
           "type" : {
@@ -2809,6 +2827,15 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
+          "name" : "updatedAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "lastMessageID",
           "description" : null,
           "type" : {
@@ -2872,6 +2899,15 @@
               "name" : "ID",
               "ofType" : null
             }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "updatedAt",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
           },
           "defaultValue" : null
         }, {
@@ -2942,7 +2978,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "uploaded",
+          "name" : "read",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -3004,7 +3040,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "uploaded",
+          "name" : "read",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -3106,7 +3142,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "uploaded",
+          "name" : "read",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",

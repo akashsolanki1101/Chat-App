@@ -65,6 +65,7 @@ export const getChatRoomUser = /* GraphQL */ `
       }
       chatRoom {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -76,13 +77,12 @@ export const getChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       createdAt
       updatedAt
@@ -110,9 +110,9 @@ export const listChatRoomUsers = /* GraphQL */ `
         }
         chatRoom {
           id
+          updatedAt
           lastMessageID
           createdAt
-          updatedAt
         }
         createdAt
         updatedAt
@@ -125,6 +125,7 @@ export const getChatRoom = /* GraphQL */ `
   query GetChatRoom($id: ID!) {
     getChatRoom(id: $id) {
       id
+      updatedAt
       chatRoomUsers {
         items {
           id
@@ -140,7 +141,7 @@ export const getChatRoom = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
@@ -152,7 +153,7 @@ export const getChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        uploaded
+        read
         userID
         chatRoomID
         user {
@@ -165,14 +166,13 @@ export const getChatRoom = /* GraphQL */ `
         }
         chatRoom {
           id
+          updatedAt
           lastMessageID
           createdAt
-          updatedAt
         }
         updatedAt
       }
       createdAt
-      updatedAt
     }
   }
 `;
@@ -185,6 +185,7 @@ export const listChatRooms = /* GraphQL */ `
     listChatRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -196,13 +197,12 @@ export const listChatRooms = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       nextToken
     }
@@ -214,7 +214,7 @@ export const getMessage = /* GraphQL */ `
       id
       createdAt
       content
-      uploaded
+      read
       userID
       chatRoomID
       user {
@@ -230,6 +230,7 @@ export const getMessage = /* GraphQL */ `
       }
       chatRoom {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -241,13 +242,12 @@ export const getMessage = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       updatedAt
     }
@@ -264,7 +264,7 @@ export const listMessages = /* GraphQL */ `
         id
         createdAt
         content
-        uploaded
+        read
         userID
         chatRoomID
         user {
@@ -277,9 +277,9 @@ export const listMessages = /* GraphQL */ `
         }
         chatRoom {
           id
+          updatedAt
           lastMessageID
           createdAt
-          updatedAt
         }
         updatedAt
       }
@@ -308,7 +308,7 @@ export const messagesByChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        uploaded
+        read
         userID
         chatRoomID
         user {
@@ -321,9 +321,9 @@ export const messagesByChatRoom = /* GraphQL */ `
         }
         chatRoom {
           id
+          updatedAt
           lastMessageID
           createdAt
-          updatedAt
         }
         updatedAt
       }

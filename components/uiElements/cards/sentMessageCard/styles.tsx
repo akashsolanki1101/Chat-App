@@ -47,6 +47,7 @@ export const useStyles = ()=>{
                 color:theme.theme.secondaryTextColor,
                 fontSize:12,
                 textAlign:'right',
+                marginRight:10,
             },
             forwardIconContainer:{
                 width:50,

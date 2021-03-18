@@ -9,6 +9,7 @@ import {useSelector} from 'react-redux'
 
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {messagesByChatRoom} from '../../graphql/queries'
+import {updateMessage} from '../../graphql/mutations'
 import {onCreateMessage} from '../../graphql/subscriptions'
 
 import {useStyles} from './styles'
@@ -135,7 +136,7 @@ export const ChatPage = ({navigation,route})=>{
         const subscription  = API.graphql(
             graphqlOperation(onCreateMessage)
         ).subscribe({
-            next:(data)=>{
+            next:async (data)=>{
                 const newMessage = data.value.data.onCreateMessage
 
                 if(newMessage){
@@ -143,12 +144,24 @@ export const ChatPage = ({navigation,route})=>{
                         console.log("Message in diff chat room");
                         return
                     }
+
+                    const newMessageID = newMessage.id
+                    const senderID = newMessage.userID
     
                     setMessages(prevState=>{
                         const oldMessages = [...prevState]
                         const updatedMessages = [newMessage,...oldMessages]
                         return updatedMessages
-                    }) 
+                    })
+                    
+                    if(senderID!==myUserID){
+                        await API.graphql(graphqlOperation(updateMessage,{
+                            input:{
+                                id:newMessageID,
+                                read:true
+                            }
+                        }))
+                    }
                     
                     setMessage("")
                     handleActiveSendButton(false)
@@ -213,6 +226,7 @@ export const ChatPage = ({navigation,route})=>{
                                     <SentMessageCard
                                         message={item.content}
                                         createdAt={item.createdAt}
+                                        read={item.read}
                                     />
                                 )
                             }else{

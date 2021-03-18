@@ -87,6 +87,7 @@ export const onCreateChatRoomUser = /* GraphQL */ `
       }
       chatRoom {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -98,13 +99,12 @@ export const onCreateChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       createdAt
       updatedAt
@@ -130,6 +130,7 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
       }
       chatRoom {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -141,13 +142,12 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       createdAt
       updatedAt
@@ -173,6 +173,7 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
       }
       chatRoom {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -184,13 +185,12 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       createdAt
       updatedAt
@@ -201,6 +201,7 @@ export const onCreateChatRoom = /* GraphQL */ `
   subscription OnCreateChatRoom {
     onCreateChatRoom {
       id
+      updatedAt
       chatRoomUsers {
         items {
           id
@@ -216,7 +217,7 @@ export const onCreateChatRoom = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
@@ -228,7 +229,7 @@ export const onCreateChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        uploaded
+        read
         userID
         chatRoomID
         user {
@@ -241,14 +242,13 @@ export const onCreateChatRoom = /* GraphQL */ `
         }
         chatRoom {
           id
+          updatedAt
           lastMessageID
           createdAt
-          updatedAt
         }
         updatedAt
       }
       createdAt
-      updatedAt
     }
   }
 `;
@@ -256,6 +256,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
   subscription OnUpdateChatRoom {
     onUpdateChatRoom {
       id
+      updatedAt
       chatRoomUsers {
         items {
           id
@@ -271,7 +272,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
@@ -283,7 +284,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        uploaded
+        read
         userID
         chatRoomID
         user {
@@ -296,14 +297,13 @@ export const onUpdateChatRoom = /* GraphQL */ `
         }
         chatRoom {
           id
+          updatedAt
           lastMessageID
           createdAt
-          updatedAt
         }
         updatedAt
       }
       createdAt
-      updatedAt
     }
   }
 `;
@@ -311,6 +311,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
   subscription OnDeleteChatRoom {
     onDeleteChatRoom {
       id
+      updatedAt
       chatRoomUsers {
         items {
           id
@@ -326,7 +327,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
@@ -338,7 +339,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        uploaded
+        read
         userID
         chatRoomID
         user {
@@ -351,14 +352,13 @@ export const onDeleteChatRoom = /* GraphQL */ `
         }
         chatRoom {
           id
+          updatedAt
           lastMessageID
           createdAt
-          updatedAt
         }
         updatedAt
       }
       createdAt
-      updatedAt
     }
   }
 `;
@@ -368,7 +368,7 @@ export const onCreateMessage = /* GraphQL */ `
       id
       createdAt
       content
-      uploaded
+      read
       userID
       chatRoomID
       user {
@@ -384,6 +384,7 @@ export const onCreateMessage = /* GraphQL */ `
       }
       chatRoom {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -395,13 +396,12 @@ export const onCreateMessage = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       updatedAt
     }
@@ -413,7 +413,7 @@ export const onUpdateMessage = /* GraphQL */ `
       id
       createdAt
       content
-      uploaded
+      read
       userID
       chatRoomID
       user {
@@ -429,6 +429,7 @@ export const onUpdateMessage = /* GraphQL */ `
       }
       chatRoom {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -440,13 +441,12 @@ export const onUpdateMessage = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       updatedAt
     }
@@ -458,7 +458,7 @@ export const onDeleteMessage = /* GraphQL */ `
       id
       createdAt
       content
-      uploaded
+      read
       userID
       chatRoomID
       user {
@@ -474,6 +474,7 @@ export const onDeleteMessage = /* GraphQL */ `
       }
       chatRoom {
         id
+        updatedAt
         chatRoomUsers {
           nextToken
         }
@@ -485,13 +486,12 @@ export const onDeleteMessage = /* GraphQL */ `
           id
           createdAt
           content
-          uploaded
+          read
           userID
           chatRoomID
           updatedAt
         }
         createdAt
-        updatedAt
       }
       updatedAt
     }

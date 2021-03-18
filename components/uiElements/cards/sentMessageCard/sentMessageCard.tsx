@@ -8,7 +8,7 @@ import { TickMark } from '../../tickMark/tickMark'
 import {useStyles} from './styles'
 import {dateFormatter} from '../../../../utils/dateFormatter'
 
-export const SentMessageCard = ({message,createdAt})=>{
+export const SentMessageCard = ({message,createdAt,read})=>{
     const styles = useStyles()
     let cardRef: Swipeable | null= null
     const messageTime = dateFormatter(createdAt)
@@ -42,7 +42,9 @@ export const SentMessageCard = ({message,createdAt})=>{
             </Swipeable>
             <View style={styles.messageTime}>
                 <Text style={styles.messageTimeText}>{_messageTime}</Text>
-                {/* <TickMark/> */}
+                <TickMark
+                    read={read}
+                />
             </View>
         </View>
     )
