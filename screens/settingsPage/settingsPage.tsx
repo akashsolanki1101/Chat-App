@@ -33,6 +33,7 @@ export const SettingsPage = ({navigation})=>{
     const [showAboutEditor,setShowAboutEditor] = useState(false)
     const [showImageSelector,setShowImageSelector] = useState(false)
     const [showLoader,setShowLoader] = useState(false)
+    const [loaderMessage,setLoaderMessage]  = useState("")
 
     const toggleThemeSelector =(val:boolean)=>{
         setShowThemeSelector(val)
@@ -60,6 +61,7 @@ export const SettingsPage = ({navigation})=>{
 
     const onSavingName = async (val:string)=>{
         toggleNameEditor(false)
+        setLoaderMessage("Updating name...")
         toggleLoader(true)
         try{
             await API.graphql(graphqlOperation(updateUser,{
@@ -83,6 +85,7 @@ export const SettingsPage = ({navigation})=>{
 
     const onSavingAbout = async (val:string)=>{
         toggleAboutEditor(false)
+        setLoaderMessage("Updating about...")
         toggleLoader(true)
         try{
             await API.graphql(graphqlOperation(updateUser,{
@@ -220,15 +223,17 @@ export const SettingsPage = ({navigation})=>{
             >
                 <SelectImage
                     closePopUp={()=>{toggleImageSelector(false)}}
+                    toggleLoader={toggleLoader}
+                    setLoaderMessage={setLoaderMessage}
                 />
             </BackDrop>
 
             <BackDrop
-                close={{}}
+                close={()=>{}}
                 show={showLoader}
             >
                 <Loader
-                    message={"Updating..."}
+                    message={loaderMessage}
                 />
             </BackDrop>
         </View>

@@ -1,6 +1,6 @@
 import React,{useEffect,useCallback} from 'react'
 
-import {View,StatusBar} from 'react-native'
+import {View,StatusBar,LogBox} from 'react-native'
 // import changeNavigationBarColor from 'react-native-navigation-bar-color'
 import {NavigationContainer} from '@react-navigation/native'
 import {useDispatch} from 'react-redux'
@@ -124,7 +124,8 @@ export const Wrapper = ()=>{
       },[getUserData,fetchThemeFormat])
 
     
-
+    LogBox.ignoreLogs(["Setting a timer"])
+    
     return(
         <View style={styles.container}>
             <StatusBar barStyle={theme.mode==='dark'?'light-content':'dark-content'} backgroundColor={theme.theme.backgroundColor}/>

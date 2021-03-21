@@ -28,7 +28,7 @@ export const ChatPage = ({navigation,route})=>{
     const [messages,setMessages] = useState([])
 
     const myUserID = useSelector(store=>store.userInfo.id)
-    const [nextToken,setNextToken] = useState("")
+    const [nextToken,setNextToken] = useState(" ")
     const [message,setMessage] = useState("")
     const [activeSendButton,setActiveSendButton] = useState(false)
     const [showMessageInputSpinner,setShowMessageInputSpinner] = useState(false)
@@ -74,6 +74,26 @@ export const ChatPage = ({navigation,route})=>{
 
     const handleBackSpaceButtonClick = ()=>{
         handleOnInputChange(message.slice(0,-1))
+    }
+
+    const ListEmptyComponent = ()=>{
+        if(!nextToken){
+            return null;
+        }
+        
+        return(
+            <View style={styles.dataLoadingSpinnerContainer}>
+                <ButtonWrapper
+                    onClick={()=>{}}
+                    style={styles.dataLoadingSpinner}
+                >
+                    <ActivityIndicator
+                        size={25}
+                        color={theme.theme.activeColor}
+                    />
+                </ButtonWrapper>
+            </View>
+        )
     }
 
     
@@ -202,17 +222,7 @@ export const ChatPage = ({navigation,route})=>{
             </View>
             {
                 showDataLoadingSpinner&&
-                <View style={styles.dataLoadingSpinnerContainer}>
-                    <ButtonWrapper
-                        onClick={()=>{}}
-                        style={styles.dataLoadingSpinner}
-                    >
-                        <ActivityIndicator
-                            size={25}
-                            color={theme.theme.activeColor}
-                        />
-                    </ButtonWrapper>
-                </View>
+                <ListEmptyComponent/>
             }
             {
                 !showDataLoadingSpinner&&
@@ -241,6 +251,7 @@ export const ChatPage = ({navigation,route})=>{
                         onEndReachedThreshold={0.1}
                         onEndReached={fetchMoreMessages}
                         inverted
+                        ListFooterComponent={<ListEmptyComponent/>}
                     />
                 </View>
             }

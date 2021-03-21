@@ -13,7 +13,6 @@ const ThemeManager1 = ({children})=>{
     const [themeMode,setThemeMode] = useState('dark')
 
     const themeFormat = useSelector(store=>store.themeFormat)
-    console.log(themeFormat);
 
     const handleThemeModeChange = (mode:string)=>{
         setThemeMode(mode)

@@ -27,7 +27,7 @@ export const useStyles = ()=>{
             },
             loaderText:{
                 color:theme.theme.primaryTextColor,
-                fontSize:20,
+                fontSize:16,
                 marginLeft:20,
             }
         })

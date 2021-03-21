@@ -19,9 +19,16 @@ export const useStyles= ()=>{
                 paddingRight:5,
                 paddingLeft:18,
                 paddingVertical:12,
-                // elevation:1
-                // borderBottomColor:theme.theme.secondaryTextColor,
-                // borderBottomWidth:.3
+            },
+            dataLoadingSpinnerContainer:{
+                flex:1,
+                display:'flex',
+                justifyContent:'flex-start',
+                alignItems:'center',
+            },
+            dataLoadingSpinner:{
+                backgroundColor:theme.theme.backgroundColor,
+                elevation:5
             },
             avatar:{
                 width:40,
@@ -40,9 +47,6 @@ export const useStyles= ()=>{
             },
             searchIcon:{
                 color:theme.theme.primaryTextColor,
-                // marginRight:15,
-                // borderWidth:1,
-                // alignSelf:'center'
             },
         })
     )

@@ -18,7 +18,6 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const myInfo = useSelector(store=>store.userInfo)
     const myUserID = myInfo.id
     const [lastMessage,setLastMessage] = useState(data.chatRoom.lastMessage)
-    console.log(lastMessage);
     
     let DATA = {}
     const lastMessageTime = dateFormatter(lastMessage.createdAt)

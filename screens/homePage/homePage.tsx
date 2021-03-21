@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 
-import {View,TouchableWithoutFeedback,FlatList} from 'react-native'
+import {View,TouchableWithoutFeedback,FlatList,ActivityIndicator} from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 
@@ -23,6 +23,7 @@ export const HomePage = ({navigation})=>{
     const [showUserInfoPopUp,setShowUserInfoPopUp] = useState(false) 
     const [userInfo,setUserInfo] = useState({})
     const [chats,setChats] = useState([])
+    const [showDataLoadingSpinner,setShowDataLoadingSpinner] = useState(true)
 
     const styles = useStyles()
     const theme = useTheme()
@@ -72,10 +73,8 @@ export const HomePage = ({navigation})=>{
                     }
 
                 ))                
-                
+                setShowDataLoadingSpinner(false)
                 setChats(userData.data.getUser.chatRoomUser.items)
-                
-
             }catch(err){
                 console.log(err);
             }
@@ -106,8 +105,24 @@ export const HomePage = ({navigation})=>{
                             </ButtonWrapper>                    
                     </View>
                 </View>
-                {/* <StoryContainer/> */}
-                <View style={styles.listContainer}>
+                {
+                    showDataLoadingSpinner&&
+                    <View style={styles.dataLoadingSpinnerContainer}>
+                        <ButtonWrapper
+                            onClick={()=>{}}
+                            style={styles.dataLoadingSpinner}
+                        >
+                            <ActivityIndicator
+                                size={25}
+                                color={theme.theme.activeColor}
+                            />
+                        </ButtonWrapper>
+                    </View>
+                }
+
+                {
+                    !showDataLoadingSpinner&&
+                    <View style={styles.listContainer}>
                     <FlatList
                         data={chats}
                         keyExtractor={item=>item.id}
@@ -123,6 +138,7 @@ export const HomePage = ({navigation})=>{
                         }}
                     />
                 </View>
+                }
                 {
                     showDropDown&&
                     <DropDown
