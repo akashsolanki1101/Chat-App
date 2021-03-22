@@ -35,9 +35,11 @@ export const ChatPage = ({navigation,route})=>{
     const [showSendButton,setShowSendButton]  = useState(true)
     const [showDataLoadingSpinner,setShowDataLoadingSpinner] = useState(true)
     const [showEmojiInput,setShowEmojiInput] = useState(false)
+    const [taggedMessage,setTaggedMessage] = useState({})
 
     const user = route.params.user
 
+    
     const handleOnBackButtonClick = ()=>{
         navigation.pop()
     }
@@ -76,6 +78,10 @@ export const ChatPage = ({navigation,route})=>{
         handleOnInputChange(message.slice(0,-1))
     }
 
+    const handleSetTaggedMessage = (val:object)=>{
+        setTaggedMessage(val)
+    }
+
     const ListEmptyComponent = ()=>{
         if(!nextToken){
             return null;
@@ -107,9 +113,11 @@ export const ChatPage = ({navigation,route})=>{
     )
 
     const fetchMoreMessages = async()=>{
-        if(!nextToken){
+        if(!nextToken||nextToken===" "){
             return
         }
+
+        setNextToken(" ");
 
         try{
             const messages = await API.graphql(graphqlOperation(messagesByChatRoom,{
@@ -184,6 +192,7 @@ export const ChatPage = ({navigation,route})=>{
                     }
                     
                     setMessage("")
+                    handleSetTaggedMessage({})
                     handleActiveSendButton(false)
                     handleShowSpinner(false)
                     handleShowSendButton(true)
@@ -237,6 +246,12 @@ export const ChatPage = ({navigation,route})=>{
                                         message={item.content}
                                         createdAt={item.createdAt}
                                         read={item.read}
+                                        messageCreatorName={item.user.name}
+                                        messageCreatorID={item.userID}
+                                        taggedMessageContent={item.taggedMessageContent}
+                                        taggedMessageSenderName={item.taggedMessageSenderName}
+                                        taggedMessageSenderID={item.taggedMessageSenderID}
+                                        handleSetTaggedMessage = {handleSetTaggedMessage}
                                     />
                                 )
                             }else{
@@ -244,6 +259,12 @@ export const ChatPage = ({navigation,route})=>{
                                     <RecievedMessageCard
                                         message={item.content}
                                         createdAt={item.createdAt}
+                                        messageCreatorName={item.user.name}
+                                        messageCreatorID={item.userID}
+                                        taggedMessageContent={item.taggedMessageContent}
+                                        taggedMessageSenderName={item.taggedMessageSenderName}
+                                        taggedMessageSenderID={item.taggedMessageSenderID}
+                                        handleSetTaggedMessage = {handleSetTaggedMessage}
                                     />   
                                 )
                             }
@@ -267,7 +288,8 @@ export const ChatPage = ({navigation,route})=>{
                 handleShowSendButton={handleShowSendButton}
                 handleShowSpinner={handleShowSpinner}
                 handleEmojiInputButtonClick={handleEmojiInputButtonClick}
-
+                taggedMessageData={taggedMessage}
+                handleSetTaggedMessage={handleSetTaggedMessage}
             />
             {
                 showEmojiInput&&

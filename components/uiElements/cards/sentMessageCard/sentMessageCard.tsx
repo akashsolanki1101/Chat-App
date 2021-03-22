@@ -7,12 +7,24 @@ import { TickMark } from '../../tickMark/tickMark'
 
 import {useStyles} from './styles'
 import {dateFormatter} from '../../../../utils/dateFormatter'
+import { TaggedMessage } from '../../taggedMessage/taggedMessage'
 
-export const SentMessageCard = ({message,createdAt,read})=>{
+export const SentMessageCard = ({message,createdAt,read,messageCreatorName,messageCreatorID,taggedMessageContent,taggedMessageSenderID,taggedMessageSenderName,handleSetTaggedMessage})=>{
     const styles = useStyles()
     let cardRef: Swipeable | null= null
     const messageTime = dateFormatter(createdAt)
     const _messageTime = messageTime[0]===''?`${messageTime[1]}`:`${messageTime[0]}, ${messageTime[1]}`
+    const taggedMessageIsEmpty = taggedMessageSenderID===null?true:false
+
+    let taggedMessageData = {}
+
+    if(!taggedMessageIsEmpty){
+        taggedMessageData={
+            taggedMessageContent,
+            taggedMessageSenderID,
+            taggedMessageSenderName
+        }
+    }
 
     const leftSwipe = ()=>{
         return(
@@ -24,18 +36,37 @@ export const SentMessageCard = ({message,createdAt,read})=>{
 
     const closeSwipeable = ()=>{
         cardRef.close()
+        // setTaggedMessage()
+    }
+
+    const setTaggedMessage = ()=>{
+        const messageData = {
+            taggedMessageContent:message,
+            taggedMessageSenderID:messageCreatorID,
+            taggedMessageSenderName:messageCreatorName
+        }
+        handleSetTaggedMessage(messageData)
     }
 
     return(
         <View style={styles.container}>
+            
             <Swipeable
                 ref={ref => cardRef = ref}
-                onSwipeableLeftOpen={closeSwipeable}
+                onSwipeableWillOpen={closeSwipeable}
+                // onSwipeableLeftOpen={setTaggedMessage}
                 renderLeftActions={leftSwipe}
+                onSwipeableWillClose={setTaggedMessage}
+                // onSwipeableClose={closeSwipeable}
                 childrenContainerStyle={styles.swipeableContainer}
+                
             >
                 <View style={styles.sentMessageCardContainer}>
                     <View style={styles.sentMessageCard}>
+                        <TaggedMessage
+                            taggedMessageData={taggedMessageData}
+                            handleSetTaggedMessage={()=>{}}
+                        />
                         <Text style={styles.sentMessageText}>{message}</Text>
                     </View>
                 </View>

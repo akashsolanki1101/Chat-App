@@ -100,6 +100,9 @@ export const onCreateChatRoomUser = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -143,6 +146,9 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -186,6 +192,9 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -218,6 +227,9 @@ export const onCreateChatRoom = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -230,6 +242,9 @@ export const onCreateChatRoom = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {
@@ -273,6 +288,9 @@ export const onUpdateChatRoom = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -285,6 +303,9 @@ export const onUpdateChatRoom = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {
@@ -328,6 +349,9 @@ export const onDeleteChatRoom = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -340,6 +364,9 @@ export const onDeleteChatRoom = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {
@@ -369,6 +396,9 @@ export const onCreateMessage = /* GraphQL */ `
       createdAt
       content
       read
+      taggedMessageContent
+      taggedMessageSenderName
+      taggedMessageSenderID
       userID
       chatRoomID
       user {
@@ -397,6 +427,9 @@ export const onCreateMessage = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -414,6 +447,9 @@ export const onUpdateMessage = /* GraphQL */ `
       createdAt
       content
       read
+      taggedMessageContent
+      taggedMessageSenderName
+      taggedMessageSenderID
       userID
       chatRoomID
       user {
@@ -442,6 +478,9 @@ export const onUpdateMessage = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -459,6 +498,9 @@ export const onDeleteMessage = /* GraphQL */ `
       createdAt
       content
       read
+      taggedMessageContent
+      taggedMessageSenderName
+      taggedMessageSenderID
       userID
       chatRoomID
       user {
@@ -487,6 +529,9 @@ export const onDeleteMessage = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt

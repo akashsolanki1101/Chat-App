@@ -17,7 +17,7 @@ type ChatRoomUser @model
   chatRoom : ChatRoom @connection(fields:["chatRoomID"])
 }
 
-type ChatRoom @model{
+type ChatRoom @model{ 
   id:ID!
   updatedAt:String!
   chatRoomUsers : [ChatRoomUser] @connection(keyName:"byChatRoom", fields:["id"])
@@ -33,6 +33,9 @@ type Message @model
   createdAt:String!
   content:String!
   read:Boolean
+  taggedMessageContent:String
+  taggedMessageSenderName:String
+  taggedMessageSenderID:ID
   userID:ID!
   chatRoomID:ID!
   user : User @connection(fields:["userID"])

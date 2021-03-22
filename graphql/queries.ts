@@ -78,6 +78,9 @@ export const getChatRoomUser = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -142,6 +145,9 @@ export const getChatRoom = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -154,6 +160,9 @@ export const getChatRoom = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {
@@ -198,6 +207,9 @@ export const listChatRooms = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -215,6 +227,9 @@ export const getMessage = /* GraphQL */ `
       createdAt
       content
       read
+      taggedMessageContent
+      taggedMessageSenderName
+      taggedMessageSenderID
       userID
       chatRoomID
       user {
@@ -243,6 +258,9 @@ export const getMessage = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -265,6 +283,9 @@ export const listMessages = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {
@@ -309,6 +330,9 @@ export const messagesByChatRoom = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {

@@ -112,6 +112,9 @@ export const createChatRoomUser = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -158,6 +161,9 @@ export const updateChatRoomUser = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -204,6 +210,9 @@ export const deleteChatRoomUser = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -239,6 +248,9 @@ export const createChatRoom = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -251,6 +263,9 @@ export const createChatRoom = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {
@@ -297,6 +312,9 @@ export const updateChatRoom = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -309,6 +327,9 @@ export const updateChatRoom = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {
@@ -355,6 +376,9 @@ export const deleteChatRoom = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -367,6 +391,9 @@ export const deleteChatRoom = /* GraphQL */ `
         createdAt
         content
         read
+        taggedMessageContent
+        taggedMessageSenderName
+        taggedMessageSenderID
         userID
         chatRoomID
         user {
@@ -399,6 +426,9 @@ export const createMessage = /* GraphQL */ `
       createdAt
       content
       read
+      taggedMessageContent
+      taggedMessageSenderName
+      taggedMessageSenderID
       userID
       chatRoomID
       user {
@@ -427,6 +457,9 @@ export const createMessage = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -447,6 +480,9 @@ export const updateMessage = /* GraphQL */ `
       createdAt
       content
       read
+      taggedMessageContent
+      taggedMessageSenderName
+      taggedMessageSenderID
       userID
       chatRoomID
       user {
@@ -475,6 +511,9 @@ export const updateMessage = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt
@@ -495,6 +534,9 @@ export const deleteMessage = /* GraphQL */ `
       createdAt
       content
       read
+      taggedMessageContent
+      taggedMessageSenderName
+      taggedMessageSenderID
       userID
       chatRoomID
       user {
@@ -523,6 +565,9 @@ export const deleteMessage = /* GraphQL */ `
           createdAt
           content
           read
+          taggedMessageContent
+          taggedMessageSenderName
+          taggedMessageSenderID
           userID
           chatRoomID
           updatedAt

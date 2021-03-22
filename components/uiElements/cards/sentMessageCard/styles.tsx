@@ -29,8 +29,8 @@ export const useStyles = ()=>{
                 borderBottomLeftRadius:30,
                 paddingHorizontal:30,
                 paddingVertical:20,
-                alignItems:'flex-end',
-                justifyContent:'flex-end'
+                // alignItems:'flex-end',
+                // justifyContent:'flex-end'
             },
             sentMessageText:{
                 color:theme.theme.messageTextColor,

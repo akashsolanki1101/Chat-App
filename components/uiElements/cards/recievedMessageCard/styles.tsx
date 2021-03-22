@@ -10,7 +10,7 @@ export const useStyles = ()=>{
             container:{
                 width:'100%',
                 marginTop:20,
-                zIndex:1
+                zIndex:1,
             },
             swipeableContainer:{
                 width:'100%',
