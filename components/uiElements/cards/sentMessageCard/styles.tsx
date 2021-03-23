@@ -24,13 +24,10 @@ export const useStyles = ()=>{
             sentMessageCard:{
                 maxWidth:'80%',
                 backgroundColor:theme.theme.sender,
-                elevation:2,
                 borderTopLeftRadius:30, 
                 borderBottomLeftRadius:30,
                 paddingHorizontal:30,
                 paddingVertical:20,
-                // alignItems:'flex-end',
-                // justifyContent:'flex-end'
             },
             sentMessageText:{
                 color:theme.theme.messageTextColor,

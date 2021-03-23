@@ -27,27 +27,10 @@ export const useStyles = ()=>{
                 paddingVertical:8,
                 paddingHorizontal:10
             },
-            topContainer:{
-                width:'98%',
-                backgroundColor:"rgba(100,100,100,0.2)",
-                paddingVertical:5,
-                paddingHorizontal:10,
-                // borderWidth:1,
-                borderRadius:10,
-            },
-            taggedMessageSenderText:{
-                color:theme.theme.activeColor,
-                fontSize:13,
-                fontWeight:'bold'
-            },
-            taggedMessageText:{
-                color:theme.theme.secondaryTextColor,
-                fontSize:13,
-            },
             bottomContainer:{
                 flexDirection:'row',
                 alignItems:'center',
-                // borderWidth:1
+                marginTop:5
             },
             inputContainer:{
                 flex:1,

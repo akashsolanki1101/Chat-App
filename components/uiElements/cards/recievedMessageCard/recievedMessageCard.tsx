@@ -55,7 +55,7 @@ export const RecievedMessageCard = ({message,createdAt,messageCreatorName,messag
             <Swipeable
                 ref={ref => cardRef = ref}
                 onSwipeableLeftOpen={closeSwipeable}
-                onSwipeableLeftWillOpen={setTaggedMessage}
+                onSwipeableClose={setTaggedMessage}
                 renderLeftActions={leftSwipe}
                 childrenContainerStyle={styles.swipeableContainer}
             >

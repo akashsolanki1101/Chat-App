@@ -26,8 +26,7 @@ export const useStyles = ()=>{
                 borderColor:'white'
             },
             taggedMessageSenderText:{
-                // color:theme.theme.activeColor,
-                color:'white',
+                color:theme.theme.taggedMessageSender,
                 fontSize:13,
                 fontWeight:'bold'
             },
@@ -35,7 +34,7 @@ export const useStyles = ()=>{
                 overflow:'hidden'
             },
             taggedMessageText:{
-                color:theme.theme.secondaryTextColor,
+                color:theme.theme.taggedMessageText,
                 fontSize:13,
             },
             closeIconWrapper:{

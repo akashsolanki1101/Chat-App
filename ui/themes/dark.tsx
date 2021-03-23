@@ -7,6 +7,8 @@ export const dark = {
         primaryTextColor : '#ffffff',
         secondaryTextColor : '#888888',
         tertiaryTextColor : '#d9dadd',
-        messageTextColor : '#ffffff'
+        messageTextColor : '#ffffff',
+        taggedMessageText:'#888888',
+        taggedMessageSender:'#e36465'
     }
 }

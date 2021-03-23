@@ -36,7 +36,6 @@ export const SentMessageCard = ({message,createdAt,read,messageCreatorName,messa
 
     const closeSwipeable = ()=>{
         cardRef.close()
-        // setTaggedMessage()
     }
 
     const setTaggedMessage = ()=>{
@@ -53,13 +52,10 @@ export const SentMessageCard = ({message,createdAt,read,messageCreatorName,messa
             
             <Swipeable
                 ref={ref => cardRef = ref}
-                onSwipeableWillOpen={closeSwipeable}
-                // onSwipeableLeftOpen={setTaggedMessage}
+                onSwipeableLeftOpen={closeSwipeable}
+                onSwipeableClose={setTaggedMessage}
                 renderLeftActions={leftSwipe}
-                onSwipeableWillClose={setTaggedMessage}
-                // onSwipeableClose={closeSwipeable}
-                childrenContainerStyle={styles.swipeableContainer}
-                
+                childrenContainerStyle={styles.swipeableContainer}                
             >
                 <View style={styles.sentMessageCardContainer}>
                     <View style={styles.sentMessageCard}>
