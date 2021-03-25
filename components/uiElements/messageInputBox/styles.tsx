@@ -21,8 +21,6 @@ export const useStyles = ()=>{
                 borderColor:theme.theme.primaryTextColor,
                 borderRadius:32,
                 display:'flex',
-                // flexDirection:'row',
-                // justifyContent:'space-between',
                 alignItems:'center',
                 paddingVertical:8,
                 paddingHorizontal:10
@@ -30,7 +28,6 @@ export const useStyles = ()=>{
             bottomContainer:{
                 flexDirection:'row',
                 alignItems:'center',
-                marginTop:5
             },
             inputContainer:{
                 flex:1,

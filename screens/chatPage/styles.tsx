@@ -47,12 +47,18 @@ export  const useStyles = ()=>{
                 height:45
             },
             senderNameContainer:{
-                marginLeft:15
+                marginLeft:15,
+                justifyContent:'center',
+                // borderWidth:1,
             },
             senderNameText:{
                 fontSize:18,
                 color:theme.theme.primaryTextColor,
                 fontWeight:'bold'
+            },
+            userOnlineText:{
+                color:theme.theme.secondaryTextColor,
+                fontSize:12
             },
             menuButton:{
                 color:theme.theme.primaryTextColor,

@@ -52,14 +52,14 @@ export const MessageInputBox = ({chatRoomID,message,activeSendButton,showEmojiIn
                     content:_message,
                     userID:myUserID,
                     chatRoomID:chatRoomID,
-                    read:false
+                    messageStatus:'sent'
                 }
             }else{
                 messageData = {
                     content:_message,
                     userID:myUserID,
                     chatRoomID:chatRoomID,
-                    read:false,
+                    messageStatus:'sent',
                     taggedMessageContent:taggedMessageData.taggedMessageContent,
                     taggedMessageSenderName:taggedMessageData.taggedMessageSenderName,
                     taggedMessageSenderID:taggedMessageData.taggedMessageSenderID

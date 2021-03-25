@@ -9,7 +9,7 @@ import {useStyles} from './styles'
 import {dateFormatter} from '../../../../utils/dateFormatter'
 import { TaggedMessage } from '../../taggedMessage/taggedMessage'
 
-export const SentMessageCard = ({message,createdAt,read,messageCreatorName,messageCreatorID,taggedMessageContent,taggedMessageSenderID,taggedMessageSenderName,handleSetTaggedMessage})=>{
+export const SentMessageCard = ({message,createdAt,messageStatus,messageCreatorName,messageCreatorID,taggedMessageContent,taggedMessageSenderID,taggedMessageSenderName,handleSetTaggedMessage})=>{
     const styles = useStyles()
     let cardRef: Swipeable | null= null
     const messageTime = dateFormatter(createdAt)
@@ -70,7 +70,7 @@ export const SentMessageCard = ({message,createdAt,read,messageCreatorName,messa
             <View style={styles.messageTime}>
                 <Text style={styles.messageTimeText}>{_messageTime}</Text>
                 <TickMark
-                    read={read}
+                    messageStatus={messageStatus}
                 />
             </View>
         </View>

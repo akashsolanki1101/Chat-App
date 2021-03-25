@@ -9,6 +9,7 @@ export const onCreateUser = /* GraphQL */ `
       name
       imageUri
       status
+      online
       chatRoomUser {
         items {
           id
@@ -31,6 +32,7 @@ export const onUpdateUser = /* GraphQL */ `
       name
       imageUri
       status
+      online
       chatRoomUser {
         items {
           id
@@ -53,6 +55,7 @@ export const onDeleteUser = /* GraphQL */ `
       name
       imageUri
       status
+      online
       chatRoomUser {
         items {
           id
@@ -79,6 +82,7 @@ export const onCreateChatRoomUser = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -99,7 +103,7 @@ export const onCreateChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -125,6 +129,7 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -145,7 +150,7 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -171,6 +176,7 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -191,7 +197,7 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -226,7 +232,7 @@ export const onCreateChatRoom = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -241,7 +247,7 @@ export const onCreateChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        read
+        messageStatus
         taggedMessageContent
         taggedMessageSenderName
         taggedMessageSenderID
@@ -252,6 +258,7 @@ export const onCreateChatRoom = /* GraphQL */ `
           name
           imageUri
           status
+          online
           createdAt
           updatedAt
         }
@@ -287,7 +294,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -302,7 +309,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        read
+        messageStatus
         taggedMessageContent
         taggedMessageSenderName
         taggedMessageSenderID
@@ -313,6 +320,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
           name
           imageUri
           status
+          online
           createdAt
           updatedAt
         }
@@ -348,7 +356,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -363,7 +371,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        read
+        messageStatus
         taggedMessageContent
         taggedMessageSenderName
         taggedMessageSenderID
@@ -374,6 +382,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
           name
           imageUri
           status
+          online
           createdAt
           updatedAt
         }
@@ -395,7 +404,7 @@ export const onCreateMessage = /* GraphQL */ `
       id
       createdAt
       content
-      read
+      messageStatus
       taggedMessageContent
       taggedMessageSenderName
       taggedMessageSenderID
@@ -406,6 +415,7 @@ export const onCreateMessage = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -426,7 +436,7 @@ export const onCreateMessage = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -446,7 +456,7 @@ export const onUpdateMessage = /* GraphQL */ `
       id
       createdAt
       content
-      read
+      messageStatus
       taggedMessageContent
       taggedMessageSenderName
       taggedMessageSenderID
@@ -457,6 +467,7 @@ export const onUpdateMessage = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -477,7 +488,7 @@ export const onUpdateMessage = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -497,7 +508,7 @@ export const onDeleteMessage = /* GraphQL */ `
       id
       createdAt
       content
-      read
+      messageStatus
       taggedMessageContent
       taggedMessageSenderName
       taggedMessageSenderID
@@ -508,6 +519,7 @@ export const onDeleteMessage = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -528,7 +540,7 @@ export const onDeleteMessage = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID

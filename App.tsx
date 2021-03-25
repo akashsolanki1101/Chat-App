@@ -1,10 +1,10 @@
-import React,{useEffect,useCallback} from 'react';
+import React from 'react';
 
-import {ThemeManager} from './components/themeManager/themeManager'
-import {Wrapper} from './components/layoutWrapper/wrapper'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
 
+import {ThemeManager} from './components/themeManager/themeManager'
+import {Wrapper} from './components/layoutWrapper/wrapper'
 import userInfoReducer from './store/reducers/userInfo'
 
 import { withAuthenticator } from 'aws-amplify-react-native'

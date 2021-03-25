@@ -21,13 +21,14 @@ export const getUser = /* GraphQL */ `
                   id
                   imageUri
                   status
+                  online
                 }
               }
             }
             lastMessage {
               content
               createdAt
-              read
+              messageStatus
               userID
             }
           }

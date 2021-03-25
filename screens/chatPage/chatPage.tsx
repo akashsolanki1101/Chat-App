@@ -20,10 +20,11 @@ import {RecievedMessageCard} from '../../components/uiElements/cards/recievedMes
 import {SentMessageCard} from '../../components/uiElements/cards/sentMessageCard/sentMessageCard'
 import {MessageInputBox} from '../../components/uiElements/messageInputBox/messageInputBox'
 
-
 export const ChatPage = ({navigation,route})=>{
     const styles = useStyles()
     const theme = useTheme()
+
+    const user = route.params.user
 
     const [messages,setMessages] = useState([])
 
@@ -36,9 +37,7 @@ export const ChatPage = ({navigation,route})=>{
     const [showDataLoadingSpinner,setShowDataLoadingSpinner] = useState(true)
     const [showEmojiInput,setShowEmojiInput] = useState(false)
     const [taggedMessage,setTaggedMessage] = useState({})
-
-    const user = route.params.user
-
+    const [isUserOnline,setIsUserOnline] = useState(user.online)
     
     const handleOnBackButtonClick = ()=>{
         navigation.pop()
@@ -101,8 +100,6 @@ export const ChatPage = ({navigation,route})=>{
             </View>
         )
     }
-
-    
 
     const backSpaceButton = (
         <TouchableOpacity
@@ -186,7 +183,7 @@ export const ChatPage = ({navigation,route})=>{
                         await API.graphql(graphqlOperation(updateMessage,{
                             input:{
                                 id:newMessageID,
-                                read:true
+                                messageStatus:'read'
                             }
                         }))
                     }
@@ -202,6 +199,8 @@ export const ChatPage = ({navigation,route})=>{
         })
         return ()=>subscription.unsubscribe()
     },[])
+
+
 
     return(
         <View style={styles.container}>
@@ -219,6 +218,12 @@ export const ChatPage = ({navigation,route})=>{
                             <Text style={styles.senderNameText}>
                                 {user.name}
                             </Text>
+                            {
+                                isUserOnline&&
+                                <Text style={styles.userOnlineText}>
+                                    online
+                                </Text>
+                            }
                         </View>
                     </View>
                 </View>
@@ -245,7 +250,7 @@ export const ChatPage = ({navigation,route})=>{
                                     <SentMessageCard
                                         message={item.content}
                                         createdAt={item.createdAt}
-                                        read={item.read}
+                                        messageStatus={item.messageStatus}
                                         messageCreatorName={item.user.name}
                                         messageCreatorID={item.userID}
                                         taggedMessageContent={item.taggedMessageContent}

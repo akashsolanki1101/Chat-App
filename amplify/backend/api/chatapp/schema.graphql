@@ -3,6 +3,7 @@ type User @model {
   name: String!
   imageUri: String,
   status:String
+  online:Boolean
   chatRoomUser : [ChatRoomUser] @connection(keyName:"byUser", fields:["id"])
 }
 
@@ -32,7 +33,7 @@ type Message @model
   id:ID!
   createdAt:String!
   content:String!
-  read:Boolean
+  messageStatus:String
   taggedMessageContent:String
   taggedMessageSenderName:String
   taggedMessageSenderID:ID

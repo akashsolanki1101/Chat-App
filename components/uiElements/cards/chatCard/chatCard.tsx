@@ -1,9 +1,10 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useCallback} from 'react'
 
 import {View,Text,TouchableNativeFeedback,TouchableOpacity} from 'react-native'
 import {useSelector} from 'react-redux'
 
 import {API,graphqlOperation} from 'aws-amplify'
+import {messagesByChatRoom} from '../../../../graphql/queries'
 import {onCreateMessage} from '../../../../graphql/subscriptions'
 
 
@@ -18,16 +19,19 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const myInfo = useSelector(store=>store.userInfo)
     const myUserID = myInfo.id
     const [lastMessage,setLastMessage] = useState(data.chatRoom.lastMessage)
+    const [unreadMessagesCount,setUnreadMessagesCount] = useState(0)
     
     let DATA = {}
     const lastMessageTime = dateFormatter(lastMessage.createdAt)
     const _lastMessageTime = lastMessageTime[0]===''?lastMessageTime[1]:lastMessageTime[0];
-    
+            
 
     if(data){
         DATA = {
+            userID:data.chatRoom.chatRoomUsers.items[0].user.id,
             name:data.chatRoom.chatRoomUsers.items[0].user.name,
             imageUri:data.chatRoom.chatRoomUsers.items[0].user.imageUri,
+            online:data.chatRoom.chatRoomUsers.items[0].user.online,
             chatRoomID:data.chatRoomID,
         }          
     }
@@ -38,6 +42,30 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
             user:DATA
         })
     }
+
+    const fetchUnreadMessages = useCallback(async()=>{
+        try{
+            const res = await API.graphql(graphqlOperation(messagesByChatRoom,{
+                filter: {
+                    userID: {
+                            eq: DATA.userID
+                        }, 
+                        and: {
+                            messageStatus: {
+                                eq: "sent"
+                            }
+                        }
+                    },
+                chatRoomID:DATA.chatRoomID,
+            }))
+
+            setUnreadMessagesCount(res.data.messagesByChatRoom.items.length)            
+        }catch(err){   
+            console.log(err);
+        }
+    },[])
+
+
 
     useEffect(()=>{        
         const subscription  = API.graphql(
@@ -59,6 +87,12 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
         })
         return ()=>subscription.unsubscribe()
     },[])
+
+    useEffect(()=>{
+        fetchUnreadMessages()
+    },[fetchUnreadMessages])
+
+
 
     return(
         <View style={styles.container}>
@@ -84,7 +118,7 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                             {
                                 (myUserID===lastMessage.userID)&&
                                 <TickMark
-                                    read={lastMessage.read}
+                                    messageStatus={lastMessage.messageStatus}
                                 />
                             }
                             <Text numberOfLines={1} style={styles.messageText}>{lastMessage.content}</Text>
@@ -94,11 +128,11 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                         <View style={styles.messageTimeContainer}>
                             <Text style={styles.messageTimeText}>{_lastMessageTime}</Text>
                         </View>
-                        {/* <View style={styles.badgeContainer}>
+                        <View style={styles.badgeContainer}>
                             <Badge
-                                value={1}
+                                value={unreadMessagesCount}
                             />
-                        </View> */}
+                        </View>
                     </View>
                 </View>
             </TouchableNativeFeedback>

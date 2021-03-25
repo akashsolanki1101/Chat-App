@@ -9,6 +9,7 @@ export const getUser = /* GraphQL */ `
       name
       imageUri
       status
+      online
       chatRoomUser {
         items {
           id
@@ -36,6 +37,7 @@ export const listUsers = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -57,6 +59,7 @@ export const getChatRoomUser = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -77,7 +80,7 @@ export const getChatRoomUser = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -108,6 +111,7 @@ export const listChatRoomUsers = /* GraphQL */ `
           name
           imageUri
           status
+          online
           createdAt
           updatedAt
         }
@@ -144,7 +148,7 @@ export const getChatRoom = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -159,7 +163,7 @@ export const getChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        read
+        messageStatus
         taggedMessageContent
         taggedMessageSenderName
         taggedMessageSenderID
@@ -170,6 +174,7 @@ export const getChatRoom = /* GraphQL */ `
           name
           imageUri
           status
+          online
           createdAt
           updatedAt
         }
@@ -206,7 +211,7 @@ export const listChatRooms = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -226,7 +231,7 @@ export const getMessage = /* GraphQL */ `
       id
       createdAt
       content
-      read
+      messageStatus
       taggedMessageContent
       taggedMessageSenderName
       taggedMessageSenderID
@@ -237,6 +242,7 @@ export const getMessage = /* GraphQL */ `
         name
         imageUri
         status
+        online
         chatRoomUser {
           nextToken
         }
@@ -257,7 +263,7 @@ export const getMessage = /* GraphQL */ `
           id
           createdAt
           content
-          read
+          messageStatus
           taggedMessageContent
           taggedMessageSenderName
           taggedMessageSenderID
@@ -282,7 +288,7 @@ export const listMessages = /* GraphQL */ `
         id
         createdAt
         content
-        read
+        messageStatus
         taggedMessageContent
         taggedMessageSenderName
         taggedMessageSenderID
@@ -293,6 +299,7 @@ export const listMessages = /* GraphQL */ `
           name
           imageUri
           status
+          online
           createdAt
           updatedAt
         }
@@ -329,7 +336,7 @@ export const messagesByChatRoom = /* GraphQL */ `
         id
         createdAt
         content
-        read
+        messageStatus
         taggedMessageContent
         taggedMessageSenderName
         taggedMessageSenderID
@@ -340,6 +347,7 @@ export const messagesByChatRoom = /* GraphQL */ `
           name
           imageUri
           status
+          online
           createdAt
           updatedAt
         }
