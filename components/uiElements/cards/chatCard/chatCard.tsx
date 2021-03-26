@@ -4,9 +4,8 @@ import {View,Text,TouchableNativeFeedback,TouchableOpacity} from 'react-native'
 import {useSelector} from 'react-redux'
 
 import {API,graphqlOperation} from 'aws-amplify'
-import {messagesByChatRoom} from '../../../../graphql/queries'
-import {onCreateMessage} from '../../../../graphql/subscriptions'
-
+import {onCreateMessage,onUpdateMessage} from '../../../../graphql/subscriptions'
+import {getUnreadMessagesByChatRoom} from '../../../../modifiedQueries/modifiedQueries'
 
 import {Avatar} from '../../avatar/avatar'
 import { Badge } from '../../badge/badge'
@@ -25,7 +24,6 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const lastMessageTime = dateFormatter(lastMessage.createdAt)
     const _lastMessageTime = lastMessageTime[0]===''?lastMessageTime[1]:lastMessageTime[0];
             
-
     if(data){
         DATA = {
             userID:data.chatRoom.chatRoomUsers.items[0].user.id,
@@ -43,37 +41,24 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
         })
     }
 
-    const fetchUnreadMessages = useCallback(async()=>{
+    const fetchUnreadMessages = useCallback(async(id:string)=>{
         try{
-            const res = await API.graphql(graphqlOperation(messagesByChatRoom,{
-                filter: {
-                    userID: {
-                            eq: DATA.userID
-                        }, 
-                        and: {
-                            messageStatus: {
-                                eq: "sent"
-                            }
-                        }
-                    },
+            const res = await API.graphql(graphqlOperation(getUnreadMessagesByChatRoom,{
                 chatRoomID:DATA.chatRoomID,
+                filter: {messageStatus: {eq: "sent"}, and: {userID: {ne: id}}},
             }))
-
+                        
             setUnreadMessagesCount(res.data.messagesByChatRoom.items.length)            
         }catch(err){   
             console.log(err);
         }
     },[])
 
-
-
     useEffect(()=>{        
         const subscription  = API.graphql(
             graphqlOperation(onCreateMessage)
         ).subscribe({
             next:(data)=>{
-                // console.log(data);
-                
                 const newMessage = data.value.data.onCreateMessage
                 
                 if(newMessage){
@@ -82,15 +67,36 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                     }
                 }
                 setLastMessage(newMessage)
-
+                fetchUnreadMessages(myUserID)
             }
         })
         return ()=>subscription.unsubscribe()
     },[])
 
     useEffect(()=>{
-        fetchUnreadMessages()
-    },[fetchUnreadMessages])
+        const subscription = API.graphql(
+            graphqlOperation(onUpdateMessage)
+        ).subscribe({
+            next:(data)=>{
+                const updatedMessage = data.value.data.onUpdateMessage
+
+                console.log(updatedMessage);
+                if(updatedMessage){
+                    if(updatedMessage.chatRoomID===DATA.chatRoomID){
+                        fetchUnreadMessages(myUserID)
+                    }
+                }
+            }
+        })
+
+        return ()=>subscription.unsubscribe()
+    },[])
+
+    useEffect(()=>{
+        if(myUserID){
+            fetchUnreadMessages(myUserID)
+        }
+    },[myUserID,fetchUnreadMessages])
 
 
 

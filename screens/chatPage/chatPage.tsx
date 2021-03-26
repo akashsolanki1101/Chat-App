@@ -1,4 +1,4 @@
-import  React,{useEffect,useState} from 'react'
+import  React,{useEffect,useState,useCallback} from 'react'
 
 import {View,Text,FlatList, ActivityIndicator,TouchableOpacity} from 'react-native'
 import EmojiInput from 'react-native-emoji-input'
@@ -10,7 +10,8 @@ import {useSelector} from 'react-redux'
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {messagesByChatRoom} from '../../graphql/queries'
 import {updateMessage} from '../../graphql/mutations'
-import {onCreateMessage} from '../../graphql/subscriptions'
+import {onCreateMessage,onUpdateUser} from '../../graphql/subscriptions'
+import {getUnreadMessagesByChatRoom} from '../../modifiedQueries/modifiedQueries'
 
 import {useStyles} from './styles'
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
@@ -25,6 +26,7 @@ export const ChatPage = ({navigation,route})=>{
     const theme = useTheme()
 
     const user = route.params.user
+    
 
     const [messages,setMessages] = useState([])
 
@@ -109,6 +111,30 @@ export const ChatPage = ({navigation,route})=>{
         </TouchableOpacity>
     )
 
+    const fetchUnreadMessages = useCallback(async(id:string)=>{
+        try{
+            const res = await API.graphql(graphqlOperation(getUnreadMessagesByChatRoom,{
+                chatRoomID:user.chatRoomID,
+                filter: {messageStatus: {eq: "sent"}, and: {userID: {ne: id}}},
+            }))
+            
+            const unreadMessages = res.data.messagesByChatRoom.items
+
+            if(unreadMessages.length){
+                unreadMessages.map(async (item:object)=>{
+                    await API.graphql(graphqlOperation(updateMessage,{
+                        input:{
+                            id:item.id,
+                            messageStatus:'read'
+                        }
+                    }))
+                })
+            }
+        }catch(err){   
+            console.log(err);
+        }
+    },[])
+
     const fetchMoreMessages = async()=>{
         if(!nextToken||nextToken===" "){
             return
@@ -158,6 +184,12 @@ export const ChatPage = ({navigation,route})=>{
     },[])
 
     useEffect(()=>{
+        if(myUserID){
+            fetchUnreadMessages(myUserID)
+        }
+    },[myUserID,fetchUnreadMessages])
+
+    useEffect(()=>{
         const subscription  = API.graphql(
             graphqlOperation(onCreateMessage)
         ).subscribe({
@@ -166,40 +198,44 @@ export const ChatPage = ({navigation,route})=>{
 
                 if(newMessage){
                     if(newMessage.chatRoomID!==user.chatRoomID){
-                        console.log("Message in diff chat room");
                         return
                     }
 
-                    const newMessageID = newMessage.id
-                    const senderID = newMessage.userID
-    
                     setMessages(prevState=>{
                         const oldMessages = [...prevState]
                         const updatedMessages = [newMessage,...oldMessages]
                         return updatedMessages
                     })
                     
-                    if(senderID!==myUserID){
-                        await API.graphql(graphqlOperation(updateMessage,{
-                            input:{
-                                id:newMessageID,
-                                messageStatus:'read'
-                            }
-                        }))
-                    }
-                    
                     setMessage("")
                     handleSetTaggedMessage({})
                     handleActiveSendButton(false)
                     handleShowSpinner(false)
                     handleShowSendButton(true)
+                    fetchUnreadMessages(myUserID)
                 }
-
             }
         })
         return ()=>subscription.unsubscribe()
     },[])
 
+    useEffect(()=>{
+        const subscription = API.graphql(
+            graphqlOperation(onUpdateUser)
+        ).subscribe({
+            next:async (data)=>{
+                const updatedUser = data.value.data.onUpdateUser
+
+                if(updatedUser){
+                    if(updatedUser.id===user.userID){
+                        setIsUserOnline(updatedUser.online)
+                    }
+                }
+            }
+        })
+
+        return ()=>subscription.unsubscribe()
+    },[])
 
 
     return(

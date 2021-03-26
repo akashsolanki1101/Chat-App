@@ -14,7 +14,8 @@ export const useStyles = ()=>{
                 minWidth:25,
                 borderRadius:50,
                 justifyContent:'center',
-                alignItems:'center'
+                alignItems:'center',
+                // borderWidth:1
             },
             badgeText:{
                 color:theme.theme.messageTextColor,
