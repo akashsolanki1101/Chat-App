@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {View,TouchableNativeFeedback} from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Feather from 'react-native-vector-icons/Feather'
 
 import {useStyles} from './styles'
 
@@ -14,7 +14,7 @@ export const ContactsButton = ({onClick})=>{
                     onPress={onClick}
                 >
                     <View style={styles.iconContainer}>
-                        <MaterialCommunityIcons name="message-text-outline" size={24} style={styles.messageIcon} />
+                        <Feather name="plus" size={25} style={styles.addIcon} />
                     </View>
                 </TouchableNativeFeedback>
         </View>

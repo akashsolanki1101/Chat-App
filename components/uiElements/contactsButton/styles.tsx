@@ -22,7 +22,7 @@ export const useStyles = ()=>{
                 paddingHorizontal:15,
                 borderRadius:50,
             },
-            messageIcon:{
+            addIcon:{
                 color:'white',
             }
         })

@@ -71,12 +71,20 @@ export const ChatPage = ({navigation,route})=>{
         setShowEmojiInput(val)
     }
 
-    const handleOnEmojiClick = (val:object)=>{        
+    const handleOnEmojiClick = (val:object)=>{ 
         handleOnInputChange(message + val.char)   
     }
 
     const handleBackSpaceButtonClick = ()=>{
-        handleOnInputChange(message.slice(0,-1))
+        const messageSize = message.length
+        const lastChar = message[messageSize-1]
+
+        if(lastChar > "~"){
+            handleOnInputChange(message.slice(0,-2))
+        }else{
+            handleOnInputChange(message.slice(0,-1))
+        }
+
     }
 
     const handleSetTaggedMessage = (val:object)=>{
