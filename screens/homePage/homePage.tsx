@@ -17,10 +17,12 @@ import { DropDown } from '../../components/uiElements/dropDown/dropDown'
 import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
 import { UserInfoPopUp } from '../../components/uiElements/userInfoPopUp/userInfoPopUp'
 import {ContactsButton} from '../../components/uiElements/contactsButton/contactsButton'
+import {ConnectionOptions} from '../../components/uiElements/connectionOption/connectionOption'
 
 export const HomePage = ({navigation})=>{
     const [showDropDown,setShowDropDown] = useState(false) 
-    const [showUserInfoPopUp,setShowUserInfoPopUp] = useState(false) 
+    const [showUserInfoPopUp,setShowUserInfoPopUp] = useState(false)
+    const [showConnectionOption,setShowConnectionOption] = useState(false) 
     const [userInfo,setUserInfo] = useState({})
     const [chats,setChats] = useState([])
     const [showDataLoadingSpinner,setShowDataLoadingSpinner] = useState(true)
@@ -32,7 +34,7 @@ export const HomePage = ({navigation})=>{
         {
             title : 'Settings',
             func : ()=>{
-                handleCloseDropDown()
+                toggleDropDown(false)
                 navigation.navigate('SettingsPage')
             }
         },
@@ -42,17 +44,17 @@ export const HomePage = ({navigation})=>{
         navigation.navigate("SearchPage")
     }
 
-    const handleOpenDropDown = ()=>{
-        setShowDropDown(true)
+    const toggleDropDown = (val:boolean)=>{
+        setShowDropDown(val)
     }
 
-    const handleCloseDropDown = ()=>{
-        setShowDropDown(false)
+    const toggleConnectionOptionPage = (val:boolean)=>{
+        setShowConnectionOption(val)
     }
 
     const handleOpenUserInfoPopUp = (data:object)=>{        
         setUserInfo(data)
-        handleCloseDropDown()
+        toggleDropDown(false)
         setShowUserInfoPopUp(true)
     }
 
@@ -85,7 +87,7 @@ export const HomePage = ({navigation})=>{
    
     return(
         <TouchableWithoutFeedback
-            onPress={handleCloseDropDown}
+            onPress={()=>{toggleDropDown(false)}}
         >
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -98,7 +100,7 @@ export const HomePage = ({navigation})=>{
                                 <Feather name="search" size={24} style={styles.searchIcon} />
                             </ButtonWrapper>
                             <ButtonWrapper
-                                onClick={handleOpenDropDown}
+                                onClick={()=>{toggleDropDown(true)}}
                                 style={{}}
                             >
                                 <Entypo name="dots-three-vertical" size={22} style={styles.menuButton} />
@@ -132,7 +134,7 @@ export const HomePage = ({navigation})=>{
                                     data={item}
                                     navigation={navigation}
                                     onAvatarClick={handleOpenUserInfoPopUp}
-                                    handleCloseDropDown={handleCloseDropDown}
+                                    handleCloseDropDown={()=>{toggleDropDown(false)}}
                                 />
                             )
                         }}
@@ -145,6 +147,9 @@ export const HomePage = ({navigation})=>{
                         data={data}
                     />
                 }
+                <ContactsButton
+                    onClick={()=>toggleConnectionOptionPage(true)}
+                />
                 <BackDrop
                     show={showUserInfoPopUp}
                     close={handleCloseUserInfoPopUp}
@@ -154,9 +159,15 @@ export const HomePage = ({navigation})=>{
                         userInfo={userInfo}
                     />
                 </BackDrop>
-                <ContactsButton
-                    onClick={()=>navigation.navigate('ContactsPage')}
-                />
+                <BackDrop
+                    show={showConnectionOption}
+                    close={()=>{toggleConnectionOptionPage(false)}}
+                >
+                    <ConnectionOptions
+                        navigation={navigation}
+                        close={()=>{toggleConnectionOptionPage(false)}}
+                    />
+                </BackDrop>
             </View>
        </TouchableWithoutFeedback>
     )

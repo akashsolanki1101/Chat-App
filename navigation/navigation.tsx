@@ -6,7 +6,8 @@ import {HomePage} from '../screens/homePage/homePage'
 import {ChatPage} from '../screens/chatPage/chatPage'
 import {SearchPage} from '../screens/searchPage/searchPage'
 import {SettingsPage} from '../screens/settingsPage/settingsPage'
-import {ContactsPage} from '../screens/contactsPage/contactsPage'
+import {CreateChatRoomPage} from '../screens/createChatRoomPage/CreateChatRoomPage'
+import {JoinChatRoomPage} from '../screens/joinChatRoomPage/joinChatRoomPage'
 
 const Stack = createStackNavigator()
 
@@ -46,10 +47,18 @@ export const HomeNavigator = ()=>{
             />
 
             <Stack.Screen
-                name="ContactsPage"
-                component={ContactsPage}
+                name="CreateChatRoomPage"
+                component={CreateChatRoomPage}
                 options={{
-                    headerShown:false,
+                    headerShown:false,                
+                }}
+            />
+
+            <Stack.Screen
+                name="JoinChatRoomPage"
+                component={JoinChatRoomPage}
+                options={{
+                    headerShown:false,                
                 }}
             />
 
