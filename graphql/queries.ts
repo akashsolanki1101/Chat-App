@@ -68,7 +68,8 @@ export const getChatRoomUser = /* GraphQL */ `
       }
       chatRoom {
         id
-        updatedAt
+        group
+        groupName
         chatRoomUsers {
           nextToken
         }
@@ -89,6 +90,7 @@ export const getChatRoomUser = /* GraphQL */ `
           updatedAt
         }
         createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -117,9 +119,11 @@ export const listChatRoomUsers = /* GraphQL */ `
         }
         chatRoom {
           id
-          updatedAt
+          group
+          groupName
           lastMessageID
           createdAt
+          updatedAt
         }
         createdAt
         updatedAt
@@ -132,7 +136,8 @@ export const getChatRoom = /* GraphQL */ `
   query GetChatRoom($id: ID!) {
     getChatRoom(id: $id) {
       id
-      updatedAt
+      group
+      groupName
       chatRoomUsers {
         items {
           id
@@ -180,13 +185,16 @@ export const getChatRoom = /* GraphQL */ `
         }
         chatRoom {
           id
-          updatedAt
+          group
+          groupName
           lastMessageID
           createdAt
+          updatedAt
         }
         updatedAt
       }
       createdAt
+      updatedAt
     }
   }
 `;
@@ -199,7 +207,8 @@ export const listChatRooms = /* GraphQL */ `
     listChatRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        updatedAt
+        group
+        groupName
         chatRoomUsers {
           nextToken
         }
@@ -220,6 +229,7 @@ export const listChatRooms = /* GraphQL */ `
           updatedAt
         }
         createdAt
+        updatedAt
       }
       nextToken
     }
@@ -251,7 +261,8 @@ export const getMessage = /* GraphQL */ `
       }
       chatRoom {
         id
-        updatedAt
+        group
+        groupName
         chatRoomUsers {
           nextToken
         }
@@ -272,6 +283,7 @@ export const getMessage = /* GraphQL */ `
           updatedAt
         }
         createdAt
+        updatedAt
       }
       updatedAt
     }
@@ -305,9 +317,11 @@ export const listMessages = /* GraphQL */ `
         }
         chatRoom {
           id
-          updatedAt
+          group
+          groupName
           lastMessageID
           createdAt
+          updatedAt
         }
         updatedAt
       }
@@ -353,9 +367,11 @@ export const messagesByChatRoom = /* GraphQL */ `
         }
         chatRoom {
           id
-          updatedAt
+          group
+          groupName
           lastMessageID
           createdAt
+          updatedAt
         }
         updatedAt
       }

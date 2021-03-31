@@ -20,7 +20,8 @@ type ChatRoomUser @model
 
 type ChatRoom @model{ 
   id:ID!
-  updatedAt:String!
+  group:Boolean
+  groupName:String
   chatRoomUsers : [ChatRoomUser] @connection(keyName:"byChatRoom", fields:["id"])
   messages : [Message] @connection(keyName:"byChatRoom",fields:["id"])
   lastMessageID : ID!

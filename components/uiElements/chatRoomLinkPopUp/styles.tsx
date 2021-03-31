@@ -33,7 +33,6 @@ export const useStyles = ()=>{
                 color:theme.theme.primaryTextColor
             },
             idContainer:{
-                // borderWidth:1,
                 flexDirection:'row',
                 paddingHorizontal:20,
                 paddingVertical:10,

@@ -18,11 +18,16 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
     const myInfo = useSelector(store=>store.userInfo)
     const myUserID = myInfo.id
     const [lastMessage,setLastMessage] = useState(data.chatRoom.lastMessage)
-    const [unreadMessagesCount,setUnreadMessagesCount] = useState(0)
     
+    const [unreadMessagesCount,setUnreadMessagesCount] = useState(0)
     let DATA = {}
-    const lastMessageTime = dateFormatter(lastMessage.createdAt)
-    const _lastMessageTime = lastMessageTime[0]===''?lastMessageTime[1]:lastMessageTime[0];
+    let lastMessageTime = []
+    let _lastMessageTime = ""
+
+    if(lastMessage){
+        lastMessageTime = dateFormatter(lastMessage.createdAt)
+        _lastMessageTime = lastMessageTime[0]===''?lastMessageTime[1]:lastMessageTime[0];    
+    }
             
     if(data){
         DATA = {
@@ -122,12 +127,12 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
                         </View>
                         <View style={styles.messageContainer}>
                             {
-                                (myUserID===lastMessage.userID)&&
+                                (lastMessage&&(myUserID===lastMessage.userID))&&
                                 <TickMark
                                     messageStatus={lastMessage.messageStatus}
                                 />
                             }
-                            <Text numberOfLines={1} style={styles.messageText}>{lastMessage.content}</Text>
+                            <Text numberOfLines={1} style={styles.messageText}>{lastMessage?lastMessage.content:" "}</Text>
                         </View>
                     </View>
                     <View style={styles.rightContainer}>

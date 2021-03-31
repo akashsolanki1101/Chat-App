@@ -1,12 +1,79 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import {View,Text,TextInput,TouchableNativeFeedback} from 'react-native'
+import {View,Text,TextInput,TouchableNativeFeedback,ToastAndroid,Keyboard} from 'react-native'
+import {useSelector} from 'react-redux'
+
+import {API,graphqlOperation} from 'aws-amplify'
+import {getChatRoom} from '../../graphql/queries'
+import {createChatRoomUser} from '../../graphql/mutations'
 
 import {useStyles} from './styles'
 import {Header} from '../../components/uiElements/header/header'
+import {ErrorBox} from '../../components/uiElements/errBox/errBox'
+import {Loader} from '../../components/uiElements/loader/loader'
+import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
 
 export const JoinChatRoomPage = ({navigation={}})=>{
     const styles = useStyles()
+    const [chatRoomID,setChatRoomID] = useState("")
+    const [showErrBox,setShowErrBox] = useState(false)
+    const [errMessage,setErrMessage]  = useState("")
+    const [showLoader,setShowLoader] = useState(false)
+    const [loaderMessage,setLoaderMessage]  = useState("")
+
+    const myUserID = useSelector(store=>store.userInfo.id)    
+
+    const onInputChange = (val:string)=>{
+        setChatRoomID(val)
+    }
+
+    const joinChatRoom = async()=>{
+        const _chatRoomID = chatRoomID.trim()
+
+        if(_chatRoomID.length===0){
+            ToastAndroid.showWithGravity("Chat room id can't be empty.",ToastAndroid.SHORT,ToastAndroid.CENTER)
+            return
+        }
+        Keyboard.dismiss()
+        setLoaderMessage("Adding you in the chat room.")
+        setShowLoader(true)
+        try{
+            const chatRoomData = await API.graphql(graphqlOperation(getChatRoom,{
+                id:chatRoomID
+            }))
+
+            const isGroup = chatRoomData.data.getChatRoom.group
+            const usersCount = chatRoomData.data.getChatRoom.chatRoomUsers.items.length
+            const users = chatRoomData.data.getChatRoom.chatRoomUsers.items
+
+            if(isGroup){
+                await API.graphql(graphqlOperation(createChatRoomUser,{
+                    input:{
+                        chatRoomID:chatRoomID,
+                        userID:myUserID
+                    }
+                }))
+            }else{
+                if(usersCount<2){
+                    await API.graphql(graphqlOperation(createChatRoomUser,{
+                        input:{
+                            chatRoomID:chatRoomID,
+                            userID:myUserID
+                        }
+                    }))
+                }else{
+                    setShowLoader(false)
+                    setErrMessage("Sorry, you can't join this room. Number of user limit reached..")
+                    setShowErrBox(true)
+                }
+            }
+            setShowLoader(false)
+        }
+        catch(err){
+            setShowLoader(false)
+            console.log(err);
+        }
+    }
 
     return(
         <View style={styles.container}>
@@ -29,11 +96,15 @@ export const JoinChatRoomPage = ({navigation={}})=>{
                         <TextInput
                             style={styles.textInput}
                             autoFocus={true}
+                            value={chatRoomID}
+                            onChangeText={onInputChange}
                         />
                     </View>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableNativeFeedback>
+                    <TouchableNativeFeedback
+                        onPress={joinChatRoom}
+                    >
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>
                                 Join    
@@ -42,6 +113,24 @@ export const JoinChatRoomPage = ({navigation={}})=>{
                     </TouchableNativeFeedback>
                 </View>
             </View>
+            <BackDrop
+                close={()=>{}}
+                show={showLoader}
+            >
+                <Loader
+                    message={loaderMessage}
+                />
+            </BackDrop>
+            <BackDrop
+                close={()=>{setShowErrBox(false)}}
+                show={showErrBox}
+            >
+                <ErrorBox
+                    closeDialogBox={()=>{setShowErrBox(false)}}
+                    message={errMessage}
+                />
+
+            </BackDrop>
         </View>
     )
 }

@@ -22,11 +22,13 @@ export const useStyles = ()=>{
                 justifyContent:'center',
                 alignItems:'center',
                 marginBottom:10,
+                flexDirection:'row',
             },
             titleText:{
                 fontSize:25,
                 color:theme.theme.primaryTextColor,
-                fontWeight:'bold'
+                fontWeight:'bold',
+                textAlignVertical:'bottom'
             },
             secondaryTextContainer:{
                 width:'100%',
