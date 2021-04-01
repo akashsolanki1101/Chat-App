@@ -93,18 +93,18 @@ export const HomePage = ({navigation})=>{
                 <View style={styles.header}>
                     <AppName/>
                     <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                            <ButtonWrapper
-                                onClick={handleOnSearchButtonClick}
-                                style={{}}
-                            >
-                                <Feather name="search" size={24} style={styles.searchIcon} />
-                            </ButtonWrapper>
-                            <ButtonWrapper
-                                onClick={()=>{toggleDropDown(true)}}
-                                style={{}}
-                            >
-                                <Entypo name="dots-three-vertical" size={22} style={styles.menuButton} />
-                            </ButtonWrapper>                    
+                        {/* <ButtonWrapper
+                            onClick={handleOnSearchButtonClick}
+                            style={{}}
+                        >
+                            <Feather name="search" size={24} style={styles.searchIcon} />
+                        </ButtonWrapper> */}
+                        <ButtonWrapper
+                            onClick={()=>{toggleDropDown(true)}}
+                            style={{}}
+                        >
+                            <Entypo name="dots-three-vertical" size={22} style={styles.menuButton} />
+                        </ButtonWrapper>                    
                     </View>
                 </View>
                 {

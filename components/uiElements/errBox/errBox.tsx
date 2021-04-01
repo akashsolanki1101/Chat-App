@@ -17,7 +17,7 @@ export const ErrorBox = ({closeDialogBox,message})=>{
                 >
                     <View style={styles.errorBox}>
                         <View style={styles.titleContainer}>
-                            <Text style={styles.title}>Warning!!!</Text>
+                            <Text style={styles.title}>Warning!</Text>
                         </View>
                         <View style={styles.errorMessage}>
                             <Text style={styles.errorMessageText}>{message}</Text>

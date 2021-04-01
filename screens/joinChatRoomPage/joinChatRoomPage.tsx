@@ -42,19 +42,12 @@ export const JoinChatRoomPage = ({navigation={}})=>{
                 id:chatRoomID
             }))
 
-            const isGroup = chatRoomData.data.getChatRoom.group
-            const usersCount = chatRoomData.data.getChatRoom.chatRoomUsers.items.length
-            const users = chatRoomData.data.getChatRoom.chatRoomUsers.items
-
-            if(isGroup){
-                await API.graphql(graphqlOperation(createChatRoomUser,{
-                    input:{
-                        chatRoomID:chatRoomID,
-                        userID:myUserID
-                    }
-                }))
-            }else{
-                if(usersCount<2){
+            if(chatRoomData.data.getChatRoom){
+                const isGroup = chatRoomData.data.getChatRoom.group
+                const usersCount = chatRoomData.data.getChatRoom.chatRoomUsers.items.length
+                const users = chatRoomData.data.getChatRoom.chatRoomUsers.items
+    
+                if(isGroup){
                     await API.graphql(graphqlOperation(createChatRoomUser,{
                         input:{
                             chatRoomID:chatRoomID,
@@ -62,12 +55,25 @@ export const JoinChatRoomPage = ({navigation={}})=>{
                         }
                     }))
                 }else{
-                    setShowLoader(false)
-                    setErrMessage("Sorry, you can't join this room. Number of user limit reached..")
-                    setShowErrBox(true)
+                    if(usersCount<2){
+                        await API.graphql(graphqlOperation(createChatRoomUser,{
+                            input:{
+                                chatRoomID:chatRoomID,
+                                userID:myUserID
+                            }
+                        }))
+                    }else{
+                        setShowLoader(false)
+                        setErrMessage("Sorry, you can't join this room. User limit is 2.")
+                        setShowErrBox(true)
+                    }
                 }
+                setShowLoader(false)
+            }else{
+                setShowLoader(false)
+                setErrMessage("Invalid chat room id. No such chat room exist.")
+                setShowErrBox(true)
             }
-            setShowLoader(false)
         }
         catch(err){
             setShowLoader(false)

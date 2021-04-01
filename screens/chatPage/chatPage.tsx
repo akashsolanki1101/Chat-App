@@ -26,7 +26,6 @@ export const ChatPage = ({navigation,route})=>{
     const theme = useTheme()
 
     const user = route.params.user
-    
 
     const [messages,setMessages] = useState([])
 
@@ -271,12 +270,12 @@ export const ChatPage = ({navigation,route})=>{
                         </View>
                     </View>
                 </View>
-                <ButtonWrapper
+                {/* <ButtonWrapper
                     style={{}}
                     onClick={()=>{}}
                 >
                     <Entypo name="dots-three-vertical" size={22} style={styles.menuButton} />
-                </ButtonWrapper>
+                </ButtonWrapper> */}
             </View>
             {
                 showDataLoadingSpinner&&

@@ -115,6 +115,8 @@ export const Wrapper = ()=>{
       const userDetails = await fetchUserDetails()
       
       if(userDetails){
+        console.log(userDetails);
+        
         const userId = userDetails.attributes.sub
         try{
           const userData = await API.graphql(graphqlOperation(getUser,{id:userId}))

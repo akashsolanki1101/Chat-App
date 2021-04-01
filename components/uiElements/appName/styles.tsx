@@ -12,13 +12,14 @@ export const useStyles= ()=>{
                 flexDirection:'row',
                 display:'flex',
                 justifyContent:'center',
-                alignItems:'center'
+                alignItems:'center',
             },
             appName:{
-                color:theme.theme.primaryTextColor,
                 fontSize:30,
+                color:theme.theme.primaryTextColor,
                 textAlign:'center',
-                textAlignVertical:'center'
+                textAlignVertical:'center',
+                fontWeight:'bold' 
             },
             a:{
                fontSize:30,

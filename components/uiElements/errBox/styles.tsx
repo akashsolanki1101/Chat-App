@@ -14,7 +14,7 @@ export const useStyles = ()=>{
                 alignItems:'center',
             },
             errorBox:{
-                width:300,
+                width:350,
                 height:155,
                 backgroundColor:theme.theme.backgroundColor,
                 paddingHorizontal:15,
@@ -33,7 +33,7 @@ export const useStyles = ()=>{
 
             },
             errorMessageText:{
-                color:theme.theme.primaryTextColor,
+                color:theme.theme.secondaryTextColor,
                 fontSize:16
             },
             responseButtonContainer:{

@@ -35,42 +35,45 @@ export const CreateChatRoomPage = ({navigation={}})=>{
     }
 
     const createGroupChatRoom = async ()=>{
-        const _chatRoomName = groupName.trim()
+        ToastAndroid.showWithGravity("Working on it, get back to you soon.",ToastAndroid.SHORT,ToastAndroid.CENTER)
+        return
+
+        // const _chatRoomName = groupName.trim()
         
-        if(_chatRoomName.length===0){
-            ToastAndroid.showWithGravity("Chat room name can't be empty.",ToastAndroid.SHORT,ToastAndroid.CENTER)
-        }
+        // if(_chatRoomName.length===0){
+        //     ToastAndroid.showWithGravity("Chat room name can't be empty.",ToastAndroid.SHORT,ToastAndroid.CENTER)
+        // }
 
-        Keyboard.dismiss()
+        // Keyboard.dismiss()
 
-        setLoaderMessage(`Creating ${groupName}...`)
-        toggleLoader(true)
+        // setLoaderMessage(`Creating ${groupName}...`)
+        // toggleLoader(true)
 
-        try{
-            const newChatRoom = await API.graphql(graphqlOperation(createChatRoom,{
-                input:{
-                    group:true,
-                    groupName:groupName,
-                    lastMessageID:'f33f4fff-7a46-4a8c-a00b-66d258554d98',
-                }
-            }))
+        // try{
+        //     const newChatRoom = await API.graphql(graphqlOperation(createChatRoom,{
+        //         input:{
+        //             group:true,
+        //             groupName:groupName,
+        //             lastMessageID:'f33f4fff-7a46-4a8c-a00b-66d258554d98',
+        //         }
+        //     }))
 
-            const newChatRoomID = newChatRoom.data.createChatRoom.id
-            setChatRoomID(newChatRoomID)
+        //     const newChatRoomID = newChatRoom.data.createChatRoom.id
+        //     setChatRoomID(newChatRoomID)
 
-            await API.graphql(graphqlOperation(createChatRoomUser,{
-                input:{
-                    userID:myUserID,
-                    chatRoomID:newChatRoomID
-                }
-            }))
-            toggleLoader(false)
-            setShowLinkPopUp(true)
+        //     await API.graphql(graphqlOperation(createChatRoomUser,{
+        //         input:{
+        //             userID:myUserID,
+        //             chatRoomID:newChatRoomID
+        //         }
+        //     }))
+        //     toggleLoader(false)
+        //     setShowLinkPopUp(true)
 
-        }catch(err){
-            toggleLoader(false)
-            console.log(err);
-        }
+        // }catch(err){
+        //     toggleLoader(false)
+        //     console.log(err);
+        // }
     }
 
     const createOnetoOneChatRoom =async ()=>{

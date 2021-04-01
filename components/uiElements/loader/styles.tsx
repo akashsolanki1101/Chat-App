@@ -14,7 +14,6 @@ export const useStyles = ()=>{
                 alignItems:'center',
             },
             loaderContainer:{
-                width:300,
                 height:90,
                 paddingVertical:15,
                 paddingHorizontal:20, 
