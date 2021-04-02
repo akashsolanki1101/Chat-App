@@ -258,7 +258,9 @@ export const ChatPage = ({navigation,route})=>{
                     <View style={styles.userInfoContainer}>
                         <Avatar imgSrc={user.imageUri} style={styles.avatar} />
                         <View style={styles.senderNameContainer}>
-                            <Text style={styles.senderNameText}>
+                            <Text style={styles.senderNameText}
+                                numberOfLines={1}
+                            >
                                 {user.name}
                             </Text>
                             {

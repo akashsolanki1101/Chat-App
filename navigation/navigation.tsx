@@ -10,6 +10,8 @@ import {CreateChatRoomPage} from '../screens/createChatRoomPage/CreateChatRoomPa
 import {JoinChatRoomPage} from '../screens/joinChatRoomPage/joinChatRoomPage'
 import {SignInPage} from '../screens/auth/signInPage/signInPage'
 import {SignUpPage} from '../screens/auth/signUpPage/signUpPage'
+import {ConfirmCodePage} from '../screens/auth/confirmCodePage/confirmCodePage'
+import {ResetPasswordPage} from '../screens/auth/resetPasswordPage/resetPasswordPage'
 
 const Stack = createStackNavigator()
 
@@ -74,6 +76,22 @@ export const HomeNavigator = ()=>{
             <Stack.Screen
                 name="JoinChatRoomPage"
                 component={JoinChatRoomPage}
+                options={{
+                    headerShown:false,                
+                }}
+            />
+
+            <Stack.Screen
+                name="ConfirmCodePage"
+                component={ConfirmCodePage}
+                options={{
+                    headerShown:false,                
+                }}
+            />
+
+            <Stack.Screen
+                name="ResetPasswordPage"
+                component={ResetPasswordPage}
                 options={{
                     headerShown:false,                
                 }}

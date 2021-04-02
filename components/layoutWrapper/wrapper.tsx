@@ -115,7 +115,7 @@ export const Wrapper = ()=>{
       const userDetails = await fetchUserDetails()
       
       if(userDetails){
-        console.log(userDetails);
+        // console.log(userDetails);
         
         const userId = userDetails.attributes.sub
         try{
@@ -132,9 +132,10 @@ export const Wrapper = ()=>{
             dispatch(setUserInfo(userInfo))
             return
           }else{
+            const userName = userDetails.username.slice(0,15);
             const newUser = {
               id: userId,
-              name:userDetails.username,
+              name:userName,
               imageUri:DefaultImages.person,
               status:"Let's chAt.",
               online:true

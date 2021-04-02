@@ -20,8 +20,6 @@ export  const useStyles = ()=>{
                 fontSize:45
             },
             form:{
-                // borderWidth:1,
-                // borderColor:'white',
                 paddingHorizontal:18,
             },
             formElement:{
@@ -31,7 +29,6 @@ export  const useStyles = ()=>{
                 color:theme.theme.primaryTextColor,
                 fontSize:16,
                 marginBottom:10,
-                fontWeight:'bold'
             },
             inputBoxContainer:{
                 backgroundColor:"rgba(0,0,0,0.2)",
@@ -40,9 +37,14 @@ export  const useStyles = ()=>{
                 borderRadius:10,
                 borderWidth:1,
                 borderColor:theme.theme.secondaryTextColor,
-                // elevation:1,
+                flexDirection:'row',
+                justifyContent:'space-between'
+            },
+            errIndicator:{
+                borderColor:'red',
             },
             inputBox:{
+                flex:1,
                 paddingLeft:5,
                 color:theme.theme.primaryTextColor,
             },
@@ -56,7 +58,8 @@ export  const useStyles = ()=>{
                backgroundColor:theme.theme.receiver,
                paddingVertical:15,
                borderRadius:5,
-               elevation:2 
+               elevation:2,
+               flexDirection:'row'
             },
             buttonText:{
                 color:theme.theme.activeColor,
@@ -65,7 +68,7 @@ export  const useStyles = ()=>{
             },
             otherOptionsContainer:{
                 flexDirection:'row',
-                justifyContent:'center',
+                justifyContent:'space-between',
                 alignItems:'center',
                 marginTop:15
             },
