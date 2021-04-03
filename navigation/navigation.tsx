@@ -19,21 +19,6 @@ export const HomeNavigator = ()=>{
     return(
         <Stack.Navigator>
             <Stack.Screen
-                name="SignInPage"
-                component={SignInPage}
-                options={{
-                    headerShown:false,                
-                }}
-            />
-
-            <Stack.Screen
-                name="SignUpPage"
-                component={SignUpPage}
-                options={{
-                    headerShown:false,                
-                }}
-            />
-            <Stack.Screen
                 name="Home"
                 component={HomePage}
                 options={{
@@ -80,6 +65,28 @@ export const HomeNavigator = ()=>{
                     headerShown:false,                
                 }}
             />
+        </Stack.Navigator>
+    )
+}
+
+export const AuthNavigator = ()=>{
+    return(
+        <Stack.Navigator>
+            <Stack.Screen
+                name="SignInPage"
+                component={SignInPage}
+                options={{
+                    headerShown:false,                
+                }}
+            />
+
+            <Stack.Screen
+                name="SignUpPage"
+                component={SignUpPage}
+                options={{
+                    headerShown:false,                
+                }}
+            />
 
             <Stack.Screen
                 name="ConfirmCodePage"
@@ -96,7 +103,6 @@ export const HomeNavigator = ()=>{
                     headerShown:false,                
                 }}
             />
-
         </Stack.Navigator>
     )
 }

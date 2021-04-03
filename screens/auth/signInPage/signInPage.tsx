@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 
 import {View,Text,TextInput,Button,TouchableNativeFeedback,ToastAndroid,Keyboard} from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
+import {useDispatch} from 'react-redux'
 
 import {Auth} from 'aws-amplify'
 
@@ -16,7 +17,8 @@ import { ButtonWrapper } from '../../../components/uiElements/buttonWrapper/butt
 export const SignInPage = ({navigation})=>{
     const styles = useStyles()
     const theme = useTheme()
-
+    const dispatch = useDispatch()
+    
     const [userName,setUserName] = useState("")
     const [password,setPassword] = useState("")
     const [errMessage,setErrMessage] = useState("")
@@ -94,7 +96,6 @@ export const SignInPage = ({navigation})=>{
             setShowLoader(false)
             setErrMessage(err.message)
             setShowErrBox(true)
-            console.log("e",err);
         }
     }
 

@@ -102,7 +102,7 @@ export const SignUpPage = ({navigation})=>{
 
         const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-        if((email.trim().length===0)&&!regex.test(email)){
+        if(!regex.test(email)){
             setIsEmailValid(true)
             ToastAndroid.showWithGravity("Enter a valid email address.",ToastAndroid.LONG,ToastAndroid.CENTER)
             return
@@ -133,7 +133,6 @@ export const SignUpPage = ({navigation})=>{
             setShowLoader(false)
             setErrMessage(err.message)
             setShowErrBox(true)
-            console.log('error signing up:', err);
         }
     }
 
@@ -187,23 +186,23 @@ export const SignUpPage = ({navigation})=>{
                         placeholderTextColor={theme.theme.secondaryTextColor}
                     />
                     {
-                            showPassword&&
-                            <ButtonWrapper
-                                onClick={()=>{setShowPassword(false)}}
-                                style={{}}
-                            >
-                                <Feather name="eye" size={20} color={theme.theme.primaryTextColor} />
-                            </ButtonWrapper>
-                        }
-                        {
-                            !showPassword&&
-                            <ButtonWrapper
-                                onClick={()=>{setShowPassword(true)}}
-                                style={{}}
-                            >
-                                <Feather name="eye-off" size={20} color={theme.theme.primaryTextColor} />
-                            </ButtonWrapper>
-                        }
+                        showPassword&&
+                        <ButtonWrapper
+                            onClick={()=>{setShowPassword(false)}}
+                            style={{}}
+                        >
+                            <Feather name="eye" size={20} color={theme.theme.primaryTextColor} />
+                        </ButtonWrapper>
+                    }
+                    {
+                        !showPassword&&
+                        <ButtonWrapper
+                            onClick={()=>{setShowPassword(true)}}
+                            style={{}}
+                        >
+                            <Feather name="eye-off" size={20} color={theme.theme.primaryTextColor} />
+                        </ButtonWrapper>
+                    }
                 </View>
             </View>
             <View style={styles.buttonContainer}>
@@ -219,7 +218,7 @@ export const SignUpPage = ({navigation})=>{
                 <TouchableNativeFeedback
                     onPress={navigateToConfirmCodePage}
                 >
-                    <Text style={styles.signupButtonText}>Confirm a code</Text>
+                    <Text style={styles.signupButtonText}>Confirm email</Text>
                 </TouchableNativeFeedback>
                 <TouchableNativeFeedback
                     onPress={navigateToSignInPage}

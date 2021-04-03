@@ -72,10 +72,6 @@ export  const useStyles = ()=>{
                 alignItems:'center',
                 marginTop:15
             },
-            qText:{
-                fontSize:16,
-                color:theme.theme.secondaryTextColor
-            },
             signupButtonText:{
                 fontSize:16,
                 color:theme.theme.primaryTextColor,

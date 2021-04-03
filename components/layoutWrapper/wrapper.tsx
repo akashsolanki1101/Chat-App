@@ -3,7 +3,7 @@ import React,{useEffect,useCallback, useState} from 'react'
 import {View,StatusBar,LogBox,AppState, AppStateStatus} from 'react-native'
 // import changeNavigationBarColor from 'react-native-navigation-bar-color'
 import {NavigationContainer} from '@react-navigation/native'
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Appearance} from 'react-native-appearance'
 
@@ -16,17 +16,21 @@ import {light} from '../../ui/themes/light'
 import {useStyles} from './styles'
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
 import {HomeNavigator} from '../../navigation/navigation'
+import {AuthNavigator} from '../../navigation/navigation'
 import {DefaultImages} from '../../constants/defaultImages/defaultImages'
 import {setUserInfo} from '../../store/actions/userInfo'
 import {setThemeFormat} from '../../store/actions/userInfo'
+import {LoadingPage} from '../../screens/loadingPage/loadingPage'
 
 export const Wrapper = ()=>{
     const styles = useStyles()
     const theme = useTheme()
-    const [myUserID,setMyUserID] = useState(null)
-    const lightKeys = theme.mode==='dark'?false:true
-
     const dispatch = useDispatch()
+
+    const [myUserID,setMyUserID] = useState(null)
+    const [showLoadingScreen,setShowLoadingScreen] = useState(true)
+    const user = useSelector(store=>store.userInfo)
+    const lightKeys = theme.mode==='dark'?false:true
 
     const handleOnlineStatus = useCallback(async (val:boolean)=>{
       try{
@@ -52,6 +56,7 @@ export const Wrapper = ()=>{
         handleOnlineStatus(false)
       }
     };
+
 
     // const changeNavColor = useCallback(()=>{
     //     try{
@@ -96,10 +101,12 @@ export const Wrapper = ()=>{
     const fetchUserDetails = useCallback(async ()=>{ //for fetching currently logged in user details
       try{
         const userDetails = await Auth.currentAuthenticatedUser({bypassCache:true})
-  
+        if(userDetails){
+          setShowLoadingScreen(false)
+        }
         return userDetails
       }catch(err){
-        console.log(err);
+        console.log("You na",err);
       }
     },[])
     
@@ -115,8 +122,6 @@ export const Wrapper = ()=>{
       const userDetails = await fetchUserDetails()
       
       if(userDetails){
-        // console.log(userDetails);
-        
         const userId = userDetails.attributes.sub
         try{
           const userData = await API.graphql(graphqlOperation(getUser,{id:userId}))
@@ -143,12 +148,11 @@ export const Wrapper = ()=>{
             await createUserInDb(newUser)
             setMyUserID(newUser.id)
             dispatch(setUserInfo(newUser))
-          }
+          }          
         }catch(err){
           console.log(err);
         }
       }
-      
     },[])
     
     useEffect(()=>{
@@ -170,12 +174,18 @@ export const Wrapper = ()=>{
     },[myUserID])
     
     LogBox.ignoreLogs(["Setting a timer"])
+
+    if(showLoadingScreen){
+      return <LoadingPage/>
+    }
     
     return(
       <View style={styles.container}>
           <StatusBar barStyle={theme.mode==='dark'?'light-content':'dark-content'} backgroundColor={theme.theme.backgroundColor}/>
           <NavigationContainer>
-              <HomeNavigator/>
+              {
+                user ? <HomeNavigator/> : <AuthNavigator/>
+              }
           </NavigationContainer>
       </View>
     )

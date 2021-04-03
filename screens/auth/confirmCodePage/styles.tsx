@@ -10,6 +10,85 @@ export const useStyles = ()=>{
             container:{
                 flex:1,
                 backgroundColor:theme.theme.backgroundColor
+            },
+            header:{
+                paddingHorizontal:18,
+                paddingVertical:14,
+                marginBottom:20
+            },
+            appNameStyle:{
+                fontSize:45
+            },
+            titleContainer:{
+                width:'100%',
+                justifyContent:'center',
+                paddingHorizontal:18,
+                marginBottom:30,
+                alignItems:'center',
+            },
+            titleText:{
+                color:theme.theme.primaryTextColor,
+                fontWeight:'bold',
+                fontSize:20
+            },
+            form:{
+                // marginTop:40,
+                paddingHorizontal:18,
+            },
+            formElement:{
+                marginBottom:25
+            },
+            inputNameText:{
+                color:theme.theme.primaryTextColor,
+                fontSize:16,
+                marginBottom:10,
+            },
+            inputBoxContainer:{
+                backgroundColor:"rgba(0,0,0,0.2)",
+                paddingHorizontal:10,
+                paddingVertical:15,
+                borderRadius:10,
+                borderWidth:1,
+                borderColor:theme.theme.secondaryTextColor,
+                flexDirection:'row',
+                justifyContent:'space-between'
+            },
+            errIndicator:{
+                borderColor:'red',
+            },
+            inputBox:{
+                flex:1,
+                paddingLeft:5,
+                color:theme.theme.primaryTextColor,
+            },
+            buttonContainer:{
+                width:'100%',
+                marginTop:20
+            },
+            button:{
+               justifyContent:'center',
+               alignItems:'center',
+               backgroundColor:theme.theme.receiver,
+               paddingVertical:15,
+               borderRadius:5,
+               elevation:2,
+               flexDirection:'row'
+            },
+            buttonText:{
+                color:theme.theme.activeColor,
+                fontWeight:'bold',
+                fontSize:16
+            },
+            otherOptionsContainer:{
+                flexDirection:'row',
+                justifyContent:'space-between',
+                alignItems:'center',
+                marginTop:15
+            },
+            signupButtonText:{
+                fontSize:16,
+                color:theme.theme.primaryTextColor,
+                fontWeight:'bold',
             }
         })
     )
