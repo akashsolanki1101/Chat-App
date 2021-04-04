@@ -28,13 +28,25 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
         lastMessageTime = dateFormatter(lastMessage.createdAt)
         _lastMessageTime = lastMessageTime[0]===''?lastMessageTime[1]:lastMessageTime[0];    
     }
+
             
     if(data){
+        let oppositeUser
+        const usersList = data.chatRoom.chatRoomUsers.items
+
+        if(usersList[0].user.id!==myUserID){
+            oppositeUser=usersList[0].user
+        }else if(usersList[1]&&(usersList[1].user.id!==myUserID)){
+            oppositeUser=usersList[1].user
+        }else{
+            oppositeUser=usersList[0].user
+        }
+
         DATA = {
-            userID:data.chatRoom.chatRoomUsers.items[0].user.id,
-            name:data.chatRoom.chatRoomUsers.items[0].user.name,
-            imageUri:data.chatRoom.chatRoomUsers.items[0].user.imageUri,
-            online:data.chatRoom.chatRoomUsers.items[0].user.online,
+            userID:oppositeUser.id,
+            name:oppositeUser.name,
+            imageUri:oppositeUser.imageUri,
+            online:oppositeUser.online,
             chatRoomID:data.chatRoomID,
         }          
     }

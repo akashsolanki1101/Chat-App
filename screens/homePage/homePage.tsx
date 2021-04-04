@@ -2,7 +2,8 @@ import React,{useState,useEffect} from 'react'
 
 import {View,TouchableWithoutFeedback,FlatList,ActivityIndicator} from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
-import Feather from 'react-native-vector-icons/Feather'
+// import Feather from 'react-native-vector-icons/Feather'
+import {useDispatch} from 'react-redux'
 
 import {API,graphqlOperation,Auth} from 'aws-amplify'
 import {getUser} from '../../modifiedQueries/modifiedQueries'
@@ -12,7 +13,7 @@ import {ChatCard} from '../../components/uiElements/cards/chatCard/chatCard'
 import {useTheme} from '../../hooks/themeProvider/themeProvider'
 import {AppName} from '../../components/uiElements/appName/appName'
 import {ButtonWrapper} from '../../components/uiElements/buttonWrapper/buttonWrapper'
-import { StoryContainer } from '../../components/storyContainer/storyContainer'
+// import { StoryContainer } from '../../components/storyContainer/storyContainer'
 import { DropDown } from '../../components/uiElements/dropDown/dropDown'
 import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
 import { UserInfoPopUp } from '../../components/uiElements/userInfoPopUp/userInfoPopUp'
@@ -30,19 +31,9 @@ export const HomePage = ({navigation})=>{
     const styles = useStyles()
     const theme = useTheme()
 
-    const data = [
-        {
-            title : 'Settings',
-            func : ()=>{
-                toggleDropDown(false)
-                navigation.navigate('SettingsPage')
-            }
-        },
-    ]
-
-    const handleOnSearchButtonClick = ()=>{
-        navigation.navigate("SearchPage")
-    }
+    // const handleOnSearchButtonClick = ()=>{
+    //     navigation.navigate("SearchPage")
+    // }
 
     const toggleDropDown = (val:boolean)=>{
         setShowDropDown(val)
@@ -144,7 +135,8 @@ export const HomePage = ({navigation})=>{
                 {
                     showDropDown&&
                     <DropDown
-                        data={data}
+                        close={()=>{toggleDropDown(false)}}
+                        navigation={navigation}
                     />
                 }
                 <ContactsButton

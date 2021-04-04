@@ -1,31 +1,51 @@
 import React from 'react'
 
 import {View,Text,TouchableNativeFeedback,FlatList} from 'react-native'
+import {useDispatch} from 'react-redux'
+
+import {Auth} from 'aws-amplify'
 
 import {useStyles} from './styles'
+import {setUserInfo} from '../../../store/actions/userInfo'
 
-export const DropDown = ({data})=>{
+export const DropDown = ({navigation,close})=>{
     const styles = useStyles()
+    const dispatch = useDispatch()
+
+    const navigateToSettingsPage = ()=>{
+        close()
+        navigation.navigate('SettingsPage')
+    }
+
+    const logOut = async()=>{
+        try{
+            const res = await Auth.signOut()
+            dispatch(setUserInfo({}))
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     return(
         <View style={styles.container}>
-            <FlatList
-                data={data}
-                keyExtractor={item=>item.title}
-                renderItem={({item})=>{
-                    return(
-                        <View style={styles.listItemContainer} >
-                        <TouchableNativeFeedback
-                            onPress={item.func}
-                        >
-                            <View style={styles.listItem}>
-                                <Text style={styles.listItemText}>{item.title}</Text>
-                            </View>
-                        </TouchableNativeFeedback>
+            <View style={styles.listItemContainer} >
+                <TouchableNativeFeedback
+                    onPress={navigateToSettingsPage}
+                >
+                    <View style={styles.listItem}>
+                        <Text style={styles.listItemText}>Settings</Text>
                     </View>
-                    )
-                }}
-            />
+                </TouchableNativeFeedback>
+            </View>
+            <View style={styles.listItemContainer} >
+                <TouchableNativeFeedback
+                    onPress={logOut}
+                >
+                    <View style={styles.listItem}>
+                        <Text style={styles.listItemText}>Log out</Text>
+                    </View>
+                </TouchableNativeFeedback>
+            </View>
         </View>
     )
 }

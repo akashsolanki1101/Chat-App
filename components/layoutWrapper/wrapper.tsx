@@ -57,6 +57,7 @@ export const Wrapper = ()=>{
       }
     };
 
+    // console.log(user);
 
     // const changeNavColor = useCallback(()=>{
     //     try{
@@ -101,11 +102,10 @@ export const Wrapper = ()=>{
     const fetchUserDetails = useCallback(async ()=>{ //for fetching currently logged in user details
       try{
         const userDetails = await Auth.currentAuthenticatedUser({bypassCache:true})
-        if(userDetails){
-          setShowLoadingScreen(false)
-        }
         return userDetails
       }catch(err){
+        dispatch(setUserInfo({}))
+        setShowLoadingScreen(false)
         console.log("You na",err);
       }
     },[])
@@ -135,7 +135,6 @@ export const Wrapper = ()=>{
             }
             setMyUserID(userInfo.id)
             dispatch(setUserInfo(userInfo))
-            return
           }else{
             const userName = userDetails.username.slice(0,15);
             const newUser = {
@@ -153,6 +152,7 @@ export const Wrapper = ()=>{
           console.log(err);
         }
       }
+      setShowLoadingScreen(false)
     },[])
     
     useEffect(()=>{
@@ -184,7 +184,7 @@ export const Wrapper = ()=>{
           <StatusBar barStyle={theme.mode==='dark'?'light-content':'dark-content'} backgroundColor={theme.theme.backgroundColor}/>
           <NavigationContainer>
               {
-                user ? <HomeNavigator/> : <AuthNavigator/>
+                Object.keys(user).length ? <HomeNavigator/> : <AuthNavigator/>
               }
           </NavigationContainer>
       </View>

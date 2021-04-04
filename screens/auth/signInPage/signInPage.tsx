@@ -4,7 +4,10 @@ import {View,Text,TextInput,Button,TouchableNativeFeedback,ToastAndroid,Keyboard
 import Feather from 'react-native-vector-icons/Feather'
 import {useDispatch} from 'react-redux'
 
-import {Auth} from 'aws-amplify'
+import {Auth,API,graphqlOperation} from 'aws-amplify'
+import {getUser} from '../../../graphql/queries'
+import {createUser} from '../../../graphql/mutations'
+
 
 import {useStyles} from './styles'
 import { AppName } from '../../../components/uiElements/appName/appName'
@@ -13,6 +16,8 @@ import {ErrorBox} from '../../../components/uiElements/errBox/errBox'
 import {BackDrop} from '../../../components/uiElements/backdrop/backdrop'
 import {Loader} from '../../../components/uiElements/loader/loader'
 import { ButtonWrapper } from '../../../components/uiElements/buttonWrapper/buttonWrapper'
+import {setUserInfo} from '../../../store/actions/userInfo'
+import { DefaultImages } from '../../../constants/defaultImages/defaultImages'
 
 export const SignInPage = ({navigation})=>{
     const styles = useStyles()
@@ -28,9 +33,6 @@ export const SignInPage = ({navigation})=>{
     const [isUserNameEmpty,setIsUserNameEmpty] = useState(false)
     const [isPasswordEmpty,setIsPasswordEmpty] = useState(false)
 
-    const logOut = ()=>{
-        Auth.signOut()
-    }
 
     const onUserNameInputChange = (val:string)=>{
         if(val.trim().length>0){
@@ -72,6 +74,47 @@ export const SignInPage = ({navigation})=>{
         navigation.navigate('ResetPasswordPage')
     }
 
+    const createUserInDb = async (newUser:object)=>{//for creating user in db if not exist
+        try{
+          await API.graphql(graphqlOperation(createUser,{input:newUser}))
+        }catch(err){
+          console.log(err);
+        }
+    }
+
+    const getUserData = async (userDetails:object)=>{ //for fetching currently logged in user data from db
+        
+        if(userDetails){
+          const userId = userDetails.attributes.sub
+          try{
+            const userData = await API.graphql(graphqlOperation(getUser,{id:userId}))
+            if(userData.data.getUser){
+              const userInfo = {
+                id:userData.data.getUser.id,
+                name:userData.data.getUser.name,
+                imageUri:userData.data.getUser.imageUri,
+                status:userData.data.getUser.status,
+                online:userData.data.getUser.online
+              }
+              dispatch(setUserInfo(userInfo))
+            }else{
+              const userName = userDetails.username.slice(0,15);
+              const newUser = {
+                id: userId,
+                name:userName,
+                imageUri:DefaultImages.person,
+                status:"Let's chAt.",
+                online:true
+              }
+              await createUserInDb(newUser)
+              dispatch(setUserInfo(newUser))
+            }          
+          }catch(err){
+            console.log(err);
+          }
+        }
+      }
+
     const signIn = async()=>{
         if(userName.trim().length===0){
             setIsUserNameEmpty(true)
@@ -90,7 +133,7 @@ export const SignInPage = ({navigation})=>{
 
         try{
             const res = await Auth.signIn(userName,password)
-            console.log(res);
+            getUserData(res)
             setShowLoader(false)
         }catch(err){
             setShowLoader(false)
