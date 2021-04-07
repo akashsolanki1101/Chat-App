@@ -133,11 +133,14 @@ export const SignInPage = ({navigation})=>{
 
         try{
             const res = await Auth.signIn(userName,password)
-            getUserData(res)
-            setShowLoader(false)
+            await getUserData(res)
         }catch(err){
             setShowLoader(false)
-            setErrMessage(err.message)
+            if(err.message==="User is not confirmed."){
+                setErrMessage("Your email is not confirmed yet. Please confirm it to continue.")
+            }else{
+                setErrMessage(err.message)
+            }
             setShowErrBox(true)
         }
     }
@@ -211,12 +214,12 @@ export const SignInPage = ({navigation})=>{
                     <TouchableNativeFeedback
                         onPress={navigateToResetPasswordPage}
                     >
-                        <Text style={styles.signupButtonText}>Forgot Password</Text>
+                        <Text style={styles.signupButtonText}>Forgot password</Text>
                     </TouchableNativeFeedback>                    
                     <TouchableNativeFeedback
                         onPress={navigateToSignUpPage}
                     >
-                        <Text style={styles.signupButtonText}>Sign Up</Text>
+                        <Text style={styles.signupButtonText}>Sign up</Text>
                     </TouchableNativeFeedback>
                 </View>
             </View>

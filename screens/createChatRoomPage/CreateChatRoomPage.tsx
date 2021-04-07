@@ -14,7 +14,7 @@ import {Loader} from '../../components/uiElements/loader/loader'
 
 export const CreateChatRoomPage = ({navigation={}})=>{
     const styles = useStyles()
-    const [showLinkPopUp,setShowLinkPopUp] = useState(false)
+    const [showLinkPopUp,setShowLinkPopUp] = useState(true)
     const [chatRoomID,setChatRoomID] = useState("")
     const [groupName,setGroupName] = useState("")
     const [loaderMessage,setLoaderMessage] = useState("")

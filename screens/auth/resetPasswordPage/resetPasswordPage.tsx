@@ -238,7 +238,7 @@ export const ResetPasswordPage = ({navigation})=>{
                     showOtherInputs&&
                     <View style={styles.buttonContainer}>
                         <TouchableNativeFeedback
-                            // onPress={sendConfirmationCode}
+                            onPress={resetPassword}
                         >
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Reset</Text>
@@ -250,7 +250,7 @@ export const ResetPasswordPage = ({navigation})=>{
                     <TouchableNativeFeedback
                         onPress={navigateToSignInPage}
                     >
-                        <Text style={styles.signupButtonText}>Sign In</Text>
+                        <Text style={styles.signupButtonText}>Sign in</Text>
                     </TouchableNativeFeedback>
                 </View>
             </View>

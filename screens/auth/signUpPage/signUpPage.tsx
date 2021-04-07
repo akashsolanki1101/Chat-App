@@ -223,7 +223,7 @@ export const SignUpPage = ({navigation})=>{
                 <TouchableNativeFeedback
                     onPress={navigateToSignInPage}
                 >
-                    <Text style={styles.signupButtonText}>Log in</Text>
+                    <Text style={styles.signupButtonText}>Sign in</Text>
                 </TouchableNativeFeedback>
             </View>
         </View>

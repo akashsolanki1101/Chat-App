@@ -13,7 +13,7 @@ export const useStyles = ()=>{
                 alignItems:'center',
             },
             popUpContainer:{
-                backgroundColor:theme.theme.receiver,
+                backgroundColor:theme.theme.backgroundColor,
                 width:350,
                 paddingVertical:20,
                 paddingHorizontal:20

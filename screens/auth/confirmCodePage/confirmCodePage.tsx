@@ -168,7 +168,7 @@ export const ConfirmCodePage = ({navigation})=>{
                     <TouchableNativeFeedback
                         onPress={navigateToSignInPage}
                     >
-                        <Text style={styles.signupButtonText}>Sign In</Text>
+                        <Text style={styles.signupButtonText}>Sign in</Text>
                     </TouchableNativeFeedback>
                 </View>
             </View>

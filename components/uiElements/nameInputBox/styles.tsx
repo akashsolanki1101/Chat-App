@@ -15,7 +15,7 @@ export const useStyles = ()=>{
             popUpContainer:{
                 width:'100%',
                 height:150,
-                backgroundColor:theme.theme.receiver,
+                backgroundColor:theme.theme.backgroundColor,
                 paddingHorizontal:18,
                 paddingVertical:14,
             },

@@ -12,14 +12,20 @@ export const ChatRoomLinkPopUp = ({id="",close})=>{
     const styles = useStyles()
 
     const copyIDToClipboard = ()=>{
-        Clipboard.setString(id)
-        ToastAndroid.showWithGravity("Link copied.",ToastAndroid.SHORT,ToastAndroid.CENTER)
+        try{
+            Clipboard.setString(id)
+            ToastAndroid.showWithGravity("Copied.",ToastAndroid.SHORT,ToastAndroid.CENTER)
+        }catch(err){
+            ToastAndroid.showWithGravity("Not compatible with expo.",ToastAndroid.SHORT,ToastAndroid.CENTER)
+            console.log(err);
+            
+        }
     }
 
     const shareChatRoomID = async()=>{
         try{
             const res = await Share.share({
-                message:`Join the room using the below and lets chAt\n${id}`
+                message:`Join the room using the below code and let's chAt:\n\n${id}`
             })
 
             if(res.action===Share.sharedAction){
@@ -51,8 +57,8 @@ export const ChatRoomLinkPopUp = ({id="",close})=>{
                         <Text numberOfLines={1} style={styles.idText}>{id}</Text>
                     </View>
                     <ButtonWrapper
-                        style={copyIDToClipboard}
-                        onClick={()=>{}}
+                        style={{}}
+                        onClick={copyIDToClipboard}
                     >
                         <MaterialCommunityIcons name="content-copy" size={22} style={styles.copyIcon} />
                     </ButtonWrapper>

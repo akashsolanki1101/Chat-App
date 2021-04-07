@@ -15,7 +15,7 @@ export const useStyles = ()=>{
             option:{
                 width:'98%',
                 marginBottom:15,
-                backgroundColor:theme.theme.receiver,
+                backgroundColor:theme.theme.backgroundColor,
                 paddingHorizontal:10,
                 paddingVertical:10,
                 borderRadius:5,
