@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from 'react'
 
-import {View,TouchableWithoutFeedback,FlatList,ActivityIndicator} from 'react-native'
+import {View,TouchableWithoutFeedback,FlatList,ActivityIndicator,AppState,AppStateStatus} from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 // import Feather from 'react-native-vector-icons/Feather'
-import {useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 
-import {API,graphqlOperation,Auth} from 'aws-amplify'
+import {API,graphqlOperation} from 'aws-amplify'
 import {getUser} from '../../modifiedQueries/modifiedQueries'
+import {updateUser} from '../../graphql/mutations'
 
 import {useStyles} from './styles'
 import {ChatCard} from '../../components/uiElements/cards/chatCard/chatCard'
@@ -28,12 +29,9 @@ export const HomePage = ({navigation})=>{
     const [chats,setChats] = useState([])
     const [showDataLoadingSpinner,setShowDataLoadingSpinner] = useState(true)
 
+    const myUserID = useSelector(store=>store.userInfo.id)
     const styles = useStyles()
     const theme = useTheme()
-
-    // const handleOnSearchButtonClick = ()=>{
-    //     navigation.navigate("SearchPage")
-    // }
 
     const toggleDropDown = (val:boolean)=>{
         setShowDropDown(val)
@@ -53,19 +51,43 @@ export const HomePage = ({navigation})=>{
         setShowUserInfoPopUp(false)
     }
 
-    useEffect(()=>{
+    const toggleOnlineStatus = async(val:boolean)=>{
+        if(myUserID){
+            await API.graphql(graphqlOperation(updateUser,{
+            input:{
+                id:myUserID,
+                online:val
+            }
+            }))
+        }
+    }
 
+    const _handleAppStateChange = (nextAppState:AppStateStatus) => {
+        if(nextAppState==="active"){
+            toggleOnlineStatus(true)
+        }else{
+            toggleOnlineStatus(false)
+        }
+    };
+
+    useEffect(() => {
+        AppState.addEventListener("change", _handleAppStateChange);
+        return () => {
+          AppState.removeEventListener("change", _handleAppStateChange);
+        };
+      }, []);
+
+    useEffect(()=>{
         const fetchUserDetails = async ()=>{
             try{
-                const userInfo = await Auth.currentAuthenticatedUser()
-                const userID = userInfo.attributes.sub
-
                 const userData = await API.graphql(graphqlOperation(
                     getUser,{
-                            id : userID
+                            id : myUserID
                     }
 
-                ))                
+                ))       
+                console.log(userData.data.getUser.chatRoomUser.items);
+                         
                 setShowDataLoadingSpinner(false)
                 setChats(userData.data.getUser.chatRoomUser.items)
             }catch(err){

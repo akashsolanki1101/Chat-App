@@ -1,6 +1,6 @@
 import React,{useEffect,useCallback, useState} from 'react'
 
-import {View,StatusBar,LogBox,AppState, AppStateStatus} from 'react-native'
+import {View,StatusBar,LogBox} from 'react-native'
 // import changeNavigationBarColor from 'react-native-navigation-bar-color'
 import {NavigationContainer} from '@react-navigation/native'
 import {useDispatch,useSelector} from 'react-redux'
@@ -45,19 +45,7 @@ export const Wrapper = ()=>{
       }catch(err){
         console.log(err);
       }
-    },[])
-
-    const _handleAppStateChange = (nextAppState:AppStateStatus) => {
-      if(nextAppState==="active"){
-        handleOnlineStatus(true)
-      }else if(nextAppState==="background"){
-        handleOnlineStatus(false)
-      }else{
-        handleOnlineStatus(false)
-      }
-    };
-
-    // console.log(user);
+    },[myUserID])
 
     // const changeNavColor = useCallback(()=>{
     //     try{
@@ -159,13 +147,6 @@ export const Wrapper = ()=>{
       fetchThemeFormat()
       getUserData()
     },[getUserData,fetchThemeFormat])
-
-    useEffect(() => {
-      AppState.addEventListener("change", _handleAppStateChange);
-      return () => {
-        AppState.removeEventListener("change", _handleAppStateChange);
-      };
-    }, []);
 
     useEffect(()=>{
       if(myUserID){
