@@ -20,17 +20,17 @@ export const UserInfoPopUp = ({closePopUp,userInfo})=>{
                             <View style={styles.imageWrapper}>
                                 <Image
                                     style={styles.profileImage}
-                                    source={{uri:userInfo.user.imageUri}}
+                                    source={{uri:userInfo.imageUri}}
                                 />
                             </View>
                         </View>
                         <View style={styles.userInfo}>
                             <View style={styles.nameContainer}>
-                                <Text style={styles.nameText}>{userInfo.user.name}</Text>
+                                <Text style={styles.nameText}>{userInfo.name}</Text>
                             </View>
                             <View style={styles.aboutContainer}>
                                 <Text style={styles.aboutTitleText}>About</Text>
-                                <Text style={styles.aboutText}>{userInfo.user.status}</Text>
+                                <Text style={styles.aboutText}>{userInfo.status}</Text>
                             </View>
                         </View>
                     </View>

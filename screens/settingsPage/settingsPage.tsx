@@ -56,7 +56,6 @@ export const SettingsPage = ({navigation})=>{
     }
    
     const handleProfileSetionClick = ()=>{
-        console.log("hello");
     }
 
     const onSavingName = async (val:string)=>{
@@ -114,22 +113,18 @@ export const SettingsPage = ({navigation})=>{
                 title={"Settings"}
             />
             <View style={styles.myInfoContainer}>
-                <TouchableNativeFeedback
-                    onPress={handleProfileSetionClick}
+            <View style={styles.myImageContainer}>
+                <Avatar
+                    imgSrc={userInfo.imageUri}
+                    style={styles.myImage}
+                />
+                <ButtonWrapper
+                    onClick={()=>{toggleImageSelector(true)}}
+                    style={styles.cameraIconWrapper}
                 >
-                    <View style={styles.myImageContainer}>
-                        <Avatar
-                            imgSrc={userInfo.imageUri}
-                            style={styles.myImage}
-                        />
-                        <ButtonWrapper
-                            onClick={()=>{toggleImageSelector(true)}}
-                            style={styles.cameraIconWrapper}
-                        >
-                            <Entypo name="camera" size={20} style={styles.cameraIcon} />
-                        </ButtonWrapper>
-                    </View>
-                </TouchableNativeFeedback>
+                    <Entypo name="camera" size={20} style={styles.cameraIcon} />
+                </ButtonWrapper>
+            </View>
             </View>
             <TouchableNativeFeedback
                 onPress={()=>{toggleNameEditor(true)}}

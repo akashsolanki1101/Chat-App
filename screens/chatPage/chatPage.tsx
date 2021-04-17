@@ -232,9 +232,9 @@ export const ChatPage = ({navigation,route})=>{
         ).subscribe({
             next:async (data)=>{
                 const updatedUser = data.value.data.onUpdateUser
-
+                
                 if(updatedUser){
-                    if(updatedUser.id===user.userID){
+                    if(updatedUser.id===user.userID){                        
                         setIsUserOnline(updatedUser.online)
                     }
                 }

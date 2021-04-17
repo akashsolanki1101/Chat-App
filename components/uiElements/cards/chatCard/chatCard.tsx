@@ -46,6 +46,7 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
             userID:oppositeUser.id,
             name:oppositeUser.name,
             imageUri:oppositeUser.imageUri,
+            status:oppositeUser.status,
             online:oppositeUser.online,
             chatRoomID:data.chatRoomID,
         }          
@@ -121,13 +122,12 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
         <View style={styles.container}>
             <TouchableNativeFeedback
                 onPress={handleOnClickChatCard}
-                onLongPress={()=>{console.log("hello");
-                }}
+                onLongPress={()=>{}}
             >
                 <View style={styles.card}>
                     <TouchableOpacity
                         activeOpacity={.5}
-                        onPress={()=>onAvatarClick(data.chatRoom.chatRoomUsers.items[0])}
+                        onPress={()=>onAvatarClick(DATA)}
                     >
                         <View style={styles.avatarContainer}>
                             <Avatar imgSrc={DATA.imageUri} style={{}}/>
