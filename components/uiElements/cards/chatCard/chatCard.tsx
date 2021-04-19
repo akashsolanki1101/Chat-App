@@ -98,9 +98,11 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
             next:(data)=>{
                 const updatedMessage = data.value.data.onUpdateMessage
 
-                console.log(updatedMessage);
                 if(updatedMessage){
                     if(updatedMessage.chatRoomID===DATA.chatRoomID){
+                        if(updatedMessage.id===lastMessage.id){
+                            setLastMessage(updatedMessage)
+                        }
                         fetchUnreadMessages(myUserID)
                     }
                 }

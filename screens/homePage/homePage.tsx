@@ -86,7 +86,6 @@ export const HomePage = ({navigation})=>{
                     }
 
                 ))       
-                console.log(userData.data.getUser.chatRoomUser.items);
                          
                 setShowDataLoadingSpinner(false)
                 setChats(userData.data.getUser.chatRoomUser.items)
