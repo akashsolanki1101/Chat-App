@@ -29,12 +29,11 @@ export const useStyles = ()=>{
                 borderBottomRightRadius:30,
                 paddingHorizontal:30,
                 paddingVertical:20,
-                alignItems:'flex-start',
-                justifyContent:'flex-start'
+
             },
             recievedMessageText:{
                 color:theme.theme.primaryTextColor,
-                fontSize:17,
+                fontSize:15,
             },
             messageTime:{
                 paddingHorizontal:30,

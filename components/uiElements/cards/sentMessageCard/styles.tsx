@@ -31,7 +31,7 @@ export const useStyles = ()=>{
             },
             sentMessageText:{
                 color:theme.theme.messageTextColor,
-                fontSize:17,
+                fontSize:15,
             },
             messageTime:{
                 paddingHorizontal:30,

@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 
-import {View,Text,TouchableNativeFeedback} from 'react-native'
+import {View,Text,TouchableNativeFeedback, Linking} from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -34,6 +34,7 @@ export const SettingsPage = ({navigation})=>{
     const [showImageSelector,setShowImageSelector] = useState(false)
     const [showLoader,setShowLoader] = useState(false)
     const [loaderMessage,setLoaderMessage]  = useState("")
+
 
     const toggleThemeSelector =(val:boolean)=>{
         setShowThemeSelector(val)
@@ -231,6 +232,7 @@ export const SettingsPage = ({navigation})=>{
                     message={loaderMessage}
                 />
             </BackDrop>
+                        
         </View>
     )
 }

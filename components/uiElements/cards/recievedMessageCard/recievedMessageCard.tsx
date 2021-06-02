@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {View,Text} from 'react-native'
+import {View,Text, Linking} from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import Entypo from 'react-native-vector-icons/Entypo'
 
@@ -46,12 +46,28 @@ export const RecievedMessageCard = ({message,createdAt,messageCreatorName,messag
         handleSetTaggedMessage(messageData)
     }
 
+    const highlightLink  = (text:string)=>{        
+        const urlRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig
+
+        const words = text.split(" ");
+        const arr = new Array()
+
+        words.map(word=>{
+            if(word.match(urlRegex)){
+                arr.push(<Text style={{color:'#73b8d9'}} onPress = {()=>Linking.openURL(word)}>{word}</Text>)          
+                arr.push(" ")
+            }else{
+                arr.push(word)
+                arr.push(" ")
+            }
+        })
+
+        return arr
+    }
+
     return(
         <View style={styles.container}>
-            <TaggedMessage
-                taggedMessageData={taggedMessageData}
-                handleSetTaggedMessage={()=>{}}
-            />
+            
             <Swipeable
                 ref={ref => cardRef = ref}
                 onSwipeableLeftOpen={closeSwipeable}
@@ -61,7 +77,11 @@ export const RecievedMessageCard = ({message,createdAt,messageCreatorName,messag
             >
                 <View style={styles.recievedMessageCardContainer}>
                     <View style={styles.recievedMessageCard}>
-                        <Text style={styles.recievedMessageText}>{message}</Text>
+                        <TaggedMessage
+                            taggedMessageData={taggedMessageData}
+                            handleSetTaggedMessage={()=>{}}
+                        />
+                        <Text style={styles.recievedMessageText}>{highlightLink(message)}</Text>
                     </View>
                 </View>
             </Swipeable>
