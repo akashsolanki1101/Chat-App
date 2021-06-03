@@ -13,7 +13,14 @@ import {useStyles} from './styles'
 import {dateFormatter} from '../../../../utils/dateFormatter'
 import { TickMark } from '../../tickMark/tickMark'
 
-export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
+type Props = {
+    data : object,
+    navigation : NavigationType,
+    onAvatarClick : (data : object) => void,
+    handleCloseDropDown : () => void
+}
+
+export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown}:Props)=>{
     const styles = useStyles()
     const myInfo = useSelector(store=>store.userInfo)
     const myUserID = myInfo.id
@@ -72,44 +79,53 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
         }
     },[])
 
-    useEffect(()=>{        
-        const subscription  = API.graphql(
-            graphqlOperation(onCreateMessage)
-        ).subscribe({
-            next:(data)=>{
-                const newMessage = data.value.data.onCreateMessage
-                
-                if(newMessage){
-                    if(newMessage.chatRoomID!==DATA.chatRoomID){
-                        return
+    useEffect(()=>{
+        try{
+            const subscription  = API.graphql(
+                graphqlOperation(onCreateMessage)
+            ).subscribe({
+                next:(data)=>{
+                    const newMessage = data.value.data.onCreateMessage
+                    
+                    if(newMessage){
+                        if(newMessage.chatRoomID!==DATA.chatRoomID){
+                            return
+                        }
                     }
+                    setLastMessage(newMessage)
+                    fetchUnreadMessages(myUserID)
                 }
-                setLastMessage(newMessage)
-                fetchUnreadMessages(myUserID)
-            }
-        })
-        return ()=>subscription.unsubscribe()
+            })
+            return ()=>subscription.unsubscribe()
+        }catch(err){
+            console.log(err);
+        }     
     },[])
 
     useEffect(()=>{
-        const subscription = API.graphql(
-            graphqlOperation(onUpdateMessage)
-        ).subscribe({
-            next:(data)=>{
-                const updatedMessage = data.value.data.onUpdateMessage
-
-                if(updatedMessage){
-                    if(updatedMessage.chatRoomID===DATA.chatRoomID){
-                        if(updatedMessage.id===lastMessage.id){
-                            setLastMessage(updatedMessage)
+        try{
+            const subscription = API.graphql(
+                graphqlOperation(onUpdateMessage)
+            ).subscribe({
+                next:(data)=>{
+                    const updatedMessage = data.value.data.onUpdateMessage
+    
+                    if(updatedMessage){
+                        if(updatedMessage.chatRoomID===DATA.chatRoomID){
+                            if(updatedMessage.id===lastMessage.id){
+                                setLastMessage(updatedMessage)
+                            }
+                            fetchUnreadMessages(myUserID)
                         }
-                        fetchUnreadMessages(myUserID)
                     }
                 }
-            }
-        })
-
-        return ()=>subscription.unsubscribe()
+            })
+    
+            return ()=>subscription.unsubscribe()
+        }catch(err){
+            console.log(err);
+        }
+        
     },[])
 
     useEffect(()=>{
@@ -117,8 +133,6 @@ export const ChatCard = ({data,navigation,onAvatarClick,handleCloseDropDown})=>{
             fetchUnreadMessages(myUserID)
         }
     },[myUserID,fetchUnreadMessages])
-
-
 
     return(
         <View style={styles.container}>

@@ -8,7 +8,6 @@ export const useStyles = ()=>{
     return(
         StyleSheet.create({
             container:{
-                // width:'9%',
                 backgroundColor:"rgba(0,0,0,0.2)",
                 paddingVertical:5,
                 paddingHorizontal:10,

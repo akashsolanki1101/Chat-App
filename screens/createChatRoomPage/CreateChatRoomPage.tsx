@@ -12,9 +12,13 @@ import {BackDrop} from '../../components/uiElements/backdrop/backdrop'
 import {ChatRoomLinkPopUp} from '../../components/uiElements/chatRoomLinkPopUp/chatRoomLinkPopUp'
 import {Loader} from '../../components/uiElements/loader/loader'
 
-export const CreateChatRoomPage = ({navigation={}})=>{
+type Props = {
+    navigation:NavigationType
+}
+
+export const CreateChatRoomPage = ({navigation}:Props)=>{
     const styles = useStyles()
-    const [showLinkPopUp,setShowLinkPopUp] = useState(true)
+    const [showLinkPopUp,setShowLinkPopUp] = useState(false)
     const [chatRoomID,setChatRoomID] = useState("")
     const [groupName,setGroupName] = useState("")
     const [loaderMessage,setLoaderMessage] = useState("")
@@ -23,6 +27,10 @@ export const CreateChatRoomPage = ({navigation={}})=>{
     const myUserID = useSelector(store=>store.userInfo.id)    
 
     const toggleLinkPopUp = (val:boolean)=>{
+        if(!val){
+            ToastAndroid.showWithGravity("Refresh to see new chat room",ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }
+
         setShowLinkPopUp(val)
     }
 
@@ -123,38 +131,42 @@ export const CreateChatRoomPage = ({navigation={}})=>{
                         <Text style={styles.secondaryText}>Create a chat room and connect with your friends.</Text>
                     </View>
                 </View>
-                <View style={styles.inputBoxContainer}>
-                    <View style={styles.inputBox}>
-                        <Text style={styles.inputBoxText}>Chat room name</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            autoFocus={true}
-                            value={groupName}
-                            onChangeText={onInputChange}
-                        />
-                    </View>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <TouchableNativeFeedback
-                        onPress={createGroupChatRoom}
-                    >
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>
-                                Create
-                            </Text>
+                {
+                    //***For making a group***//
+                    /* <View style={styles.inputBoxContainer}>
+                        <View style={styles.inputBox}>
+                            <Text style={styles.inputBoxText}>Chat room name</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                autoFocus={true}
+                                value={groupName}
+                                onChangeText={onInputChange}
+                            />
                         </View>
-                    </TouchableNativeFeedback>
-                </View>
-                <View style={styles.orTextContainer}>
-                    <Text style={styles.orText}>or</Text>
-                </View>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <TouchableNativeFeedback
+                            onPress={createGroupChatRoom}
+                        >
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>
+                                    Create
+                                </Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                    </View>
+                    <View style={styles.orTextContainer}>
+                        <Text style={styles.orText}>or</Text>
+                    </View> */
+                }
                 <View style={styles.buttonContainer}>
                     <TouchableNativeFeedback
                         onPress={createOnetoOneChatRoom}
                     >
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>
-                                Create a one-to-one room
+                                Create
+                                {/* make it Create one-to-one room later*/}
                             </Text>
                         </View>
                     </TouchableNativeFeedback>

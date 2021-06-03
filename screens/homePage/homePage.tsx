@@ -1,6 +1,6 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useCallback} from 'react'
 
-import {View,TouchableWithoutFeedback,FlatList,ActivityIndicator,AppState,AppStateStatus} from 'react-native'
+import {View,TouchableWithoutFeedback,FlatList,ActivityIndicator,AppState,AppStateStatus, ToastAndroid} from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 // import Feather from 'react-native-vector-icons/Feather'
 import {useSelector} from 'react-redux'
@@ -21,7 +21,11 @@ import { UserInfoPopUp } from '../../components/uiElements/userInfoPopUp/userInf
 import {ContactsButton} from '../../components/uiElements/contactsButton/contactsButton'
 import {ConnectionOptions} from '../../components/uiElements/connectionOption/connectionOption'
 
-export const HomePage = ({navigation})=>{
+type Props = {
+    navigation : NavigationType
+}
+
+export const HomePage = ({navigation}:Props)=>{
     const [showDropDown,setShowDropDown] = useState(false) 
     const [showUserInfoPopUp,setShowUserInfoPopUp] = useState(false)
     const [showConnectionOption,setShowConnectionOption] = useState(false) 
@@ -29,7 +33,7 @@ export const HomePage = ({navigation})=>{
     const [chats,setChats] = useState([])
     const [showDataLoadingSpinner,setShowDataLoadingSpinner] = useState(true)
 
-    const myUserID = useSelector(store=>store.userInfo.id)
+    const myUserID = useSelector(store =>store.userInfo.id)
     const styles = useStyles()
     const theme = useTheme()
 
@@ -52,13 +56,17 @@ export const HomePage = ({navigation})=>{
     }
 
     const toggleOnlineStatus = async(val:boolean)=>{
-        if(myUserID){
-            await API.graphql(graphqlOperation(updateUser,{
-            input:{
-                id:myUserID,
-                online:val
+        try{
+            if(myUserID){
+                await API.graphql(graphqlOperation(updateUser,{
+                    input:{
+                        id:myUserID,
+                        online:val
+                    }
+                }))
             }
-            }))
+        }catch(err){
+            console.log(err)
         }
     }
 
@@ -70,32 +78,39 @@ export const HomePage = ({navigation})=>{
         }
     };
 
-    useEffect(() => {
-        AppState.addEventListener("change", _handleAppStateChange);
-        return () => {
-          AppState.removeEventListener("change", _handleAppStateChange);
-        };
-      }, []);
+    const fetchUserDetails = useCallback(async ()=>{
+        setShowDropDown(false)
+        setShowDataLoadingSpinner(true)
+        try{
+            const userData = await API.graphql(
+                graphqlOperation(
+                    getUser,
+                    {
+                        id : myUserID
+                    }
+                )
+            )       
+                    
+            setShowDataLoadingSpinner(false)
+            setChats(userData.data.getUser.chatRoomUser.items)
+        }catch(err){
+            setShowDataLoadingSpinner(false)
+            ToastAndroid.showWithGravity(err.errors[0].message,ToastAndroid.SHORT,ToastAndroid.CENTER)
+        }
+    },[])
 
     useEffect(()=>{
-        const fetchUserDetails = async ()=>{
-            try{
-                const userData = await API.graphql(graphqlOperation(
-                    getUser,{
-                            id : myUserID
-                    }
-
-                ))       
-                         
-                setShowDataLoadingSpinner(false)
-                setChats(userData.data.getUser.chatRoomUser.items)
-            }catch(err){
-                console.log(err);
-            }
+        try{
+            fetchUserDetails()
+            AppState.addEventListener("change", _handleAppStateChange);
+            
+            return () => {
+                AppState.removeEventListener("change", _handleAppStateChange);
+            };
+        }catch(err){
+            console.log(err)
         }
-
-        fetchUserDetails()
-    },[])
+    },[fetchUserDetails])
    
     return(
         <TouchableWithoutFeedback
@@ -105,12 +120,6 @@ export const HomePage = ({navigation})=>{
                 <View style={styles.header}>
                     <AppName/>
                     <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                        {/* <ButtonWrapper
-                            onClick={handleOnSearchButtonClick}
-                            style={{}}
-                        >
-                            <Feather name="search" size={24} style={styles.searchIcon} />
-                        </ButtonWrapper> */}
                         <ButtonWrapper
                             onClick={()=>{toggleDropDown(true)}}
                             style={{}}
@@ -133,10 +142,7 @@ export const HomePage = ({navigation})=>{
                         </ButtonWrapper>
                     </View>
                 }
-
-                {
-                    !showDataLoadingSpinner&&
-                    <View style={styles.listContainer}>
+                <View style={styles.listContainer}>
                     <FlatList
                         data={chats}
                         keyExtractor={item=>item.id}
@@ -152,12 +158,12 @@ export const HomePage = ({navigation})=>{
                         }}
                     />
                 </View>
-                }
                 {
                     showDropDown&&
                     <DropDown
                         close={()=>{toggleDropDown(false)}}
                         navigation={navigation}
+                        fetchData={fetchUserDetails}
                     />
                 }
                 <ContactsButton

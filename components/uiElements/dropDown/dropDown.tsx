@@ -8,7 +8,13 @@ import {Auth} from 'aws-amplify'
 import {useStyles} from './styles'
 import {setUserInfo} from '../../../store/actions/userInfo'
 
-export const DropDown = ({navigation,close})=>{
+type Props = {
+    navigation:NavigationType, 
+    close:()=>void,
+    fetchData:()=>void
+}
+
+export const DropDown = ({navigation,close, fetchData}:Props)=>{
     const styles = useStyles()
     const dispatch = useDispatch()
 
@@ -28,12 +34,21 @@ export const DropDown = ({navigation,close})=>{
 
     return(
         <View style={styles.container}>
-            <View style={styles.listItemContainer} >
+            <View style={styles.listItemContainer}>
                 <TouchableNativeFeedback
                     onPress={navigateToSettingsPage}
                 >
                     <View style={styles.listItem}>
                         <Text style={styles.listItemText}>Settings</Text>
+                    </View>
+                </TouchableNativeFeedback>
+            </View>
+            <View style={styles.listItemContainer} >
+                <TouchableNativeFeedback
+                    onPress={fetchData}
+                >
+                    <View style={styles.listItem}>
+                        <Text style={styles.listItemText}>Refresh</Text>
                     </View>
                 </TouchableNativeFeedback>
             </View>

@@ -21,10 +21,12 @@ export const useStyles= ()=>{
                 paddingVertical:12,
             },
             dataLoadingSpinnerContainer:{
-                flex:1,
+                width:'100%',
                 display:'flex',
-                justifyContent:'flex-start',
+                justifyContent:'center',
                 alignItems:'center',
+                position:'absolute',
+                top:60
             },
             dataLoadingSpinner:{
                 backgroundColor:theme.theme.backgroundColor,

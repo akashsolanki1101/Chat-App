@@ -8,7 +8,12 @@ import Clipboard from '@react-native-community/clipboard'
 import {useStyles} from './styles'
 import {ButtonWrapper} from '../buttonWrapper/buttonWrapper'
 
-export const ChatRoomLinkPopUp = ({id="",close})=>{
+type Props ={
+    id : string,
+    close : ()=>void
+}
+
+export const ChatRoomLinkPopUp = ({id,close}:Props)=>{
     const styles = useStyles()
 
     const copyIDToClipboard = ()=>{
@@ -18,7 +23,6 @@ export const ChatRoomLinkPopUp = ({id="",close})=>{
         }catch(err){
             ToastAndroid.showWithGravity("Not compatible with expo.",ToastAndroid.SHORT,ToastAndroid.CENTER)
             console.log(err);
-            
         }
     }
 

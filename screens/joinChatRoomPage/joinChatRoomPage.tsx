@@ -13,7 +13,11 @@ import {ErrorBox} from '../../components/uiElements/errBox/errBox'
 import {Loader} from '../../components/uiElements/loader/loader'
 import { BackDrop } from '../../components/uiElements/backdrop/backdrop'
 
-export const JoinChatRoomPage = ({navigation={}})=>{
+type Props = {
+    navigation : object
+}
+
+export const JoinChatRoomPage = ({navigation}:Props)=>{
     const styles = useStyles()
     const [chatRoomID,setChatRoomID] = useState("")
     const [showErrBox,setShowErrBox] = useState(false)
@@ -43,9 +47,19 @@ export const JoinChatRoomPage = ({navigation={}})=>{
             }))
 
             if(chatRoomData.data.getChatRoom){
+                let chatRoomUsers = []
                 const isGroup = chatRoomData.data.getChatRoom.group
                 const usersCount = chatRoomData.data.getChatRoom.chatRoomUsers.items.length
-                const users = chatRoomData.data.getChatRoom.chatRoomUsers.items
+                chatRoomUsers = chatRoomData.data.getChatRoom.chatRoomUsers.items 
+
+                for(let i in  chatRoomUsers){
+                    if(myUserID == chatRoomUsers[i].userID){
+                        setShowLoader(false)
+                        setErrMessage("User already exist in the room.")
+                        setShowErrBox(true)
+                        return
+                    }
+                }
     
                 if(isGroup){
                     await API.graphql(graphqlOperation(createChatRoomUser,{
@@ -62,9 +76,10 @@ export const JoinChatRoomPage = ({navigation={}})=>{
                                 userID:myUserID
                             }
                         }))
+                        ToastAndroid.showWithGravity("Refresh to see new chat room",ToastAndroid.SHORT, ToastAndroid.CENTER)
                     }else{
                         setShowLoader(false)
-                        setErrMessage("Sorry, you can't join this room. User limit is 2.")
+                        setErrMessage("Sorry, you can't join this room.")
                         setShowErrBox(true)
                     }
                 }

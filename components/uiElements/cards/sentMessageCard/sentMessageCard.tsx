@@ -1,9 +1,10 @@
 import React from 'react'
 
-import {View,Text,Linking} from 'react-native'
+import {View,Text,Linking, ToastAndroid , TouchableWithoutFeedback} from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { TickMark } from '../../tickMark/tickMark'
+import Clipboard from '@react-native-community/clipboard'
 
 import {useStyles} from './styles'
 import {dateFormatter} from '../../../../utils/dateFormatter'
@@ -11,7 +12,7 @@ import { TaggedMessage } from '../../taggedMessage/taggedMessage'
 
 export const SentMessageCard = ({message,createdAt,messageStatus,messageCreatorName,messageCreatorID,taggedMessageContent,taggedMessageSenderID,taggedMessageSenderName,handleSetTaggedMessage})=>{
     const styles = useStyles()
-    let cardRef: Swipeable | null= null
+    let cardRef: Swipeable
     const messageTime = dateFormatter(createdAt)
     const _messageTime = messageTime[0]===''?`${messageTime[1]}`:`${messageTime[0]}, ${messageTime[1]}`
     const taggedMessageIsEmpty = taggedMessageSenderID===null?true:false
@@ -48,6 +49,15 @@ export const SentMessageCard = ({message,createdAt,messageStatus,messageCreatorN
         closeSwipeable()
     }
 
+    const copyToClipboard = (content:string, message:string)=>{
+        try{
+            Clipboard.setString(content)
+            ToastAndroid.showWithGravity(message, ToastAndroid.SHORT, ToastAndroid.SHORT)
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     const highlightLink  = (text:string)=>{        
         const urlRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig
 
@@ -56,7 +66,7 @@ export const SentMessageCard = ({message,createdAt,messageStatus,messageCreatorN
 
         words.map(word=>{
             if(word.match(urlRegex)){
-                arr.push(<Text style={{color:'#73b8d9'}} onPress = {()=>Linking.openURL(word)}>{word}</Text>)          
+                arr.push(<Text style={{color:'#73b8d9'}} onPress = {()=>Linking.openURL(word)} onLongPress={()=>{copyToClipboard(word,"Link copied")}}>{word}</Text>)          
                 arr.push(" ")
             }else{
                 arr.push(word)
@@ -77,13 +87,17 @@ export const SentMessageCard = ({message,createdAt,messageStatus,messageCreatorN
                 childrenContainerStyle={styles.swipeableContainer}                
             >
                 <View style={styles.sentMessageCardContainer}>
-                    <View style={styles.sentMessageCard}>
-                        <TaggedMessage
-                            taggedMessageData={taggedMessageData}
-                            handleSetTaggedMessage={()=>{}}
-                        />
-                        <Text style={styles.sentMessageText}>{highlightLink(message)}</Text>
-                    </View>
+                    <TouchableWithoutFeedback
+                            onLongPress={()=>copyToClipboard(message,"Message copied")}
+                    >
+                        <View style={styles.sentMessageCard}>
+                            <TaggedMessage
+                                taggedMessageData={taggedMessageData}
+                                handleSetTaggedMessage={()=>{}}
+                            />
+                            <Text style={styles.sentMessageText}>{highlightLink(message)}</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
             </Swipeable>
             <View style={styles.messageTime}>
