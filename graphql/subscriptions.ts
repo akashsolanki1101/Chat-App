@@ -10,6 +10,7 @@ export const onCreateUser = /* GraphQL */ `
       imageUri
       status
       online
+      pushToken
       chatRoomUser {
         items {
           id
@@ -33,6 +34,7 @@ export const onUpdateUser = /* GraphQL */ `
       imageUri
       status
       online
+      pushToken
       chatRoomUser {
         items {
           id
@@ -56,6 +58,7 @@ export const onDeleteUser = /* GraphQL */ `
       imageUri
       status
       online
+      pushToken
       chatRoomUser {
         items {
           id
@@ -83,6 +86,7 @@ export const onCreateChatRoomUser = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }
@@ -132,6 +136,7 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }
@@ -181,6 +186,7 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }
@@ -266,6 +272,7 @@ export const onCreateChatRoom = /* GraphQL */ `
           imageUri
           status
           online
+          pushToken
           createdAt
           updatedAt
         }
@@ -332,6 +339,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
           imageUri
           status
           online
+          pushToken
           createdAt
           updatedAt
         }
@@ -398,6 +406,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
           imageUri
           status
           online
+          pushToken
           createdAt
           updatedAt
         }
@@ -434,6 +443,7 @@ export const onCreateMessage = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }
@@ -488,6 +498,7 @@ export const onUpdateMessage = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }
@@ -542,6 +553,7 @@ export const onDeleteMessage = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }

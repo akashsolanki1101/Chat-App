@@ -10,6 +10,7 @@ export const getUser = /* GraphQL */ `
       imageUri
       status
       online
+      pushToken
       chatRoomUser {
         items {
           id
@@ -38,6 +39,7 @@ export const listUsers = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }
@@ -60,6 +62,7 @@ export const getChatRoomUser = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }
@@ -114,6 +117,7 @@ export const listChatRoomUsers = /* GraphQL */ `
           imageUri
           status
           online
+          pushToken
           createdAt
           updatedAt
         }
@@ -180,6 +184,7 @@ export const getChatRoom = /* GraphQL */ `
           imageUri
           status
           online
+          pushToken
           createdAt
           updatedAt
         }
@@ -253,6 +258,7 @@ export const getMessage = /* GraphQL */ `
         imageUri
         status
         online
+        pushToken
         chatRoomUser {
           nextToken
         }
@@ -312,6 +318,7 @@ export const listMessages = /* GraphQL */ `
           imageUri
           status
           online
+          pushToken
           createdAt
           updatedAt
         }
@@ -362,6 +369,7 @@ export const messagesByChatRoom = /* GraphQL */ `
           imageUri
           status
           online
+          pushToken
           createdAt
           updatedAt
         }
