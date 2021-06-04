@@ -21,7 +21,6 @@ export const useStyles = ()=>{
                 borderColor:theme.theme.primaryTextColor,
                 borderRadius:32,
                 display:'flex',
-                alignItems:'center',
                 paddingVertical:8,
                 paddingHorizontal:10
             },
