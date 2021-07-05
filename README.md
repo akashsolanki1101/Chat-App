@@ -5,3 +5,6 @@
 2. While texting can tag your friend's message
 3. Available in both dark and light mode
 4. Can update DP, about and user name
+5. Can see whether your friend is online or not
+
+### Screenshot
