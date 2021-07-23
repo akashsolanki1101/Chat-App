@@ -1,4 +1,5 @@
-# Chat App - create a room and let's chAt. 
+# Chat App - create a room and let's chAt.
+- Download the app from the given link - https://appdistribution.firebase.google.com/pub/i/2d217ac91e3a3b60
 ## Specs - 
 1. Create and join a room with just a code
 2. Tag previous message by just swiping it
